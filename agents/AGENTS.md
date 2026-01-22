@@ -9,12 +9,12 @@
 
 ### @context-sync
 - **Propósito**: Automatizar la sincronización entre MASTER.md y archivos específicos.
-- **Estado**: Lógica base en `scripts/sync-context.py`.
+- **Estado**: OPERATIVO.
 - **Ubicación**: `agents/core/context-sync/`
 
 ### @github-deployer
 - **Propósito**: Gestión de trazabilidad en GitHub (commits, tags, deploys).
-- **Estado**: Pendiente.
+- **Estado**: OPERATIVO.
 - **Ubicación**: `agents/core/github-deployer/`
 
 ## Workspace Agents
