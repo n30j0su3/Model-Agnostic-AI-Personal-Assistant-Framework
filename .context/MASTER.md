@@ -8,7 +8,7 @@
 
 ## Active Workspaces
 - [x] Personal: Configurado y activo.
-- [ ] Professional: Iniciando
+- [x] Professional: Configurado y activo.
 - [ ] Research: Iniciando
 - [ ] Content: Iniciando
 - [ ] Development: Iniciando
