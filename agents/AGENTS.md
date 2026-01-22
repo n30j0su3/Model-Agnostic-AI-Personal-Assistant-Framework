@@ -4,7 +4,7 @@
 
 ### @session-manager
 - **Propósito**: Gestión de sesiones diarias, recordatorios y cierre de día.
-- **Estado**: Pendiente de implementación.
+- **Estado**: OPERATIVO.
 - **Ubicación**: `agents/core/session-manager/`
 
 ### @context-sync
