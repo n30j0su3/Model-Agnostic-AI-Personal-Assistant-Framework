@@ -7,7 +7,7 @@
 - Timezone: [Tu zona horaria]
 
 ## Active Workspaces
-- [ ] Personal: Iniciando
+- [x] Personal: Configurado y activo.
 - [ ] Professional: Iniciando
 - [ ] Research: Iniciando
 - [ ] Content: Iniciando
