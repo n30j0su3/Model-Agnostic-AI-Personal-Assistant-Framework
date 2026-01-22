@@ -12,6 +12,7 @@
 
 ### @task-management
 - **Descripción**: CRUD de tareas multidisciplinarias con etiquetas de workspace.
+- **Estado**: OPERATIVO.
 - **Ubicación**: `skills/core/task-management/`
 
 ## UI/UX Skills
