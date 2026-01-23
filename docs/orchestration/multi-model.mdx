@@ -1,0 +1,46 @@
+# Multi-Model Orchestration (Optional)
+
+This feature is **optional**. It does not replace the native configuration of each terminal
+(OpenCode plan/build modes, Claude settings, Gemini CLI flags, etc.). It only manages a
+local `.context/models.md` file for people who want a single place to switch models quickly.
+
+## Do I need this?
+
+### You probably do NOT need it if:
+- You prefer to use each terminal independently.
+- You already manage models in the native config of each tool.
+- You only use one model or provider.
+
+### It can help if:
+- You switch models frequently depending on the task.
+- You want one command to change your primary/fallback model.
+- You want a shared reference for teams or multi-machine setups.
+
+## How to enable
+
+```bash
+python scripts/orchestrate.py init
+```
+
+This creates `.context/models.md` with a default catalog and active model selection.
+
+## Core commands
+
+```bash
+python scripts/orchestrate.py status
+python scripts/orchestrate.py list
+python scripts/orchestrate.py switch claude-sonnet
+python scripts/orchestrate.py switch --fallback gemini-pro
+python scripts/orchestrate.py recommend "debug error en api"
+python scripts/orchestrate.py disable
+```
+
+## How recommendations work
+
+The `recommend` command uses a simple keyword map. It is intentionally basic and local.
+You can still override it by switching the model manually.
+
+## Notes
+
+- If `models.md` does not exist, the commands will warn you and do nothing.
+- The feature is safe to ignore; your existing workflows keep working as-is.

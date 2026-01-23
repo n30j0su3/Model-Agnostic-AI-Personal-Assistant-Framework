@@ -1,0 +1,55 @@
+# Context Management
+
+The framework stores context locally in plain text files under `.context/`.
+This keeps your knowledge portable and avoids vendor lock-in.
+
+## Structure
+
+Key files and folders:
+
+- `.context/MASTER.md`: global preferences and rules
+- `.context/{tool}.md`: tool-specific context (synced from MASTER)
+- `.context/profile.md`: installation profile settings
+- `.context/models.md`: optional multi-model orchestration config
+- `.context/manifest.md`: structure and versioning rules
+- `.context/versions/`: snapshots created before sync
+- `.context/backups/`: full backups (zip)
+
+## Versioning
+
+Snapshots are created automatically before every sync. Use the utilities below
+to create, list, restore, and compare snapshots.
+
+```bash
+python scripts/context-version.py snapshot
+python scripts/context-version.py list
+python scripts/context-version.py restore 2026-01-23_121212
+python scripts/context-version.py diff 2026-01-23_121212
+```
+
+## Validation
+
+After every sync, a validation pass checks for missing sections, markers, and
+workspace mismatches.
+
+```bash
+python scripts/context-validate.py
+```
+
+## Maintenance and Backups
+
+The versioning tool also handles cleanup and backups:
+
+```bash
+python scripts/context-version.py clean --older 30
+python scripts/context-version.py export
+python scripts/context-version.py import path/to/backup.zip
+python scripts/context-version.py stats
+python scripts/context-version.py delete 2026-01-23_121212
+```
+
+## Why it matters
+
+- You can restore context quickly if a change goes wrong.
+- You keep full control of your data locally.
+- You can measure savings in tokens and effort over time.

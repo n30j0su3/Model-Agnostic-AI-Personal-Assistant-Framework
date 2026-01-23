@@ -29,6 +29,7 @@
       "group": "Core Architecture",
       "pages": [
         "architecture/context-files",
+        "architecture/context-management",
         "architecture/scopes",
         "architecture/agents",
         "architecture/skills"
@@ -51,6 +52,12 @@
       "pages": [
         "workflow/session-management",
         "workflow/task-management"
+      ]
+    },
+    {
+      "group": "Orchestration",
+      "pages": [
+        "orchestration/multi-model"
       ]
     },
     {

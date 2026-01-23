@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import os
 import logging
+import subprocess
+import sys
 from pathlib import Path
 from datetime import datetime
 
@@ -18,10 +20,37 @@ logging.basicConfig(
     ]
 )
 
-CONTEXT_DIR = Path(".context")
+REPO_ROOT = Path(__file__).resolve().parents[1]
+CONTEXT_DIR = REPO_ROOT / ".context"
 TOOLS = ["opencode", "claude", "gemini", "agents"]
 START_MARKER = "<!-- MASTER-CONTEXT-START -->"
 END_MARKER = "<!-- MASTER-CONTEXT-END -->"
+
+
+def run_context_snapshot():
+    script_path = REPO_ROOT / "scripts" / "context-version.py"
+    if not script_path.exists():
+        logging.warning("context-version.py no encontrado. Se omite snapshot.")
+        return False
+    result = subprocess.run([sys.executable, str(script_path), "snapshot"], cwd=REPO_ROOT)
+    if result.returncode != 0:
+        logging.warning("Snapshot de contexto fallo.")
+        return False
+    logging.info("Snapshot de contexto creado.")
+    return True
+
+
+def run_context_validate():
+    script_path = REPO_ROOT / "scripts" / "context-validate.py"
+    if not script_path.exists():
+        logging.warning("context-validate.py no encontrado. Se omite validacion.")
+        return False
+    result = subprocess.run([sys.executable, str(script_path)], cwd=REPO_ROOT)
+    if result.returncode != 0:
+        logging.warning("Validacion de contexto reporto errores.")
+        return False
+    logging.info("Validacion de contexto completada.")
+    return True
 
 def get_master_content():
     master_path = CONTEXT_DIR / "MASTER.md"
@@ -58,6 +87,7 @@ def sync_tool(tool_name, master_content):
 
 def main():
     logging.info("Iniciando sincronización de contexto...")
+    run_context_snapshot()
     master_content = get_master_content()
     if not master_content:
         return
@@ -67,6 +97,8 @@ def main():
             sync_tool(tool, master_content)
         except Exception as e:
             logging.error(f"Error sincronizando {tool}: {str(e)}")
+
+    run_context_validate()
 
 if __name__ == "__main__":
     main()

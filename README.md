@@ -3,6 +3,8 @@
 > "One Framework to rule them all, One Context to find them."
 > "El Conocimiento verdadero trasciende a lo público".
 
+Este es un Framework user-friendly priorizado para el publico "de a pie", para que la gente comun pueda afrontar cualquier reto personal, profesional, de investigacion o tecnico sin MIEDO a partir de ahora aprovechando el paradigma que trajo la AI/IA.
+
 Un framework estandarizado para interactuar con IAs en modo "Personal Assistant", diseñado para la máxima productividad multidisciplinaria con contexto local y sin vendor lock-in.
 
 ![Version](https://img.shields.io/badge/version-1.4.0-blue)
@@ -42,6 +44,27 @@ Un framework estandarizado para interactuar con IAs en modo "Personal Assistant"
    ```bash
    python scripts/sync-context.py
    ```
+
+## 🎛 Panel de Control (Opcional)
+
+Si prefieres gestionar el framework desde un unico menu interactivo:
+
+```bash
+python scripts/pa.py
+```
+
+Atajos opcionales:
+
+```bash
+./pa.sh
+```
+
+```bat
+pa.bat
+```
+
+Desde ahi puedes sincronizar contexto, ajustar preferencias, activar orquestacion
+multi-modelo y lanzar tu sesion AI sin ejecutar scripts sueltos.
 
 ## 🧰 Pre-requisitos (Hardware y Software)
 
@@ -169,9 +192,34 @@ Para validar LLMs agrega `--llm`.
 
 Gracias a Dios por la Gracia, la Revelacion y el Discernimiento necesarios para llegar a la construccion del framework, a mi familia por su amor y paciencia, y al resto de mis seres amados y queridos (ellos saben quienes son, se los he dicho muchas veces).
 
+Un agradecimiento especial a **[NetworkChuck](https://www.youtube.com/@NetworkChuck)** por inspirar la filosofia central de este proyecto (y gracias por tus oraciones también ;):
+
+> *"I own my context. Nothing annoys me more than when AI tries to fence me in, give me vendor lock-in. No, I reject that."*
+
+Su enfoque de soberania de datos y aprendizaje accesible fue fundamental para el diseno de este framework.
+
 ## 📖 Documentación
 
 La documentación completa está disponible en la carpeta `docs/`. Sigue el estándar de Mintlify para una experiencia de lectura superior.
+
+### 📊 Dashboard Interactivo
+
+El archivo `dashboard.html` es una interfaz visual standalone que te permite:
+
+- Explorar el framework (introduccion, primeros pasos, filosofia)
+- Navegar Workspaces (Personal, Professional, Research, Content, Development)
+- Conocer Agentes y Skills disponibles
+- Entender el Ciclo Diario de trabajo
+
+Para usarlo, abre el archivo en tu navegador:
+
+```bash
+open dashboard.html        # macOS
+start dashboard.html       # Windows
+xdg-open dashboard.html    # Linux
+```
+
+No requiere servidor ni dependencias externas.
 
 ---
 Hecho con ❤️ por el equipo de **Advanced Agentic Coding**.

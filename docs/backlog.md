@@ -22,6 +22,16 @@ Ultima actualizacion: 2026-01-23
 - 2026-01-23: Se agrego item BL-031 (workspace Homelab).
 - 2026-01-23: Release 1.4.0 (workspace Homelab y documentacion).
 - 2026-01-23: Se agrego item BL-032 (plantillas Homelab).
+- 2026-01-23: Se agregaron items BL-033 a BL-038 (README contexto, calendario, input multicanal, skills de contenido).
+- 2026-01-23: Se implemento BL-029 (selector de instalacion basica vs pro).
+- 2026-01-23: Se implemento BL-030 (configuracion guiada del perfil al instalar).
+- 2026-01-23: Se implemento BL-033 (contexto user-friendly en README).
+- 2026-01-23: Se ajustaron prioridades BL-008, BL-009 y BL-032.
+- 2026-01-23: Se implemento BL-008 (orquestacion multi-modelo opcional).
+- 2026-01-23: Se implemento BL-039 (panel de control global pa.py).
+- 2026-01-23: Se implementaron BL-040 y BL-041 (dashboard y agradecimientos).
+- 2026-01-23: Se implemento BL-009 (gestion de contexto local versionado).
+- 2026-01-23: Se agrego item BL-042 (modulo de pruebas del framework).
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
@@ -32,8 +42,8 @@ Ultima actualizacion: 2026-01-23
 | BL-005 | Frase insignia en README | Media | Hecho | La frase aparece en la introduccion del README | 
 | BL-006 | Agradecimientos formales en README | Media | Hecho | Se incluye seccion de agradecimientos con el texto solicitado | 
 | BL-007 | Skill json-prompt-generator | Alta | Hecho | Skill creado en `skills/core/json-prompt-generator` con instrucciones y ejemplo | 
-| BL-008 | Orquestacion multi-modelo con conmutacion rapida | Media | Pendiente | Flujo unificado documentado para OpenCode, Claude, Gemini y Codex | 
-| BL-009 | Gestion de contexto local versionado | Media | Pendiente | Estructura `.context/` definida y versionada sin lock-in | 
+| BL-008 | Orquestacion multi-modelo con conmutacion rapida | Alta | Hecho | Flujo unificado documentado para OpenCode, Claude, Gemini y Codex | 
+| BL-009 | Gestion de contexto local versionado | Alta | Hecho | Estructura `.context/` definida y versionada sin lock-in | 
 | BL-010 | Workspaces multidisciplinarios aislados | Media | Pendiente | Workspaces claramente separados por disciplina y documentados | 
 | BL-011 | Sistema de agentes especializados con roles claros | Media | Pendiente | Catalogo de agentes con responsabilidades y uso recomendado | 
 | BL-012 | Skills modulares para tareas recurrentes | Media | Pendiente | Libreria de skills con index y versionado actualizado | 
@@ -53,7 +63,17 @@ Ultima actualizacion: 2026-01-23
 | BL-026 | Evaluar skill RchGrav-claudebox | Baja | Pendiente | Fuente: https://agent-skills.cc/skills/RchGrav-claudebox | 
 | BL-027 | Evaluar skill vibe-to-docker | Baja | Pendiente | Fuente: https://github.com/wrsmith108/vibe-to-docker | 
 | BL-028 | Documentar jerarquia de scopes en docs | Media | Hecho | Documento creado en `docs/architecture/scopes.mdx` | 
-| BL-029 | Selector de instalacion basica vs pro | Alta | Pendiente | Instalador ofrece seleccion de perfil en primera ejecucion | 
-| BL-030 | Configuracion guiada del perfil al instalar | Alta | Pendiente | Permite configurar `.context/MASTER.md` ahora o despues con preferencias avanzadas opcionales | 
+| BL-029 | Selector de instalacion basica vs pro | Alta | Hecho | Instalador ofrece seleccion de perfil en primera ejecucion | 
+| BL-030 | Configuracion guiada del perfil al instalar | Alta | Hecho | Permite configurar `.context/MASTER.md` ahora o despues con preferencias avanzadas opcionales | 
 | BL-031 | Agregar workspace Homelab | Alta | Hecho | Workspace creado y documentado en `workspaces/homelab/` | 
 | BL-032 | Plantillas Homelab (inventario, servicios, mantenimiento) | Baja | Pendiente | Plantillas listas para completar en `workspaces/homelab/` | 
+| BL-033 | Integrar contexto “user-friendly” al inicio del README | Alta | Hecho | README incluye el texto completo sobre “sin MIEDO” y paradigma AI/IA | 
+| BL-034 | Sistema de calendario, control y estimacion de actividades | Media | Pendiente | Integra skills/tecnologias open-source y evalua integracion con Google/Outlook | 
+| BL-035 | Sistema de entrada multi-canal de ideas/tareas/objetivos | Media | Pendiente | Ingreso via WhatsApp/Telegram con clasificacion por workspace y deteccion de recursos faltantes; contexto guardado en .md | 
+| BL-036 | Integrar skill writing-style | Baja | Pendiente | Skill integrada desde https://github.com/jrenaldi79/writing-style | 
+| BL-037 | Integrar skill agentman-social-media con tono configurable | Baja | Pendiente | Skill integrada y permite elegir tono/intencion acorde al contexto | 
+| BL-038 | Integrar skill running-marketing-campaigns-agent-skill | Baja | Pendiente | Skill integrada desde https://github.com/SpillwaveSolutions/running-marketing-campaigns-agent-skill | 
+| BL-039 | Panel de control global para configuraciones | Alta | Hecho | Script `scripts/pa.py` permite gestionar sincronizacion, preferencias, orquestacion y launcher | 
+| BL-040 | Documentar dashboard.html en README | Alta | Hecho | Seccion Documentacion incluye proposito y uso de `dashboard.html` | 
+| BL-041 | Agradecimientos a NetworkChuck | Alta | Hecho | Seccion de agradecimientos menciona a NetworkChuck con cita | 
+| BL-042 | Modulo de pruebas del framework configurable | Media | Pendiente | Sistema de pruebas ajustado a preferencias del usuario para validar el framework | 
