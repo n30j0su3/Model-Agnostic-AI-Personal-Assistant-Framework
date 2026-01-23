@@ -1,22 +1,18 @@
 # Personal Assistant Skills Index
 
-## Core Skills
+Este archivo es generado automáticamente por `scripts/skill-sync.py`.
+
+## Available Skills
 
 ### @session-tracking
-- **Descripción**: Registro de tareas, tiempos y estados en `sessions/SESSION.md`.
-- **Ubicación**: `skills/core/session-tracking/`
-
-### @daily-summary
-- **Descripción**: Genera el resumen de cierre del día y prepara el `SESSION.md` de mañana.
-- **Ubicación**: `skills/core/daily-summary/`
+- **Descripcion**: Gestiona sesiones de trabajo, registra tareas en SESSION.md y mantiene la trazabilidad diaria. Úsalo cuando el usuario quiera iniciar el día, registrar progreso o ver pendientes.
+- **Ubicacion**: `skills/core/session-tracking`
+- **Version**: 1.0
 
 ### @task-management
-- **Descripción**: CRUD de tareas multidisciplinarias con etiquetas de workspace.
-- **Estado**: OPERATIVO.
-- **Ubicación**: `skills/core/task-management/`
-
-## UI/UX Skills
-- **@ui-ux-pro-max**: Integrado vía `uipro-cli`.
+- **Descripcion**: Sistema avanzado de gestión de tareas multidisciplinarias. Permite crear, categorizar por workspace y mover tareas entre archivos de contexto y la sesión actual.
+- **Ubicacion**: `skills/core/task-management`
+- **Version**: 1.0
 
 ---
-Sigue la especificación de [Agent Skills](https://agentskills.io/specification) para añadir nuevas habilidades.
+*Ultima actualizacion: 2026-01-22 19:16:00*
