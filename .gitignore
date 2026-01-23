@@ -6,3 +6,7 @@ __pycache__/
 .claude/
 .gemini/
 .codex/
+
+# Local framework docs/notes
+PRO.txt
+plan-trabajo-v0.md
