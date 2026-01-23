@@ -21,11 +21,11 @@ Read and apply: .context/MASTER.md
 <!-- MASTER-CONTEXT-START -->
 # Personal Assistant - Master Context
 
-## User Profile
-- Name: [Tu nombre]
-- Primary Language: Español
-- Work Style: Multidisciplinario
-- Timezone: [Tu zona horaria]
+## Localization (i18next)
+- **Primary Language**: Spanish (es)
+- **Secondary Language**: English (en)
+- **Translation Path**: docs/i18n/{{lng}}/common.json
+- **Rule**: Los agentes deben consultar estos archivos para usar terminología consistente en las respuestas del sistema.
 
 ## Active Workspaces
 - [x] Personal: Configurado y activo.

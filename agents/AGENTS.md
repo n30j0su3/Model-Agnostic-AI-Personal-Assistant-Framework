@@ -7,6 +7,11 @@
 - **Estado**: OPERATIVO.
 - **Ubicación**: `agents/core/session-manager/`
 
+### @brutal-critic
+- **Propósito**: Crítica despiadada de contenido y papers para asegurar calidad máxima.
+- **Estado**: OPERATIVO.
+- **Ubicación**: `agents/custom/brutal-critic/`
+
 ### @context-sync
 - **Propósito**: Automatizar la sincronización entre MASTER.md y archivos específicos.
 - **Estado**: OPERATIVO.
