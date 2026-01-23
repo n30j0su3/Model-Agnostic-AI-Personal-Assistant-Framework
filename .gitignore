@@ -6,6 +6,9 @@ __pycache__/
 .claude/
 .gemini/
 .codex/
+.opencode/package-lock.json
+.opencode/run-quota.ts
+.opencode/temp-quota/
 
 # Local framework docs/notes
 PRO.txt
