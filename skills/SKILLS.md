@@ -14,9 +14,24 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Ubicacion**: `skills/core/content-optimizer`
 - **Version**: 1.0
 
+### @docx
+- **Descripcion**: Comprehensive document creation, editing, and analysis with support for tracked changes, formatting preservation, and text extraction. Use when working with Word documents (.docx).
+- **Ubicacion**: `skills/core/docx`
+- **Version**: 1.0
+
 ### @paper-summarizer
 - **Descripcion**: Analiza y resume documentos técnicos, papers científicos o artículos extensos. Extrae metodología, hallazgos clave y conclusiones. Úsalo en el workspace @research.
 - **Ubicacion**: `skills/core/paper-summarizer`
+- **Version**: 1.0
+
+### @pdf
+- **Descripcion**: Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. Use when the user needs to process or generate PDF files.
+- **Ubicacion**: `skills/core/pdf`
+- **Version**: 1.0
+
+### @pptx
+- **Descripcion**: Presentation creation, editing, and analysis with support for layouts, notes, and design. Use when working with PowerPoint files (.pptx).
+- **Ubicacion**: `skills/core/pptx`
 - **Version**: 1.0
 
 ### @session-tracking
@@ -35,4 +50,4 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Version**: 1.0
 
 ---
-*Ultima actualizacion: 2026-01-22 19:23:24*
+*Ultima actualizacion: 2026-01-22 19:33:53*
