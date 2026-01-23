@@ -30,6 +30,8 @@ Refinamiento de agentes core y configuración de Workspaces.
 - [x] Implementación del script `@skill-sync.py`.
 - [x] Implementación del skill `@paper-summarizer` para el workspace `Research`.
 - [x] Prueba de concepto exitosa del skill `@paper-summarizer` (Análisis de "Context-Lens").
+- [x] Implementación del skill `@code-reviewer` para el workspace `Development`.
+- [x] Implementación del skill `@content-optimizer` para el workspace `Content`.
 
 ## Notes & Decisions
 - Decisión: Fase 2 completada satisfactoriamente. El framework ahora es capaz de autogestionar su contexto y su despliegue en GitHub.
