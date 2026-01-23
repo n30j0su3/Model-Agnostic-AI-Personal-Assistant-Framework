@@ -44,10 +44,15 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Ubicacion**: `skills/core/task-management`
 - **Version**: 1.0
 
+### @ui-ux-pro-max
+- **Descripcion**: Inteligencia de diseño profesional. Genera sistemas de diseño (colores, tipografía, efectos) basados en reglas de industria y UX. Úsalo para landing pages, dashboards y interfaces complejas.
+- **Ubicacion**: `skills/core/ui-ux-pro-max`
+- **Version**: 2.0
+
 ### @xlsx
 - **Descripcion**: Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Use when working with .xlsx, .csv, .tsv files.
 - **Ubicacion**: `skills/core/xlsx`
 - **Version**: 1.0
 
 ---
-*Ultima actualizacion: 2026-01-22 19:33:53*
+*Ultima actualizacion: 2026-01-22 19:45:38*
