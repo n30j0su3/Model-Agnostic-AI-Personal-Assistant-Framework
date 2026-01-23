@@ -55,4 +55,4 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Version**: 1.0
 
 ---
-*Ultima actualizacion: 2026-01-22 19:45:38*
+*Ultima actualizacion: 2026-01-22 19:49:28*

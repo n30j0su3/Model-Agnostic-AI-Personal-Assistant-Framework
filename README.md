@@ -1,26 +1,51 @@
-# Model-agnostic AI Personal Assistant
+# Model-Agnostic AI Personal Assistant Framework v1.0
 
-Framework "estándar" para interactuar con IA en modo "Personal Assistant", optimizando la productividad y manteniendo el contexto local.
+> "One Framework to rule them all, One Context to find them."
 
-## Características
-- **Agnóstico al Modelo**: Compatible con OpenCode, Claude Code, Gemini CLI y Codex.
-- **Contexto Local**: Todo se almacena en archivos `.md` en la carpeta `.context/`.
-- **Multi-Tool**: Diseñado para trabajar con múltiples terminales AI simultáneamente.
-- **Skills & Agents**: Sistema extensible basado en estándares open-source (Agent Skills spec).
-- **Sesión del Día**: Trazabilidad completa y gestión de tareas en lenguaje natural.
+Un framework estandarizado para interactuar con IAs en modo "Personal Assistant", diseñado para la máxima productividad multidisciplinaria con contexto local y sin vendor lock-in.
 
-## Inicio Rápido
+![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Agnostic](https://img.shields.io/badge/Model-Agnostic-orange)
 
-1. **Revisar el Plan**: Consulta `plan-trabajo-v0.md` para entender las fases del proyecto.
-2. **Configurar Perfil**: Edita `.context/MASTER.md` con tu información personal.
-3. **Sincronizar**: Utiliza los scripts en `scripts/` para mantener tus terminales alineadas.
+## 🚀 Características Principales
 
-## Estructura
-- `.context/`: Conocimiento central del asistente.
-- `agents/`: Agentes especializados (AGENTS.md).
-- `skills/`: Habilidades invocables (SKILLS.md).
-- `sessions/`: Log diario y gestión de tareas (SESSION.md).
-- `workspaces/`: Contextos multidisciplinarios separados.
+- 🤖 **Multi-Tool Workflow**: Trabaja con OpenCode, Claude Code, Gemini CLI y Codex simultáneamente.
+- 📁 **Contexto Local**: Todo tu conocimiento reside en archivos `.md` bajo tu control.
+- 🌐 **Multidisciplinario**: 5 Workspaces pre-configurados (Personal, Professional, Research, Content, Development).
+- 🛠 **Skills & Agents**: Sistema extensible basado en el estándar [Agent Skills](https://agentskills.io).
+- 📝 **Trazabilidad Total**: Gestión de sesiones diarias con archivo histórico automático.
+- 🎨 **Diseño Inteligente**: Integración nativa con `@ui-ux-pro-max` para interfaces profesionales.
+
+## 📁 Estructura del Proyecto
+
+```text
+├── .context/       # Conocimiento central (MASTER.md)
+├── agents/         # Agentes especializados (@session-manager, etc.)
+├── skills/         # Habilidades modulares (@xlsx, @pdf, @task-mgmt)
+├── workspaces/     # Espacios aislados por disciplina
+├── sessions/       # Logs diarios y trazabilidad
+├── scripts/        # Automatización y sincronización
+└── docs/           # Documentación profesional (Mintlify style)
+```
+
+## 🛠 Instalación Rápida
+
+1. **Clonar el repo**:
+   ```bash
+   git clone https://github.com/n30j0su3/Model-Agnostic-AI-Personal-Assistant-Framework.git
+   ```
+2. **Configurar tu perfil**:
+   Edita `.context/MASTER.md` con tus preferencias.
+3. **Sincronizar**:
+   ```bash
+   python scripts/sync-context.py
+   ```
+
+## 📖 Documentación
+
+La documentación completa está disponible en la carpeta `docs/`. Sigue el estándar de Mintlify para una experiencia de lectura superior.
 
 ---
-Basado en las mejores prácticas de **theNetworkChuck** y estándares OpenSource.
+Hecho con ❤️ por el equipo de **Advanced Agentic Coding**.
+Basado en las filosofías de **theNetworkChuck**.

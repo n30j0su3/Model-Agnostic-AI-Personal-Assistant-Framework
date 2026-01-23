@@ -1,0 +1,33 @@
+# Session Management
+
+The **Daily Session** is the heartbeat of this framework. It ensures that every interaction is traceable and that no context is lost between days.
+
+## The Daily Cycle
+
+### 1. Starting the Day
+Begin your day by greeting your assistant.
+> "Buenos días, iniciemos la sesión de hoy."
+
+**What happens:**
+- The `@session-manager` agent reads `sessions/SESSION.md`.
+- It analyzes pending tasks from yesterday.
+- It asks you for today's **Focus**.
+
+### 2. During the Day
+As you work, keep your assistant updated.
+- "Completed the architecture review."
+- "I'm starting to work on the login feature."
+- "Decision: We will use PostgreSQL for the database."
+
+**What happens:**
+- The `@session-tracking` skill logs your progress in real-time.
+- Decisions are recorded in the `Notes & Decisions` section.
+
+### 3. Closing the Day
+When you are done, trigger the closing procedure.
+> "Vamos a cerrar el día."
+
+**What happens:**
+- The `daily-summary.py` script generates a report.
+- The assistant creates a historical archive in `sessions/YYYY/MM/DD.md`.
+- The `@github-deployer` performs a final commit and push to GitHub.

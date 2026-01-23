@@ -1,0 +1,31 @@
+# Task Management
+
+Our framework uses a multidisciplinary task tagging system to keep your lists clean across all areas of your life.
+
+## How to Tag Tasks
+
+The standard format for a task is:
+`- [ ] Description @workspace #priority`
+
+### Workspaces (`@`)
+- `@personal`: Home, hobbies, health.
+- `@professional`: Career, clients, work.
+- `@research`: Studies, papers.
+- `@content`: Blogs, videos.
+- `@development`: Code, DevOps.
+
+### Priorities (`#`)
+- `#high`: Urgent or critical.
+- `#medium`: Standard tasks.
+- `#low`: Backlog or "nice to have".
+
+## Useful Commands
+
+| Command | Action |
+| :--- | :--- |
+| "Add task [X] @professional" | Creates a professional task. |
+| "List all @research tasks" | Filters and shows research tasks. |
+| "Show my #high priority tasks" | Shows everything urgent. |
+
+## Automation
+The `@task-management` skill uses `manage-tasks.py` to scan all your workspace files and the current session to give you a unified view of your responsibilities.
