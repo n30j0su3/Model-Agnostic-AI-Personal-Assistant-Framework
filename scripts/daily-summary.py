@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import re
+import sys
 from pathlib import Path
 from datetime import datetime
 
@@ -69,5 +70,11 @@ def generate_summary(data):
     return summary
 
 if __name__ == "__main__":
+    reconfigure = getattr(sys.stdout, "reconfigure", None)
+    if reconfigure:
+        try:
+            reconfigure(encoding="utf-8")
+        except Exception:
+            pass
     data = parse_session()
     print(generate_summary(data))
