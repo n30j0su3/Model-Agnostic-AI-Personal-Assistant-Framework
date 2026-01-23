@@ -1,11 +1,11 @@
-# Model-Agnostic AI Personal Assistant Framework v1.3.0
+# Model-Agnostic AI Personal Assistant Framework v1.4.0
 
 > "One Framework to rule them all, One Context to find them."
 > "El Conocimiento verdadero trasciende a lo público".
 
 Un framework estandarizado para interactuar con IAs en modo "Personal Assistant", diseñado para la máxima productividad multidisciplinaria con contexto local y sin vendor lock-in.
 
-![Version](https://img.shields.io/badge/version-1.3.0-blue)
+![Version](https://img.shields.io/badge/version-1.4.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Agnostic](https://img.shields.io/badge/Model-Agnostic-orange)
 
@@ -13,7 +13,7 @@ Un framework estandarizado para interactuar con IAs en modo "Personal Assistant"
 
 - 🤖 **Multi-Tool Workflow**: Trabaja con OpenCode, Claude Code, Gemini CLI y Codex simultáneamente.
 - 📁 **Contexto Local**: Todo tu conocimiento reside en archivos `.md` bajo tu control.
-- 🌐 **Multidisciplinario**: 5 Workspaces pre-configurados (Personal, Professional, Research, Content, Development).
+- 🌐 **Multidisciplinario**: 6 Workspaces pre-configurados (Personal, Professional, Research, Content, Development, Homelab).
 - 🛠 **Skills & Agents**: Sistema extensible basado en el estándar [Agent Skills](https://agentskills.io).
 - 📝 **Trazabilidad Total**: Gestión de sesiones diarias con archivo histórico automático.
 - 🎨 **Diseño Inteligente**: Integración nativa con `@ui-ux-pro-max` para interfaces profesionales.

@@ -42,7 +42,8 @@
         "workspaces/professional",
         "workspaces/research",
         "workspaces/content",
-        "workspaces/development"
+        "workspaces/development",
+        "workspaces/homelab"
       ]
     },
     {

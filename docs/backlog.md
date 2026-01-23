@@ -19,6 +19,9 @@ Ultima actualizacion: 2026-01-23
 - 2026-01-23: Release 1.2.0 (skills prd-generator y mcp-builder, backlog local, backlog ampliado).
 - 2026-01-23: Release 1.3.0 (documento de jerarquia de scopes y navegacion de docs).
 - 2026-01-23: Se agregaron items BL-029 y BL-030 (instalador basico/pro y configuracion guiada).
+- 2026-01-23: Se agrego item BL-031 (workspace Homelab).
+- 2026-01-23: Release 1.4.0 (workspace Homelab y documentacion).
+- 2026-01-23: Se agrego item BL-032 (plantillas Homelab).
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
@@ -52,3 +55,5 @@ Ultima actualizacion: 2026-01-23
 | BL-028 | Documentar jerarquia de scopes en docs | Media | Hecho | Documento creado en `docs/architecture/scopes.mdx` | 
 | BL-029 | Selector de instalacion basica vs pro | Alta | Pendiente | Instalador ofrece seleccion de perfil en primera ejecucion | 
 | BL-030 | Configuracion guiada del perfil al instalar | Alta | Pendiente | Permite configurar `.context/MASTER.md` ahora o despues con preferencias avanzadas opcionales | 
+| BL-031 | Agregar workspace Homelab | Alta | Hecho | Workspace creado y documentado en `workspaces/homelab/` | 
+| BL-032 | Plantillas Homelab (inventario, servicios, mantenimiento) | Baja | Pendiente | Plantillas listas para completar en `workspaces/homelab/` | 
