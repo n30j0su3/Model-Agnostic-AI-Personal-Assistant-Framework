@@ -32,8 +32,9 @@ Refinamiento de agentes core y configuración de Workspaces.
 - [x] Implementación de los skills `@code-reviewer` y `@content-optimizer`.
 - [x] Integración de la skill global `@xlsx`.
 - [x] Integración de las skills globales `@pdf`, `@docx` y `@pptx`.
-- [x] Auditoría completa y creación de scripts faltantes (`review-helper.py`, `seo-checker.py`, `thumbnail.py`).
 - [x] Integración de la skill de inteligencia de diseño profesional `@ui-ux-pro-max`.
+- [x] Implementación del Dashboard interactivo unificado (`dashboard.html`).
+- [x] Personalización del Dashboard con logo Base64 y enlaces de marca (freakingjson).
 
 ## Notes & Decisions
 - Decisión: Fase 2 completada satisfactoriamente. El framework ahora es capaz de autogestionar su contexto y su despliegue en GitHub.
