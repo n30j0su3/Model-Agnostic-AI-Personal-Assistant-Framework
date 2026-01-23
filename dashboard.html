@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model-Agnostic AI Personal Assistant | Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .active-tab { border-left: 4px solid #10b981; background: rgba(16, 185, 129, 0.1); color: #10b981; }
+        pre, code { font-family: 'JetBrains Mono', monospace; background: #1e293b; padding: 0.2rem 0.4rem; border-radius: 4px; color: #38bdf8; }
+        .step-number { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #10b981; color: white; font-weight: bold; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row">
+
+    <!-- Sidebar Navigation -->
+    <nav class="w-full md:w-72 glass md:h-screen sticky top-0 p-6 flex flex-col border-r border-slate-800">
+        <div class="flex items-center gap-3 mb-10">
+            <div class="p-2 bg-emerald-500 rounded-lg">
+                <i data-lucide="bot" class="text-slate-900"></i>
+            </div>
+            <div>
+                <h1 class="font-bold text-lg leading-tight">AI Framework</h1>
+                <p class="text-xs text-emerald-400 font-mono">v1.0.0 Stable</p>
+            </div>
+        </div>
+
+        <div class="space-y-2 flex-grow overflow-y-auto">
+            <button onclick="showTab('intro')" id="btn-intro" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-slate-800 flex items-center gap-3 active-tab">
+                <i data-lucide="home" size="18"></i> Introducción
+            </button>
+            <button onclick="showTab('quickstart')" id="btn-quickstart" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-slate-800 flex items-center gap-3 text-slate-400">
+                <i data-lucide="zap" size="18"></i> Primeros Pasos
+            </button>
+            <button onclick="showTab('workspaces')" id="btn-workspaces" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-slate-800 flex items-center gap-3 text-slate-400">
+                <i data-lucide="layout" size="18"></i> Workspaces
+            </button>
+            <button onclick="showTab('agents')" id="btn-agents" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-slate-800 flex items-center gap-3 text-slate-400">
+                <i data-lucide="users" size="18"></i> Agentes Core
+            </button>
+            <button onclick="showTab('skills')" id="btn-skills" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-slate-800 flex items-center gap-3 text-slate-400">
+                <i data-lucide="award" size="18"></i> Skills (Habilidades)
+            </button>
+            <button onclick="showTab('workflow')" id="btn-workflow" class="w-full text-left px-4 py-3 rounded-xl transition-all hover:bg-slate-800 flex items-center gap-3 text-slate-400">
+                <i data-lucide="refresh-cw" size="18"></i> Ciclo Diario
+            </button>
+        </div>
+
+        <div class="mt-auto pt-6 border-t border-slate-800">
+            <a href="https://github.com/n30j0su3/Model-Agnostic-AI-Personal-Assistant-Framework" target="_blank" class="text-sm text-slate-400 hover:text-white flex items-center gap-2">
+                <i data-lucide="github" size="16"></i> Ver en GitHub
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-8 md:p-12 lg:p-20 overflow-y-auto">
+        
+        <!-- Tab: Intro -->
+        <section id="tab-intro" class="max-w-4xl animate-in fade-in duration-500">
+            <div class="mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white">Domina tu Contexto Local</h2>
+                <p class="text-xl text-slate-400 leading-relaxed">
+                    Bienvenido al framework <span class="text-emerald-400 font-semibold italic">Model-Agnostic AI Personal Assistant</span>. Una infraestructura diseñada para profesionales que exigen soberanía de datos, orden multidisciplinario y trazabilidad total.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div class="glass p-8 rounded-3xl">
+                    <i data-lucide="database" class="text-emerald-500 mb-4" size="32"></i>
+                    <h3 class="text-xl font-bold mb-2">Contexto Local</h3>
+                    <p class="text-slate-400 text-sm">Tu conocimiento vive en archivos Markdown (.md) en tu disco duro. Eres dueño de tu contexto.</p>
+                </div>
+                <div class="glass p-8 rounded-3xl">
+                    <i data-lucide="unplug" class="text-emerald-500 mb-4" size="32"></i>
+                    <h3 class="text-xl font-bold mb-2">Agnóstico al Modelo</h3>
+                    <p class="text-slate-400 text-sm">Usa OpenCode, Claude, Gemini o Codex. El framework funciona igual sin importar el motor.</p>
+                </div>
+                <div class="glass p-8 rounded-3xl">
+                    <i data-lucide="cpu" class="text-emerald-500 mb-4" size="32"></i>
+                    <h3 class="text-xl font-bold mb-2">Sistema de Skills</h3>
+                    <p class="text-slate-400 text-sm">Extiende las capacidades de tu IA con habilidades modulares para Excel, PDF, SEO y más.</p>
+                </div>
+                <div class="glass p-8 rounded-3xl">
+                    <i data-lucide="shield-check" class="text-emerald-500 mb-4" size="32"></i>
+                    <h3 class="text-xl font-bold mb-2">Trazabilidad Git</h3>
+                    <p class="text-slate-400 text-sm">Cada avance y cada sesión se guarda en GitHub automáticamente. Nunca pierdas el hilo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Quickstart -->
+        <section id="tab-quickstart" class="hidden max-w-4xl animate-in fade-in duration-500">
+            <h2 class="text-4xl font-bold mb-10">Primeros Pasos</h2>
+            
+            <div class="space-y-12">
+                <div class="flex gap-6">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Configura tu Perfil Maestro</h3>
+                        <p class="text-slate-400 mb-4">Edita el archivo <code>.context/MASTER.md</code> con tu nombre, zona horaria y preferencias. Este es el "cerebro" global del asistente.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Inicia tu Sesión</h3>
+                        <p class="text-slate-400 mb-4">Abre tu terminal favorita (OpenCode recomendado) y lanza un saludo natural:</p>
+                        <pre class="block">"Hola, buenos días. Vamos a empezar la jornada."</pre>
+                    </div>
+                </div>
+
+                <div class="flex gap-6">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Sincronización Multi-Herramienta</h3>
+                        <p class="text-slate-400 mb-4">Si saltas entre Claude Code y Gemini CLI, mantén el contexto alineado con el script central:</p>
+                        <pre class="block">python scripts/sync-context.py</pre>
+                    </div>
+                </div>
+
+                <div class="flex gap-6">
+                    <div class="step-number">4</div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-2">Captura y Trazabilidad</h3>
+                        <p class="text-slate-400">Usa los comandos naturales para registrar tareas: <code>"Añade [X] a mi lista profesional @professional #high"</code>.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Workspaces -->
+        <section id="tab-workspaces" class="hidden max-w-4xl animate-in fade-in duration-500">
+            <h2 class="text-4xl font-bold mb-6">Workspaces Multidisciplinarios</h2>
+            <p class="text-slate-400 mb-10">Mantenemos tus facetas separadas para que la IA no mezcle tus hobbies con tus responsabilidades laborales.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="glass p-6 rounded-2xl border-l-4 border-blue-500">
+                    <h3 class="font-bold mb-2">🏠 Personal</h3>
+                    <p class="text-xs text-slate-400">Salud, finanzas, hogar y aprendizaje.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border-l-4 border-indigo-500">
+                    <h3 class="font-bold mb-2">💼 Profesional</h3>
+                    <p class="text-xs text-slate-400">Clientes, entregables, OKRs y KPIs.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border-l-4 border-emerald-500">
+                    <h3 class="font-bold mb-2">🔬 Research</h3>
+                    <p class="text-xs text-slate-400">Papers, datasets y análisis técnico.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border-l-4 border-amber-500">
+                    <h3 class="font-bold mb-2">✍️ Content</h3>
+                    <p class="text-xs text-slate-400">Blog, video, scripts y SEO.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border-l-4 border-purple-500">
+                    <h3 class="font-bold mb-2">💻 Development</h3>
+                    <p class="text-xs text-slate-400">Code, arquitectura y DevOps.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Agents -->
+        <section id="tab-agents" class="hidden max-w-4xl animate-in fade-in duration-500">
+            <h2 class="text-4xl font-bold mb-10">Agentes Especializados</h2>
+            
+            <div class="space-y-6">
+                <div class="glass p-8 rounded-3xl flex gap-6 items-start">
+                    <div class="p-4 bg-blue-500/20 rounded-2xl"><i data-lucide="calendar" class="text-blue-500"></i></div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-1">@session-manager</h3>
+                        <p class="text-slate-400 text-sm mb-3 italic">"Tu secretario de productividad personal."</p>
+                        <p class="text-slate-300">Gestiona el inicio y cierre de día, recuerda pendientes y archiva tus logros en <code>sessions/</code>.</p>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-3xl flex gap-6 items-start">
+                    <div class="p-4 bg-emerald-500/20 rounded-2xl"><i data-lucide="git-branch" class="text-emerald-500"></i></div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-1">@github-deployer</h3>
+                        <p class="text-slate-400 text-sm mb-3 italic">"Automatización de la nube."</p>
+                        <p class="text-slate-300">Analiza tus cambios, genera mensajes de commit inteligentes y mantiene tu repositorio sincronizado.</p>
+                    </div>
+                </div>
+
+                <div class="glass p-8 rounded-3xl flex gap-6 items-start">
+                    <div class="p-4 bg-rose-500/20 rounded-2xl"><i data-lucide="flame" class="text-rose-500"></i></div>
+                    <div>
+                        <h3 class="text-xl font-bold mb-1">@brutal-critic</h3>
+                        <p class="text-slate-400 text-sm mb-3 italic">"Filtro de calidad despiadado."</p>
+                        <p class="text-slate-300">Destroza tus borradores para que solo sobreviva lo excelente. Ideal para el workspace Content.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Skills -->
+        <section id="tab-skills" class="hidden max-w-4xl animate-in fade-in duration-500">
+            <h2 class="text-4xl font-bold mb-10">Librería de Skills</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full text-xs font-mono">@xlsx</span>
+                        <i data-lucide="table" size="18"></i>
+                    </div>
+                    <p class="text-sm">Modelado financiero dinámico y análisis de datos con fórmulas reales.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-purple-500/10 text-purple-400 px-3 py-1 rounded-full text-xs font-mono">@ui-ux-pro-max</span>
+                        <i data-lucide="palette" size="18"></i>
+                    </div>
+                    <p class="text-sm">Inteligencia de diseño profesional con 67 estilos y 100 reglas de UX.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full text-xs font-mono">@pdf / @docx / @pptx</span>
+                        <i data-lucide="file-text" size="18"></i>
+                    </div>
+                    <p class="text-sm">Gestión documental completa: edición profunda, merge y extracción.</p>
+                </div>
+                <div class="glass p-6 rounded-2xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full text-xs font-mono">@task-management</span>
+                        <i data-lucide="check-circle" size="18"></i>
+                    </div>
+                    <p class="text-sm">Gestión multidisciplinaria con etiquetado inteligente por workspace.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Workflow -->
+        <section id="tab-workflow" class="hidden max-w-4xl animate-in fade-in duration-500">
+            <h2 class="text-4xl font-bold mb-10">Ciclo de Productividad Diario</h2>
+            
+            <div class="relative border-l-2 border-slate-800 ml-4 pl-10 space-y-12">
+                <div class="relative">
+                    <div class="absolute -left-14 top-0 p-2 glass rounded-lg bg-emerald-500 text-slate-900"><i data-lucide="coffee"></i></div>
+                    <h3 class="text-xl font-bold mb-2">09:00 - Ritual de Inicio</h3>
+                    <p class="text-slate-400">Saludas a la terminal. El asistente carga <code>SESSION.md</code>, revisa ayer y define el Foco de hoy.</p>
+                </div>
+                <div class="relative">
+                    <div class="absolute -left-14 top-0 p-2 glass rounded-lg bg-blue-500 text-white"><i data-lucide="activity"></i></div>
+                    <h3 class="text-xl font-bold mb-2">Focus Time - Acción</h3>
+                    <p class="text-slate-400">Trabajas en tus tareas. Cada decisión clave se registra automáticamente con el skill de trazabilidad.</p>
+                </div>
+                <div class="relative">
+                    <div class="absolute -left-14 top-0 p-2 glass rounded-lg bg-rose-500 text-white"><i data-lucide="moon"></i></div>
+                    <h3 class="text-xl font-bold mb-2">18:00 - Cierre y Archivo</h3>
+                    <p class="text-slate-400">Solicitas el cierre. El sistema genera un resumen diario, archiva la sesión histórica y sube todo a GitHub.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function showTab(tabId) {
+            // Hide all tabs
+            document.querySelectorAll('section').forEach(section => section.classList.add('hidden'));
+            // Show active tab
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            
+            // Update button styles
+            document.querySelectorAll('nav button').forEach(btn => {
+                btn.classList.remove('active-tab');
+                btn.classList.add('text-slate-400');
+            });
+            document.getElementById('btn-' + tabId).classList.add('active-tab');
+            document.getElementById('btn-' + tabId).classList.remove('text-slate-400');
+        }
+
+        // Initialize Icons
+        lucide.createIcons();
+    </script>
+</body>
+</html>
