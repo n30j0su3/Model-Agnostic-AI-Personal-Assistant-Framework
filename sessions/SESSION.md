@@ -32,6 +32,7 @@ Refinamiento de agentes core y configuración de Workspaces.
 - [x] Prueba de concepto exitosa del skill `@paper-summarizer` (Análisis de "Context-Lens").
 - [x] Implementación del skill `@code-reviewer` para el workspace `Development`.
 - [x] Implementación del skill `@content-optimizer` para el workspace `Content`.
+- [x] Integración de la skill global `@xlsx` para manejo avanzado de hojas de cálculo.
 
 ## Notes & Decisions
 - Decisión: Fase 2 completada satisfactoriamente. El framework ahora es capaz de autogestionar su contexto y su despliegue en GitHub.

@@ -29,5 +29,10 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Ubicacion**: `skills/core/task-management`
 - **Version**: 1.0
 
+### @xlsx
+- **Descripcion**: Comprehensive spreadsheet creation, editing, and analysis with support for formulas, formatting, data analysis, and visualization. Use when working with .xlsx, .csv, .tsv files.
+- **Ubicacion**: `skills/core/xlsx`
+- **Version**: 1.0
+
 ---
-*Ultima actualizacion: 2026-01-22 19:21:12*
+*Ultima actualizacion: 2026-01-22 19:23:24*
