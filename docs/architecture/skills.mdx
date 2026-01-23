@@ -1,0 +1,30 @@
+# Skills
+
+Skills are modular capabilities that agents can invoke to perform specific actions. Our framework follows the [Agent Skills specification](https://agentskills.io/specification).
+
+## Available Skills
+
+### @session-tracking
+Manages `sessions/SESSION.md`, logging tasks and updates in real-time.
+
+### @task-management
+A multidisciplinary task manager that supports `@workspace` tagging and `#priority` levels.
+
+### @daily-summary
+Extracts data from the current session to generate structured reports.
+
+## Structure of a Skill
+
+Each skill is a self-contained directory:
+
+```
+skills/core/skill-name/
+├── SKILL.md          # Metadata and instructions
+├── scripts/          # Executable code (Python/Bash)
+├── references/       # Additional documentation
+└── assets/           # Templates and static resources
+```
+
+## Adding Skills
+
+To add a new skill, create a directory in `skills/custom/` and follow the standard structure. Use `python scripts/skill-sync.py` to update the global index.

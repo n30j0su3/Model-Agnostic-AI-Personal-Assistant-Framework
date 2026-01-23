@@ -1,0 +1,31 @@
+# Agents
+
+Agents are specialized AI instances with distinct instructions and fresh context windows.
+
+## Core Agents
+
+The framework includes several pre-built agents to handle system tasks:
+
+### @session-manager
+Responsible for daily productivity tracking, reminders, and end-of-day summaries. It interacts with the `sessions/` directory.
+
+### @context-sync
+Ensures that knowledge defined in `.context/MASTER.md` is correctly propagated to all tool-specific context files.
+
+### @github-deployer
+Automates the git workflow, creating descriptive commits and pushing changes to your remote repository.
+
+## Creating Custom Agents
+
+You can create your own specialized agents in the `agents/custom/` directory. Each agent should have an `AGENT.md` file following the system's template.
+
+```markdown
+---
+name: your-agent-name
+description: What the agent does
+scope: workspace-name or global
+tools: [list of tools]
+---
+# Instructions
+...
+```

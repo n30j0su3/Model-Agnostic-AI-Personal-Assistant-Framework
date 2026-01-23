@@ -1,0 +1,58 @@
+{
+  "name": "Personal Assistant Framework",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#0D9488",
+    "light": "#2DD4BF",
+    "dark": "#0F172A"
+  },
+  "topbarLinks": [
+    {
+      "name": "GitHub",
+      "url": "https://github.com/n30j0su3/Model-Agnostic-AI-Personal-Assistant-Framework"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "concepts"
+      ]
+    },
+    {
+      "group": "Core Architecture",
+      "pages": [
+        "architecture/context-files",
+        "architecture/agents",
+        "architecture/skills"
+      ]
+    },
+    {
+      "group": "Workspaces",
+      "pages": [
+        "workspaces/overview",
+        "workspaces/personal",
+        "workspaces/professional",
+        "workspaces/research",
+        "workspaces/content",
+        "workspaces/development"
+      ]
+    },
+    {
+      "group": "Daily Workflow",
+      "pages": [
+        "workflow/session-management",
+        "workflow/task-management"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "github": "https://github.com/n30j0su3/Model-Agnostic-AI-Personal-Assistant-Framework"
+  }
+}
