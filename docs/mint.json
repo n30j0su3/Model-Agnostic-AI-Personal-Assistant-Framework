@@ -29,6 +29,7 @@
       "group": "Core Architecture",
       "pages": [
         "architecture/context-files",
+        "architecture/scopes",
         "architecture/agents",
         "architecture/skills"
       ]
@@ -49,6 +50,12 @@
       "pages": [
         "workflow/session-management",
         "workflow/task-management"
+      ]
+    },
+    {
+      "group": "Project",
+      "pages": [
+        "changelog"
       ]
     }
   ],

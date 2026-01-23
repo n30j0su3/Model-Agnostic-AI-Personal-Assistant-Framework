@@ -19,6 +19,16 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Ubicacion**: `skills/core/docx`
 - **Version**: 1.0
 
+### @json-prompt-generator
+- **Descripcion**: Genera prompts JSON estructurados a partir de una idea inicial para IA, con objetivos y entregables claros.
+- **Ubicacion**: `skills/core/json-prompt-generator`
+- **Version**: 1.0
+
+### @mcp-builder
+- **Descripcion**: Guides creation of MCP servers with strong tool design, schemas, and evaluation practices.
+- **Ubicacion**: `skills/core/mcp-builder`
+- **Version**: 1.0
+
 ### @paper-summarizer
 - **Descripcion**: Analiza y resume documentos técnicos, papers científicos o artículos extensos. Extrae metodología, hallazgos clave y conclusiones. Úsalo en el workspace @research.
 - **Ubicacion**: `skills/core/paper-summarizer`
@@ -32,6 +42,11 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 ### @pptx
 - **Descripcion**: Presentation creation, editing, and analysis with support for layouts, notes, and design. Use when working with PowerPoint files (.pptx).
 - **Ubicacion**: `skills/core/pptx`
+- **Version**: 1.0
+
+### @prd-generator
+- **Descripcion**: Generates structured Product Requirements Documents with user stories, acceptance criteria, and stakeholder alignment.
+- **Ubicacion**: `skills/core/prd-generator`
 - **Version**: 1.0
 
 ### @session-tracking
@@ -55,4 +70,4 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Version**: 1.0
 
 ---
-*Ultima actualizacion: 2026-01-22 19:49:28*
+*Ultima actualizacion: 2026-01-23 02:49:44*

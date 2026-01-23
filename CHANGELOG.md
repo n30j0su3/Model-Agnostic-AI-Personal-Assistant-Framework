@@ -1,0 +1,36 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+The format is based on Keep a Changelog, and this project adheres to SemVer.
+
+## [1.3.0] - 2026-01-23
+### Added
+- Scope hierarchy documentation in `docs/architecture/scopes.mdx`.
+
+### Changed
+- Docs navigation updated with the scopes page.
+- README version updated to 1.3.0.
+
+## [1.2.0] - 2026-01-23
+### Added
+- PRD generator skill and MCP builder skill.
+- Local-only backlog draft for scope hierarchy review.
+- Backlog entries for new skills and evaluation candidates.
+
+### Changed
+- README version updated to 1.2.0.
+
+## [1.1.0] - 2026-01-23
+### Added
+- Full "para dummies" installation guide with hardware/software prereqs.
+- Step-by-step LLM setup, local model options (Ollama, LM Studio) and validation.
+- Cross-platform installer (`scripts/install.py`) and OS wrappers.
+- JSON prompt generator skill and updated skills index.
+- Backlog with versioning rules and history.
+
+### Changed
+- README version badge updated to 1.1.0.
+
+## [1.0.0] - 2026-01-22
+### Added
+- Initial framework structure and baseline documentation.

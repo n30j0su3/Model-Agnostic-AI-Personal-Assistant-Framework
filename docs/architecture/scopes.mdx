@@ -1,0 +1,88 @@
+# Scope Hierarchy
+
+This framework uses layered scopes to keep context predictable and maintainable. This document defines the recommended hierarchy, merge rules, and metadata for agents, skills, workspaces, and sessions.
+
+## Scope Layers
+
+| Layer | Purpose | Primary Location |
+| --- | --- | --- |
+| Global | Shared baseline context for all work | `.context/MASTER.md` |
+| Workspace | Domain-specific context and goals | `workspaces/<name>/` |
+| Agent | Role-specific behavior and constraints | `agents/` |
+| Skill | Reusable procedures and output formats | `skills/` |
+| Session | Daily execution state and notes | `sessions/` |
+
+## Resolution Order
+
+Use this precedence when combining context:
+
+1. Global
+2. Workspace
+3. Agent
+4. Session
+
+Skills are procedural and should not override context. They can request missing inputs when needed.
+
+## Merge Rules
+
+- Inherit by default, override only when explicitly stated.
+- If two scopes conflict, the higher-precedence layer wins.
+- Keep overrides narrow: change only the minimum necessary fields.
+- Avoid duplicating global context inside workspaces or agents.
+
+## Manifests and Metadata
+
+### Workspace Manifest (recommended)
+
+Create `workspaces/<name>/WORKSPACE.md`:
+
+```
+---
+name: professional
+owner: your-name
+purpose: Consulting and client delivery
+recommended_skills: [task-management, content-optimizer]
+---
+```
+
+### Agent Metadata
+
+Agents should declare their intended scope and dependencies in `AGENT.md`:
+
+```
+---
+name: session-manager
+scope: global
+requires_skills: [session-tracking]
+permissions: [read_context, write_sessions]
+---
+```
+
+### Skill Metadata
+
+Skills should describe expected inputs and constraints in `SKILL.md`:
+
+```
+---
+name: prd-generator
+scope: global
+inputs_required: [idea, audience, constraints]
+dependencies: []
+---
+```
+
+## Skill Taxonomy (recommended)
+
+Split skills by provenance and stability:
+
+- `skills/core/`: maintained by the framework
+- `skills/community/`: community contributions
+- `skills/local/`: private or experimental skills
+
+## Validation Checklist
+
+- Does the agent declare its scope and dependencies?
+- Does the workspace manifest exist and list recommended skills?
+- Are scope overrides documented?
+- Are skill inputs explicit and testable?
+- Are session notes kept separate from global context?

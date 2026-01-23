@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-antigravity-auth@latest", "@zenobius/opencode-skillful"],
+  "plugin": ["opencode-antigravity-auth@latest", "opencode-antigravity-quota@latest", "@zenobius/opencode-skillful"],
   "mcp": {
     "context7": {
       "type": "local",
