@@ -34,7 +34,8 @@ Refinamiento de agentes core y configuración de Workspaces.
 - [x] Implementación del skill `@content-optimizer` para el workspace `Content`.
 - [x] Integración de la skill global `@xlsx` para manejo avanzado de hojas de cálculo.
 - [x] Prueba de concepto exitosa del skill `@xlsx` (Creación de presupuesto dinámico).
-- [x] Integración de las skills globales `@pdf`, `@docx` y `@pptx` para gestión documental avanzada.
+- [x] Integración de las skills globales `@pdf`, `@docx` y `@pptx`.
+- [x] Pruebas de funcionamiento exitosas para @pdf, @docx y @pptx (Generación de archivos).
 
 ## Notes & Decisions
 - Decisión: Fase 2 completada satisfactoriamente. El framework ahora es capaz de autogestionar su contexto y su despliegue en GitHub.
