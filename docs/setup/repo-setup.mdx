@@ -1,0 +1,53 @@
+# Smart Repository Setup
+
+The framework can bootstrap a repository the first time you run the installer. This makes onboarding friendlier for non-technical users while still working in offline-only setups.
+
+## When It Runs
+
+`scripts/install.py` triggers the setup flow only if:
+
+- The project has no `.git/` directory yet.
+- Git is available.
+- A global Git identity is configured (user name or email).
+
+If those checks fail, the installer keeps going without interruption.
+
+## Setup Modes
+
+You will be prompted to choose one of the following modes:
+
+1. **GitHub (private + sync)**
+   - Creates a private repository and pushes the initial commit.
+   - Recommended for backups and multi-device workflows.
+
+2. **Local Git only**
+   - Initializes Git locally and creates the first commit.
+   - Good for privacy-first or offline users.
+
+3. **Sandbox (no Git)**
+   - Skips Git entirely and avoids extra files.
+   - Ideal for quick tests or experiments.
+
+## Compatibility Cascade
+
+To maximize compatibility and minimize dependencies, the setup flow uses this order:
+
+1. **GitHub CLI (`gh`)** when installed and authenticated.
+2. **PyGithub** when the library is available in the environment.
+3. **GitHub REST API** (native `urllib`) as a universal fallback.
+
+Tokens are requested via hidden prompt and never stored.
+
+## Manual Usage
+
+You can run the setup flow at any time:
+
+```bash
+python scripts/setup_repo.py
+```
+
+## Notes
+
+- The repo name defaults to the current folder name.
+- Visibility defaults to private.
+- `.gitignore` is ensured before committing.

@@ -31,3 +31,14 @@ Implementación inicial del framework "Model-agnostic AI Personal Assistant".
 3. Pregunta si falta información crítica o contexto.
 4. Mantén respuestas accionables y alineadas con el plan de trabajo.
 5. Utiliza los agentes y skills definidos en sus respectivos directorios.
+
+## Feature Session Protocol
+**Trigger**: Solicitud explícita de leer este archivo (`.context/MASTER.md`).
+**Behavior**:
+1. **Case A (Init)**: Si `sessions/SESSION.md` tiene estado "Closed" o "New":
+   - **Output**: Bienvenida explícita al "🚀 Feature Session Mode".
+   - **Explain**: "Modo de desarrollo activo (Dogfooding). Backlog filtrado y scripts de mantenimiento habilitados."
+2. **Case B (Resume)**: Si `sessions/SESSION.md` tiene estado "Open/Active" y contexto previo de desarrollo:
+   - **Output**: "✅ Feature Session Mode: Active" (sin explicaciones redundantes).
+   - **Action**: Proceder con las tareas pendientes.
+

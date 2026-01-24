@@ -12,6 +12,7 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 - BL-049 Planear/Integrar script de verificacion de jerarquia y overlaps
 - BL-050 Documentar tutoriales para extraer API keys principales
 - BL-051 Mantener dashboard actualizado con novedades y enlaces clave
+- BL-060 CORE SKILL de evaluacion/decision de instrucciones (local-first)
 
 ## Media
 
@@ -26,6 +27,7 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 - BL-052 Crear brand, logotipo y lenguaje de marca del proyecto
 - BL-053 Crear themes de personalizacion por workspaces y agentes
 - BL-054 Planear sistema de plugins para expandir capacidades del framework
+- BL-061 Historico de contexto configurable (online/local)
 
 ## Baja
 

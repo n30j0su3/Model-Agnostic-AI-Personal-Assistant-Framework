@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import argparse
 import os
 import shutil
 import subprocess
@@ -314,6 +315,35 @@ def menu_context_management():
             menu_context_maintenance()
 
 
+def menu_backlog():
+    print("\n📋 Backlog de Desarrollo (Vista Filtrada)\n")
+    backlog_path = REPO_ROOT / "docs" / "backlog.view.md"
+    if backlog_path.exists():
+        try:
+            print(backlog_path.read_text(encoding="utf-8"))
+        except Exception as e:
+            print(f"[ERROR] No se pudo leer el archivo: {e}")
+    else:
+        print("[WARN] No se encontro docs/backlog.view.md")
+    
+    print("\n💡 Tip: Usa 'docs/backlog.md' para ver el historial completo.")
+    pause()
+
+
+def menu_update():
+    update_script = REPO_ROOT / "scripts" / "update.py"
+    if not update_script.exists():
+        print("[ERROR] No se encontro scripts/update.py.")
+        pause()
+        return
+    result = subprocess.run([sys.executable, str(update_script)], cwd=REPO_ROOT)
+    if result.returncode == 0:
+        print("[OK] Actualizacion completada.")
+    else:
+        print("[WARN] Actualizacion incompleta o cancelada.")
+    pause()
+
+
 def get_active_model_cli():
     if MODELS_PATH.exists():
         content = load_models_content()
@@ -390,20 +420,33 @@ def menu_launcher():
             launch_cli(cli)
 
 
-def main_menu():
+def main_menu(feature_mode=False):
     while True:
         clear_screen()
         print_header()
+        if feature_mode:
+            print("         🚀 Feature Session Mode Active 🚀")
+            print("───────────────────────────────────────────────────────")
+        
         print("\n  1. 🔄 Sincronizar Contexto")
         print("  2. ⚙️  Configurar Perfil (Idioma, Enfoque, Estilo)")
         print("  3. 🎛️  Orquestacion Multi-Modelo")
         print("  4. 📊 Estado del Sistema")
         print("  5. 🚀 Iniciar Sesion AI")
         print("  6. 📁 Gestion de Contexto")
+        print("  7. 🔄 Buscar actualizaciones")
+        if feature_mode:
+            print("  8. 📋 Ver Backlog")
         print("  0. 🚪 Salir")
+
+        valid_choices = {"0", "1", "2", "3", "4", "5", "6", "7"}
+        if feature_mode:
+            valid_choices.add("8")
+
+        prompt_range = "0-8" if feature_mode else "0-7"
         choice = prompt_choice(
-            "\nSelecciona una opcion [0-6]: ",
-            {"0", "1", "2", "3", "4", "5", "6"},
+            f"\nSelecciona una opcion [{prompt_range}]: ",
+            valid_choices,
         )
         if choice == "0":
             return
@@ -419,12 +462,20 @@ def main_menu():
             menu_launcher()
         elif choice == "6":
             menu_context_management()
+        elif choice == "7":
+            menu_update()
+        elif choice == "8" and feature_mode:
+            menu_backlog()
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Personal Assistant Framework Control Panel")
+    parser.add_argument("--feature", action="store_true", help="Activar modo de sesion de caracteristicas (Feature Session)")
+    args = parser.parse_args()
+
     init_repo_root()
     setup_unicode()
-    main_menu()
+    main_menu(feature_mode=args.feature)
 
 
 if __name__ == "__main__":

@@ -12,4 +12,9 @@ else
   exit 1
 fi
 
+if [ ! -f "${ROOT_DIR}/.context/profile.md" ]; then
+  echo "[INFO] Primera ejecucion detectada. Iniciando instalador..."
+  "${PYTHON_BIN}" "${ROOT_DIR}/scripts/install.py"
+fi
+
 "${PYTHON_BIN}" "${ROOT_DIR}/scripts/pa.py" "$@"

@@ -25,7 +25,7 @@
             </div>
             <div>
                 <h1 class="font-bold text-lg leading-tight">freakingjson</h1>
-                <p class="text-xs text-emerald-400 font-mono italic">AI Framework v1.0</p>
+                <p class="text-xs text-emerald-400 font-mono italic">AI Framework v1.5</p>
             </div>
         </div>
 
@@ -93,8 +93,8 @@
                 </div>
                 <div class="glass p-8 rounded-3xl">
                     <i data-lucide="shield-check" class="text-emerald-500 mb-4" size="32"></i>
-                    <h3 class="text-xl font-bold mb-2">Trazabilidad Git</h3>
-                    <p class="text-slate-400 text-sm">Cada avance y cada sesión se guarda en GitHub automáticamente. Nunca pierdas el hilo.</p>
+                    <h3 class="text-xl font-bold mb-2">Repo Inteligente</h3>
+                    <p class="text-slate-400 text-sm">El instalador crea GitHub, Git local o modo sandbox para empezar sin friccion.</p>
                 </div>
             </div>
         </section>
@@ -107,13 +107,21 @@
                 <div class="flex gap-6">
                     <div class="step-number">1</div>
                     <div>
+                        <h3 class="text-xl font-bold mb-2">Ejecuta el Launcher</h3>
+                        <p class="text-slate-400 mb-4">Usa <code>pa.bat</code> en Windows o <code>./pa.sh</code> en macOS/Linux. El launcher corre el instalador en la primera ejecucion.</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-6">
+                    <div class="step-number">2</div>
+                    <div>
                         <h3 class="text-xl font-bold mb-2">Configura tu Perfil Maestro</h3>
                         <p class="text-slate-400 mb-4">Edita el archivo <code>.context/MASTER.md</code> con tu nombre, zona horaria y preferencias. Este es el "cerebro" global del asistente.</p>
                     </div>
                 </div>
 
                 <div class="flex gap-6">
-                    <div class="step-number">2</div>
+                    <div class="step-number">3</div>
                     <div>
                         <h3 class="text-xl font-bold mb-2">Inicia tu Sesión</h3>
                         <p class="text-slate-400 mb-4">Abre tu terminal favorita (OpenCode recomendado) y lanza un saludo natural:</p>
@@ -122,19 +130,11 @@
                 </div>
 
                 <div class="flex gap-6">
-                    <div class="step-number">3</div>
+                    <div class="step-number">4</div>
                     <div>
                         <h3 class="text-xl font-bold mb-2">Sincronización Multi-Herramienta</h3>
                         <p class="text-slate-400 mb-4">Si saltas entre Claude Code y Gemini CLI, mantén el contexto alineado con el script central:</p>
                         <pre class="block">python scripts/sync-context.py</pre>
-                    </div>
-                </div>
-
-                <div class="flex gap-6">
-                    <div class="step-number">4</div>
-                    <div>
-                        <h3 class="text-xl font-bold mb-2">Captura y Trazabilidad</h3>
-                        <p class="text-slate-400">Usa los comandos naturales para registrar tareas: <code>"Añade [X] a mi lista profesional @professional #high"</code>.</p>
                     </div>
                 </div>
             </div>

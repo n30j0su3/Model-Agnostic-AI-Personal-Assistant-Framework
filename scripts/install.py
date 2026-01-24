@@ -9,6 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
+from setup_repo import setup_repository
 MIN_PYTHON = (3, 11)
 LLM_ENV_VARS = [
     "OPENAI_API_KEY",
@@ -259,6 +260,8 @@ def main():
 
     if not check_command("git"):
         print("[WARN] Git no detectado en PATH. Si ya clonaste el repo, ignora este aviso.")
+
+    setup_repository(repo_root)
 
     profile = args.profile or prompt_profile()
     active_workspaces = BASIC_WORKSPACES if profile == "basic" else PRO_WORKSPACES

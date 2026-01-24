@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 The format is based on Keep a Changelog, and this project adheres to SemVer.
 
+## [1.5.0] - 2026-01-24
+### Added
+- Smart repository setup (GitHub, local Git, or sandbox) with gh/PyGithub/API fallback.
+- Auto-update script with Git/ZIP fallback and version tracking via VERSION.
+
+### Changed
+- Control panel adds update entry and feature-mode backlog view.
+- Quickstart and dashboard onboarding updated.
+- Launchers auto-run the installer on first run.
+
 ## [1.4.0] - 2026-01-23
 ### Added
 - Homelab workspace with documentation and structure.

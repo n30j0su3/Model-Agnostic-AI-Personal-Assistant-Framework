@@ -36,6 +36,8 @@ Ultima actualizacion: 2026-01-24
 - 2026-01-24: Se agregaron items BL-044 a BL-057 (prompting, research, mantenimiento, branding y expansion).
 - 2026-01-24: Se implemento BL-043 (flujo documentado y vista filtrada del backlog).
 - 2026-01-24: Se agrego item BL-058 (tips rapidos de uso del framework).
+- 2026-01-24: Release 1.5.0 (auto-actualizacion, backlog en Feature Session y setup inteligente de repositorio).
+- 2026-01-24: Se agrego item BL-063 (setup inteligente de repositorio).
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
@@ -97,3 +99,8 @@ Ultima actualizacion: 2026-01-24
 | BL-056 | Planear skill de automatizacion de contenido multiplataforma | Baja | Pendiente | Automatizacion con noticias, videos, transcripciones, TTS, imagenes y APIs | 
 | BL-057 | Planear skill/framework para romhacks multiplataforma | Baja | Pendiente | Flujo de edicion, parcheo y build con recursos opensource y docs publicas | 
 | BL-058 | Integrar tips rapidos/recomendados de uso del framework | Baja | Pendiente | Documentacion incluye seccion de tips rapidos y buenas practicas | 
+| BL-059 | Actualizacion automatica del framework (configurable/programable) | Alta | Hecho | Script de actualizacion con fallback sin Git y opcion en pa.py | 
+| BL-060 | CORE SKILL de evaluacion/decision de instrucciones (local-first) | Alta | Pendiente | Framework evalua localmente si puede resolver una instruccion antes de usar IA remota para optimizar tokens | 
+| BL-061 | Historico de contexto configurable (online/local) | Media | Pendiente | Usuario puede elegir entre sincronizacion online (GitHub) o local para historicos y contexto, reduciendo barreras de entrada | 
+| BL-062 | Unificado con BL-050 | N/A | N/A | La tarea de documentar tutoriales de API Keys se fusiona con el item existente BL-050 | 
+| BL-063 | Setup inteligente de repositorio (GitHub/local/sandbox) | Alta | Hecho | Flujo interactivo en el instalador con cascada gh -> PyGithub -> API nativa | 

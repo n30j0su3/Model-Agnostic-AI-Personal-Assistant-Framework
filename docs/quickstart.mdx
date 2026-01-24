@@ -27,16 +27,29 @@ npm install -g @anthropic-ai/claude-code
 
 ## Installation
 
-1. **Clone the Repository**
+1. **Get the Repository**
    ```bash
    git clone https://github.com/n30j0su3/Model-Agnostic-AI-Personal-Assistant-Framework.git
    cd Model-Agnostic-AI-Personal-Assistant-Framework
    ```
 
-2. **Initialize your Profile**
+   If you downloaded the ZIP instead of cloning, extract it and enter the folder.
+
+2. **Run the Launcher**
+   ```bash
+   ./pa.sh
+   ```
+
+   On Windows, run `pa.bat`. On first run (no `.git` yet), the launcher runs the installer and can initialize a repo for you:
+   - GitHub (private + sync)
+   - Local Git only
+   - Sandbox (no Git)
+   See the [Smart Repository Setup](/setup/repo-setup) guide for details.
+
+3. **Initialize your Profile**
    Open `.context/MASTER.md` and update it with your personal information, preferences, and timezone.
 
-3. **Start your First Session**
+4. **Start your First Session**
    Launch your preferred AI terminal (e.g., `opencode`) and say:
    > "Buenos días, iniciemos la sesión de hoy."
 

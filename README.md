@@ -1,4 +1,4 @@
-# Model-Agnostic AI Personal Assistant Framework v1.4.0
+# Model-Agnostic AI Personal Assistant Framework v1.5.0
 
 > "One Framework to rule them all, One Context to find them."
 > "El Conocimiento verdadero trasciende a lo público".
@@ -7,7 +7,7 @@ Este es un Framework user-friendly priorizado para el publico "de a pie", para q
 
 Un framework estandarizado para interactuar con IAs en modo "Personal Assistant", diseñado para la máxima productividad multidisciplinaria con contexto local y sin vendor lock-in.
 
-![Version](https://img.shields.io/badge/version-1.4.0-blue)
+![Version](https://img.shields.io/badge/version-1.5.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Agnostic](https://img.shields.io/badge/Model-Agnostic-orange)
 
@@ -18,6 +18,7 @@ Un framework estandarizado para interactuar con IAs en modo "Personal Assistant"
 - 🌐 **Multidisciplinario**: 6 Workspaces pre-configurados (Personal, Professional, Research, Content, Development, Homelab).
 - 🛠 **Skills & Agents**: Sistema extensible basado en el estándar [Agent Skills](https://agentskills.io).
 - 📝 **Trazabilidad Total**: Gestión de sesiones diarias con archivo histórico automático.
+- ☁️ **Repositorio Inteligente**: Inicializa GitHub, Git local o modo Sandbox desde el instalador.
 - 🎨 **Diseño Inteligente**: Integración nativa con `@ui-ux-pro-max` para interfaces profesionales.
 
 ## 📁 Estructura del Proyecto
@@ -34,13 +35,20 @@ Un framework estandarizado para interactuar con IAs en modo "Personal Assistant"
 
 ## 🛠 Instalación Rápida
 
-1. **Clonar el repo**:
+1. **Clonar o descargar el repo**:
    ```bash
    git clone https://github.com/n30j0su3/Model-Agnostic-AI-Personal-Assistant-Framework.git
    ```
-2. **Configurar tu perfil**:
+   Si usas el ZIP, extraelo y entra a la carpeta.
+2. **Ejecutar el launcher**:
+   ```bash
+   ./pa.sh
+   ```
+   En Windows usa `pa.bat`. Si es la primera ejecucion, el launcher corre el instalador automaticamente.
+   Si prefieres, puedes ejecutar `python scripts/install.py` manualmente.
+3. **Configurar tu perfil**:
    Edita `.context/MASTER.md` con tus preferencias.
-3. **Sincronizar**:
+4. **Sincronizar**:
    ```bash
    python scripts/sync-context.py
    ```
