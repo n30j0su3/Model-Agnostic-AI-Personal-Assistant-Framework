@@ -93,7 +93,7 @@ Ultima actualizacion: 2026-01-24
 | BL-049 | Planear/Integrar script de verificacion de jerarquia y overlaps | Alta | Pendiente | Verifica estructura de directorios y solapamientos de skills/agents; integra ejecucion periodica | 
 | BL-050 | Documentar tutoriales para extraer API keys principales | Alta | Pendiente | Docs para OpenAI, Gemini, Claude, OpenRouter y similares con pasos claros | 
 | BL-051 | Mantener dashboard actualizado con novedades y enlaces clave | Alta | Pendiente | `dashboard.html` siempre actualizado, con enlaces internos/externos y narrativa completa | 
-| BL-052 | Crear brand, logotipo y lenguaje de marca del proyecto | Media | Pendiente | Identidad visual definida con apoyo de skill/agent especializado y referencias confiables | 
+| BL-052 | Integrar marca "FreakingJSON" (ASCII/Metadata/Theme) | Media | Pendiente | Integrar "FreakingJSON" en instaladores (ASCII alta compatibilidad), docs y metadatos por defecto. Usar estandares opensource actuales para colores/personalizacion user-friendly | 
 | BL-053 | Crear themes de personalizacion por workspaces y agentes | Media | Pendiente | Temas seleccionables con buenas practicas y guia de uso | 
 | BL-054 | Planear sistema de plugins para expandir capacidades del framework | Media | Pendiente | Arquitectura de plugins basada en estandares opensource actualizados | 
 | BL-055 | Planear skills de video editing/creacion opensource | Baja | Pendiente | Roadmap de skills con herramientas como FFmpeg y NCA-Toolkit | 

@@ -24,7 +24,7 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 - BL-034 Sistema de calendario, control y estimacion de actividades
 - BL-035 Sistema de entrada multi-canal de ideas/tareas/objetivos
 - BL-042 Modulo de pruebas del framework configurable
-- BL-052 Crear brand, logotipo y lenguaje de marca del proyecto
+- BL-052 Integrar marca "FreakingJSON" (ASCII/Metadata/Theme)
 - BL-053 Crear themes de personalizacion por workspaces y agentes
 - BL-054 Planear sistema de plugins para expandir capacidades del framework
 - BL-061 Historico de contexto configurable (online/local)
