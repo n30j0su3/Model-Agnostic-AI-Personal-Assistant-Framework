@@ -1,6 +1,6 @@
 # Backlog del Framework
 
-Ultima actualizacion: 2026-01-23
+Ultima actualizacion: 2026-01-24
 
 ## Versionado
 
@@ -32,6 +32,10 @@ Ultima actualizacion: 2026-01-23
 - 2026-01-23: Se implementaron BL-040 y BL-041 (dashboard y agradecimientos).
 - 2026-01-23: Se implemento BL-009 (gestion de contexto local versionado).
 - 2026-01-23: Se agrego item BL-042 (modulo de pruebas del framework).
+- 2026-01-24: Se agrego item BL-043 (seccion rapida de caracteristicas y despliegue seguro).
+- 2026-01-24: Se agregaron items BL-044 a BL-057 (prompting, research, mantenimiento, branding y expansion).
+- 2026-01-24: Se implemento BL-043 (flujo documentado y vista filtrada del backlog).
+- 2026-01-24: Se agrego item BL-058 (tips rapidos de uso del framework).
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
@@ -77,3 +81,19 @@ Ultima actualizacion: 2026-01-23
 | BL-040 | Documentar dashboard.html en README | Alta | Hecho | Seccion Documentacion incluye proposito y uso de `dashboard.html` | 
 | BL-041 | Agradecimientos a NetworkChuck | Alta | Hecho | Seccion de agradecimientos menciona a NetworkChuck con cita | 
 | BL-042 | Modulo de pruebas del framework configurable | Media | Pendiente | Sistema de pruebas ajustado a preferencias del usuario para validar el framework | 
+| BL-043 | Seccion rapida de caracteristicas (dogfooding, backlog y despliegue seguro) | Alta | Hecho | Cada seccion revisa backlog, documenta cambios, usa el framework y valida privacidad antes de deploy | 
+| BL-044 | Integrar skill de prompt-improvement con estandares modernos | Alta | Pendiente | Skill con buenas practicas (CoT, RAG, few-shot, JSON prompts), referencias confiables y actualizacion programable por usuario | 
+| BL-045 | Planear framework/skill de investigacion multiproposito | Alta | Pendiente | Skill global con modos de investigacion (sencilla, deep-research, profesional) y flujo guiado opcional | 
+| BL-046 | Integrar desinstalador del framework (completo o parcial) | Alta | Pendiente | Proceso seguro de desinstalacion documentado y con opcion parcial | 
+| BL-047 | Planear/Integrar TaskManager para programar scripts internos | Alta | Pendiente | Sistema para planear/personalizar ejecucion de scripts de mantenimiento y automatizaciones | 
+| BL-048 | Planear/Integrar script de mantenimiento del framework (cada 30 dias) | Alta | Pendiente | Mantenimiento basado en estandares 2026 con ejecucion programada y configurable | 
+| BL-049 | Planear/Integrar script de verificacion de jerarquia y overlaps | Alta | Pendiente | Verifica estructura de directorios y solapamientos de skills/agents; integra ejecucion periodica | 
+| BL-050 | Documentar tutoriales para extraer API keys principales | Alta | Pendiente | Docs para OpenAI, Gemini, Claude, OpenRouter y similares con pasos claros | 
+| BL-051 | Mantener dashboard actualizado con novedades y enlaces clave | Alta | Pendiente | `dashboard.html` siempre actualizado, con enlaces internos/externos y narrativa completa | 
+| BL-052 | Crear brand, logotipo y lenguaje de marca del proyecto | Media | Pendiente | Identidad visual definida con apoyo de skill/agent especializado y referencias confiables | 
+| BL-053 | Crear themes de personalizacion por workspaces y agentes | Media | Pendiente | Temas seleccionables con buenas practicas y guia de uso | 
+| BL-054 | Planear sistema de plugins para expandir capacidades del framework | Media | Pendiente | Arquitectura de plugins basada en estandares opensource actualizados | 
+| BL-055 | Planear skills de video editing/creacion opensource | Baja | Pendiente | Roadmap de skills con herramientas como FFmpeg y NCA-Toolkit | 
+| BL-056 | Planear skill de automatizacion de contenido multiplataforma | Baja | Pendiente | Automatizacion con noticias, videos, transcripciones, TTS, imagenes y APIs | 
+| BL-057 | Planear skill/framework para romhacks multiplataforma | Baja | Pendiente | Flujo de edicion, parcheo y build con recursos opensource y docs publicas | 
+| BL-058 | Integrar tips rapidos/recomendados de uso del framework | Baja | Pendiente | Documentacion incluye seccion de tips rapidos y buenas practicas | 

@@ -1,0 +1,27 @@
+# Feature Sections
+
+The "Seccion Rapida de Caracteristicas" is a fast loop for improving the framework while dogfooding its own workflow. Use it when you want to advance features and keep the system consistent.
+
+## Quick Flow
+
+1. Review and update the backlog in `docs/backlog.md`.
+2. Regenerate the filtered view in `docs/backlog.view.md`.
+3. Work inside the current session file `sessions/SESSION.md`.
+4. Document any new behavior or changes (short, focused notes).
+5. Run a privacy check before deploys:
+   - Confirm private files are covered in `.gitignore`.
+   - Verify only safe files are staged.
+6. Sync changes to remotes only after the checks pass.
+
+## Suggested Commands
+
+```bash
+python scripts/sync-remotes.py --private-remote private
+```
+
+## Acceptance Criteria
+
+- Backlog updated and filtered view regenerated.
+- Session reflects the feature section work.
+- Documentation updated for any new behavior.
+- Privacy checks completed before any GitHub sync.
