@@ -77,11 +77,6 @@ def main():
     parser.add_argument("--private-remote", default="private", help="Nombre del remote privado")
     parser.add_argument("--private-url", help="URL del remote privado si no existe")
     parser.add_argument("--main-branch", default="main", help="Nombre de la rama principal")
-    parser.add_argument(
-        "--no-private-context",
-        action="store_true",
-        help="No sincronizar la rama private-context",
-    )
     args = parser.parse_args()
 
     if not ensure_clean():
@@ -96,13 +91,6 @@ def main():
 
     push_branch("origin", args.main_branch)
     push_branch(args.private_remote, args.main_branch)
-
-    if not args.no_private_context:
-        private_branch = "private-context"
-        if not branch_exists(private_branch):
-            run_git(["checkout", "-b", private_branch])
-        merge_main_into_private(args.main_branch, private_branch)
-        push_branch(args.private_remote, private_branch)
 
     if current_branch() != original_branch:
         checkout(original_branch)
