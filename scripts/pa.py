@@ -27,8 +27,11 @@ from orchestrate import (
     parse_active_models,
     parse_catalog,
 )
+from i18n import get_translator
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+TRANSLATOR = get_translator(REPO_ROOT)
+LANGUAGE = TRANSLATOR.language
 CLI_LABELS = {
     "opencode": "OpenCode",
     "claude": "Claude",
@@ -36,6 +39,10 @@ CLI_LABELS = {
     "codex": "Codex",
     "ollama": "Ollama",
 }
+
+
+def t(key, default=None, **kwargs):
+    return TRANSLATOR.t(key, default, **kwargs)
 
 
 def init_repo_root():
@@ -64,7 +71,9 @@ def print_header():
     print("╚═══════════════════════════════════════════════════════╝")
 
 
-def pause(message="Presiona Enter para continuar..."):
+def pause(message=None):
+    if message is None:
+        message = t("pause.prompt", "Presiona Enter para continuar...")
     input(f"\n{message}")
 
 
@@ -73,11 +82,13 @@ def prompt_choice(prompt, valid_choices):
         choice = input(prompt).strip()
         if choice in valid_choices:
             return choice
-        print("[WARN] Opcion invalida. Intenta de nuevo.")
+        print(t("menu.invalid", "[WARN] Opcion invalida. Intenta de nuevo."))
 
 
 def prompt_yes_no(message, default=False):
-    suffix = "[s/N]" if not default else "[S/n]"
+    suffix = "[s/N]" if LANGUAGE == "es" else "[y/N]"
+    if default:
+        suffix = "[S/n]" if LANGUAGE == "es" else "[Y/n]"
     choice = input(f"{message} {suffix}: ").strip().lower()
     if not choice:
         return default
@@ -357,6 +368,31 @@ def get_active_model_cli():
     return None, None
 
 
+def load_default_cli():
+    profile_path = REPO_ROOT / ".context" / "profile.md"
+    if not profile_path.exists():
+        return None
+    for line in profile_path.read_text(encoding="utf-8").splitlines():
+        if line.startswith("- **CLI default**:"):
+            value = line.split(":", 1)[1].strip()
+            return value if value and value != "N/D" else None
+    return None
+
+
+def show_magic_prompt(cli=None):
+    context_map = {
+        "opencode": ".context/opencode.md",
+        "claude": ".context/claude.md",
+        "gemini": ".context/gemini.md",
+        "codex": ".context/agents.md",
+    }
+    cli_key = cli or ""
+    context_file = context_map.get(cli_key, ".context/MASTER.md")
+    prompt_text = t("launcher.prompt", "Lee {context} e inicia la sesion.", context=context_file)
+    print("\n" + t("launcher.magic", "Copia esto en tu IA: {prompt}", prompt=prompt_text))
+    pause()
+
+
 def list_cli_options():
     for idx, cli in enumerate(CLI_LABELS.keys(), start=1):
         label = CLI_LABELS[cli]
@@ -396,27 +432,48 @@ def launch_cli(cli):
 def menu_launcher():
     while True:
         clear_screen()
-        print("-- 🚀 Iniciar Sesion AI --")
+        print("-- 🚀 " + t("menu.option.launch", "Iniciar Sesion AI") + " --")
         model_id, model_cli = get_active_model_cli()
+        default_cli = load_default_cli()
         if model_id:
-            print(f"Modelo activo: {model_id} (CLI: {model_cli or 'N/D'})")
+            print(t("launcher.model.active", "Modelo activo: {model} (CLI: {cli})", model=model_id, cli=model_cli or "N/D"))
         else:
-            print("Modelo activo: N/D (orquestacion no activada)")
-        print("\n  1. ▶️  Iniciar con modelo activo")
-        print("  2. 📝 Elegir otra CLI manualmente")
-        print("  0. ⬅️  Volver")
-        choice = prompt_choice("\nSelecciona: ", {"0", "1", "2"})
+            print(t("launcher.model.none", "Modelo activo: N/D (orquestacion no activada)"))
+            if default_cli:
+                print(t("launcher.default.cli", "CLI por defecto: {cli}", cli=default_cli))
+
+        valid_choices = {"0", "2"}
+        print("\n  2. 📝 " + t("launcher.option.manual", "Elegir otra CLI manualmente"))
+        if model_id:
+            print("  1. ▶️  " + t("launcher.option.active", "Iniciar con modelo activo"))
+            valid_choices.add("1")
+        elif default_cli:
+            print("  1. ▶️  " + t("launcher.option.default", "Iniciar con CLI por defecto"))
+            valid_choices.add("1")
+        print("  0. ⬅️  " + t("launcher.option.back", "Volver"))
+
+        prompt_range = "0-2" if "1" in valid_choices else "0-2"
+        choice = prompt_choice(
+            t("menu.prompt", "\nSelecciona una opcion [{range}]: ", range=prompt_range),
+            valid_choices,
+        )
         if choice == "0":
             return
         if choice == "1":
-            if not model_cli:
-                print("[WARN] No hay CLI asociada al modelo activo.")
-                pause()
-                continue
-            launch_cli(model_cli)
+            selected_cli = model_cli if model_id else default_cli
+            show_magic_prompt(selected_cli)
+            if model_id:
+                if not model_cli:
+                    print("[WARN] No hay CLI asociada al modelo activo.")
+                    pause()
+                    continue
+                launch_cli(model_cli)
+            elif default_cli:
+                launch_cli(default_cli)
         elif choice == "2":
             print("\nCLIs disponibles:")
             cli = select_cli()
+            show_magic_prompt(cli)
             launch_cli(cli)
 
 
@@ -425,19 +482,19 @@ def main_menu(feature_mode=False):
         clear_screen()
         print_header()
         if feature_mode:
-            print("         🚀 Feature Session Mode Active 🚀")
+            print("         🚀 " + t("menu.feature.banner", "Feature Session Mode Active") + " 🚀")
             print("───────────────────────────────────────────────────────")
         
-        print("\n  1. 🔄 Sincronizar Contexto")
-        print("  2. ⚙️  Configurar Perfil (Idioma, Enfoque, Estilo)")
-        print("  3. 🎛️  Orquestacion Multi-Modelo")
-        print("  4. 📊 Estado del Sistema")
-        print("  5. 🚀 Iniciar Sesion AI")
-        print("  6. 📁 Gestion de Contexto")
-        print("  7. 🔄 Buscar actualizaciones")
+        print("\n  1. 🔄 " + t("menu.option.sync", "Sincronizar Contexto"))
+        print("  2. ⚙️  " + t("menu.option.profile", "Configurar Perfil (Idioma, Enfoque, Estilo)"))
+        print("  3. 🎛️  " + t("menu.option.orchestration", "Orquestacion Multi-Modelo"))
+        print("  4. 📊 " + t("menu.option.health", "Estado del Sistema"))
+        print("  5. 🚀 " + t("menu.option.launch", "Iniciar Sesion AI"))
+        print("  6. 📁 " + t("menu.option.context", "Gestion de Contexto"))
+        print("  7. 🔄 " + t("menu.option.update", "Buscar actualizaciones"))
         if feature_mode:
-            print("  8. 📋 Ver Backlog")
-        print("  0. 🚪 Salir")
+            print("  8. 📋 " + t("menu.option.backlog", "Ver Backlog"))
+        print("  0. 🚪 " + t("menu.option.exit", "Salir"))
 
         valid_choices = {"0", "1", "2", "3", "4", "5", "6", "7"}
         if feature_mode:
@@ -445,7 +502,7 @@ def main_menu(feature_mode=False):
 
         prompt_range = "0-8" if feature_mode else "0-7"
         choice = prompt_choice(
-            f"\nSelecciona una opcion [{prompt_range}]: ",
+            t("menu.prompt", "\nSelecciona una opcion [{range}]: ", range=prompt_range),
             valid_choices,
         )
         if choice == "0":

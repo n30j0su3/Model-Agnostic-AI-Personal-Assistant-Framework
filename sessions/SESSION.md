@@ -20,11 +20,14 @@ Feature Session: Implementación de mejoras de alta prioridad (Backlog Automatio
 - [x] BL-059 Actualizacion automatica del framework.
 - [x] BL-063 Setup inteligente de repositorio (GitHub/local/sandbox).
 - [x] Launcher auto-installer en primer uso (pa.bat/pa.sh).
+- [x] BL-064 Selector de idioma ES/EN en instalador y panel.
+- [x] BL-065 Seleccion de CLI por defecto + asistencia de instalacion.
+- [x] BL-066 Inicializacion robusta de contexto IA.
 
 ## End of Day Summary
 
-- Completadas: 4 tareas.
-- Cambios clave: backlog actualizado, flujo de seccion rapida documentado, auto-actualizador, setup inteligente de repositorio y launcher con auto-instalacion.
+- Completadas: 7 tareas.
+- Cambios clave: backlog actualizado, flujo de seccion rapida documentado, auto-actualizador, setup inteligente de repositorio, launcher con auto-instalacion, i18n ES/EN, selector CLI e init robusto.
 
 ## Tomorrow's Preview
 

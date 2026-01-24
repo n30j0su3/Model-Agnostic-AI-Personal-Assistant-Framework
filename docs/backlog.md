@@ -38,6 +38,7 @@ Ultima actualizacion: 2026-01-24
 - 2026-01-24: Se agrego item BL-058 (tips rapidos de uso del framework).
 - 2026-01-24: Release 1.5.0 (auto-actualizacion, backlog en Feature Session y setup inteligente de repositorio).
 - 2026-01-24: Se agrego item BL-063 (setup inteligente de repositorio).
+- 2026-01-24: Release 1.6.0 (i18n ES/EN, selector CLI y init robusto).
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
@@ -104,3 +105,6 @@ Ultima actualizacion: 2026-01-24
 | BL-061 | Historico de contexto configurable (online/local) | Media | Pendiente | Usuario puede elegir entre sincronizacion online (GitHub) o local para historicos y contexto, reduciendo barreras de entrada | 
 | BL-062 | Unificado con BL-050 | N/A | N/A | La tarea de documentar tutoriales de API Keys se fusiona con el item existente BL-050 | 
 | BL-063 | Setup inteligente de repositorio (GitHub/local/sandbox) | Alta | Hecho | Flujo interactivo en el instalador con cascada gh -> PyGithub -> API nativa | 
+| BL-064 | Selector de idioma ES/EN en instalador y panel | Alta | Hecho | Framework permite elegir idioma y usa strings centralizados en config/i18n.json | 
+| BL-065 | Seleccion de CLI por defecto + asistencia de instalacion | Alta | Hecho | Instalador detecta CLIs, permite elegir default y ofrece instalar OpenCode | 
+| BL-066 | Inicializacion robusta de contexto IA | Alta | Hecho | .cursorrules y AI_INSTRUCTIONS.md apuntan a .context/ y launcher imprime prompt magico | 

@@ -6,6 +6,8 @@ import subprocess
 import urllib.request
 from pathlib import Path
 
+from i18n import get_translator
+
 
 GITHUB_API = "https://api.github.com"
 DEFAULT_VISIBILITY_PRIVATE = True
@@ -70,9 +72,9 @@ def ensure_gitignore(repo_root):
     gitignore_path.write_text(GITIGNORE_TEMPLATE, encoding="utf-8")
 
 
-def ensure_initial_commit(repo_root):
+def ensure_initial_commit(repo_root, t):
     if not has_git():
-        print("[WARN] Git no esta disponible.")
+        print(t("repo.git.missing", "[WARN] Git no esta disponible."))
         return False
     if not (repo_root / ".git").exists():
         run_cmd(["git", "init"], cwd=repo_root)
@@ -83,31 +85,33 @@ def ensure_initial_commit(repo_root):
     run_cmd(["git", "add", "."], cwd=repo_root)
     commit = run_cmd(["git", "commit", "-m", "Initial setup"], cwd=repo_root)
     if commit.returncode != 0:
-        print("[WARN] No se pudo crear el commit inicial. Revisa tu configuracion de Git.")
+        print(t("repo.commit.warn", "[WARN] No se pudo crear el commit inicial. Revisa tu configuracion de Git."))
         return False
     return True
 
 
-def prompt_choice(prompt, options):
+def prompt_choice(prompt, options, invalid_message="[WARN] Opcion invalida. Intenta de nuevo."):
     while True:
         choice = input(prompt).strip()
         if choice in options:
             return choice
-        print("[WARN] Opcion invalida. Intenta de nuevo.")
+        print(invalid_message)
 
 
-def prompt_yes_no(message, default=False):
-    suffix = "[s/N]" if not default else "[S/n]"
+def prompt_yes_no(message, default=False, language="es"):
+    suffix = "[s/N]" if language == "es" else "[y/N]"
+    if default:
+        suffix = "[S/n]" if language == "es" else "[Y/n]"
     choice = input(f"{message} {suffix}: ").strip().lower()
     if not choice:
         return default
     return choice in {"s", "si", "y", "yes"}
 
 
-def create_repo_gh(repo_root, repo_name, private):
+def create_repo_gh(repo_root, repo_name, private, t):
     if not gh_authenticated():
         return False
-    if not ensure_initial_commit(repo_root):
+    if not ensure_initial_commit(repo_root, t):
         return False
     visibility = "--private" if private else "--public"
     cmd = [
@@ -124,7 +128,7 @@ def create_repo_gh(repo_root, repo_name, private):
     return result.returncode == 0
 
 
-def create_repo_pygithub(token, repo_name, private):
+def create_repo_pygithub(token, repo_name, private, t):
     try:
         from github import Github  # type: ignore[import-not-found]
     except Exception:
@@ -139,7 +143,7 @@ def create_repo_pygithub(token, repo_name, private):
         return ""
 
 
-def create_repo_api(token, repo_name, private):
+def create_repo_api(token, repo_name, private, t):
     payload = json.dumps({"name": repo_name, "private": private}).encode("utf-8")
     request = urllib.request.Request(
         f"{GITHUB_API}/user/repos",
@@ -168,76 +172,87 @@ def ensure_remote(repo_root, clone_url):
     run_cmd(["git", "remote", "add", "origin", clone_url], cwd=repo_root)
 
 
-def push_main(repo_root):
+def push_main(repo_root, t):
     run_cmd(["git", "branch", "-M", "main"], cwd=repo_root)
     push = run_cmd(["git", "push", "-u", "origin", "main"], cwd=repo_root)
     if push.returncode != 0:
-        print("[WARN] No se pudo subir el repo a GitHub. Puedes intentar manualmente.")
+        print(t("repo.push.warn", "[WARN] No se pudo subir el repo a GitHub. Puedes intentar manualmente."))
 
 
-def create_repo_remote(repo_root, repo_name, private):
+def create_repo_remote(repo_root, repo_name, private, t):
     if gh_authenticated():
-        return create_repo_gh(repo_root, repo_name, private)
+        return create_repo_gh(repo_root, repo_name, private, t)
 
     token = getpass.getpass("GitHub Token (PAT): ").strip()
     if not token:
-        print("[WARN] Token vacio. Se cancela la creacion remota.")
+        print(t("repo.token.empty", "[WARN] Token vacio. Se cancela la creacion remota."))
         return False
 
     clone_url = ""
     if pygithub_available():
-        clone_url = create_repo_pygithub(token, repo_name, private)
+        clone_url = create_repo_pygithub(token, repo_name, private, t)
     if not clone_url:
-        clone_url = create_repo_api(token, repo_name, private)
+        clone_url = create_repo_api(token, repo_name, private, t)
     if not clone_url:
         return False
 
-    if not ensure_initial_commit(repo_root):
+    if not ensure_initial_commit(repo_root, t):
         return False
     ensure_remote(repo_root, clone_url)
-    push_main(repo_root)
+    push_main(repo_root, t)
     return True
 
 
-def prompt_repo_name(repo_root):
+def prompt_repo_name(repo_root, t):
     default_name = repo_root.name or DEFAULT_REPO_NAME
-    repo_name = input(f"Nombre del repositorio [{default_name}]: ").strip()
+    prompt = t("repo.name.prompt", "Nombre del repositorio [{name}]: ", name=default_name)
+    repo_name = input(prompt).strip()
     return repo_name or default_name
 
 
-def setup_repository(repo_root):
+def setup_repository(repo_root, translator=None):
     repo_root = Path(repo_root)
+    translator = translator or get_translator(repo_root)
+    t = translator.t
     if (repo_root / ".git").exists():
         return
     if not has_git():
-        print("[INFO] Git no detectado. Se omite la inicializacion de repositorio.")
+        print(t("repo.git.missing", "[INFO] Git no detectado. Se omite la inicializacion de repositorio."))
         return
     if not git_global_configured():
-        print("[INFO] Git global no configurado. Se omite la inicializacion de repositorio.")
+        print(t("repo.git.unconfigured", "[INFO] Git global no configurado. Se omite la inicializacion de repositorio."))
         return
 
-    print("\nRepositorio no detectado.")
-    print("Selecciona el modo de inicio:")
-    print("  1. GitHub (privado + sincronizacion)")
-    print("  2. Local (solo historial en Git)")
-    print("  3. Sandbox (sin Git, sin cambios extra)")
-    choice = prompt_choice("\nSelecciona [1-3]: ", {"1", "2", "3"})
+    print(t("repo.not_detected", "\nRepositorio no detectado."))
+    print(t("repo.mode.title", "Selecciona el modo de inicio:"))
+    print(t("repo.mode.github", "  1. GitHub (privado + sincronizacion)"))
+    print(t("repo.mode.local", "  2. Local (solo historial en Git)"))
+    print(t("repo.mode.sandbox", "  3. Sandbox (sin Git, sin cambios extra)"))
+    choice = prompt_choice(
+        t("repo.mode.prompt", "\nSelecciona [1-3]: "),
+        {"1", "2", "3"},
+        invalid_message=t("menu.invalid", "[WARN] Opcion invalida. Intenta de nuevo."),
+    )
 
     if choice == "1":
-        private = prompt_yes_no("Crear repositorio privado?", default=DEFAULT_VISIBILITY_PRIVATE)
-        repo_name = prompt_repo_name(repo_root)
-        if create_repo_remote(repo_root, repo_name, private):
-            print("[OK] Repositorio creado y sincronizado.")
+        private = prompt_yes_no(
+            t("repo.private.ask", "Crear repositorio privado?"),
+            default=DEFAULT_VISIBILITY_PRIVATE,
+            language=translator.language,
+        )
+        repo_name = prompt_repo_name(repo_root, t)
+        if create_repo_remote(repo_root, repo_name, private, t):
+            print(t("repo.created", "[OK] Repositorio creado y sincronizado."))
         else:
-            print("[WARN] No se pudo crear el repositorio remoto.")
+            print(t("repo.failed", "[WARN] No se pudo crear el repositorio remoto."))
     elif choice == "2":
-        if ensure_initial_commit(repo_root):
-            print("[OK] Repositorio local inicializado.")
+        if ensure_initial_commit(repo_root, t):
+            print(t("repo.local.ok", "[OK] Repositorio local inicializado."))
         else:
-            print("[WARN] No se pudo inicializar el repositorio local.")
+            print(t("repo.local.fail", "[WARN] No se pudo inicializar el repositorio local."))
     else:
         ensure_gitignore(repo_root)
-        print("[INFO] Sandbox activo. No se creo repositorio Git.")
+        print(t("repo.sandbox", "[INFO] Sandbox activo. No se creo repositorio Git."))
 
 
 def main():
