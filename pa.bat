@@ -31,10 +31,10 @@ if "%STRICT_MODE%"=="1" echo [INFO] Modo estricto activo: instalacion nueva o us
 if not exist ".context\profile.md" (
   echo [INFO] Primera ejecucion detectada. Iniciando instalador...
   %PY_CMD% scripts\install.py
-  if %errorlevel% neq 0 (
+  if !errorlevel! neq 0 (
     echo [ERROR] Instalacion incompleta.
     pause
-    exit /b %errorlevel%
+    exit /b !errorlevel!
   )
 )
 
@@ -132,14 +132,14 @@ if "%HAS_OPENCODE%"=="1" exit /b 0
 echo.
 echo [WARN] OpenCode no detectado. Recomendado para usar el Framework.
 if "%STRICT_MODE%"=="1" (
-  echo [INFO] Modo estricto habilitado (nuevo/local). OpenCode es obligatorio.
+  echo [INFO] Modo estricto habilitado [nuevo/local]. OpenCode es obligatorio.
   echo [INFO] Este paso garantiza que la experiencia inicial sea estable y guiada.
   echo  1. Instalar OpenCode automaticamente (recomendado)
   echo  2. Ver instrucciones manuales
   echo  3. Salir
   set /p OC_CHOICE=Selecciona [1-3]: 
-  if "%OC_CHOICE%"=="1" goto :InstallOpenCode
-  if "%OC_CHOICE%"=="2" goto :OfferOpenCodeManualStrict
+  if "!OC_CHOICE!"=="1" goto :InstallOpenCode
+  if "!OC_CHOICE!"=="2" goto :OfferOpenCodeManualStrict
   echo.
   echo [ERROR] No se puede continuar sin OpenCode en modo estricto.
   pause
