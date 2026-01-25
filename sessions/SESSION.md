@@ -23,11 +23,16 @@ Feature Session: Implementación de mejoras de alta prioridad (Backlog Automatio
 - [x] BL-064 Selector de idioma ES/EN en instalador y panel.
 - [x] BL-065 Seleccion de CLI por defecto + asistencia de instalacion.
 - [x] BL-066 Inicializacion robusta de contexto IA.
+- [x] Launcher pa.bat con header emoji.
+- [x] Preferencias iniciales con sugerencias de enfoque.
+- [x] Feature Session solo por trigger manual.
+- [x] Dashboard actualizado (Homelab + nuevas features).
+- [x] Launcher Windows con instalacion guiada de dependencias.
 
 ## End of Day Summary
 
-- Completadas: 7 tareas.
-- Cambios clave: backlog actualizado, flujo de seccion rapida documentado, auto-actualizador, setup inteligente de repositorio, launcher con auto-instalacion, i18n ES/EN, selector CLI e init robusto.
+- Completadas: 12 tareas.
+- Cambios clave: backlog actualizado, flujo de seccion rapida documentado, auto-actualizador, setup inteligente de repositorio, launcher con auto-instalacion, i18n ES/EN, selector CLI, init robusto, ajustes de onboarding, dashboard y bootstrap de dependencias.
 - Nota: Se amplio BL-052 con contexto de marca FreakingJSON.
 
 ## Tomorrow's Preview

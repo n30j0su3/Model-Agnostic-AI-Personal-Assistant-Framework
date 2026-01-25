@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 The format is based on Keep a Changelog, and this project adheres to SemVer.
 
+## [1.6.1] - 2026-01-24
+### Added
+- Windows launcher now guides Python/Git installation with winget or download links.
+
 ## [1.6.0] - 2026-01-24
 ### Added
 - Language selector (ES/EN) with centralized i18n strings.

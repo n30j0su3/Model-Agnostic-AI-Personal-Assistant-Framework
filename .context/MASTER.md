@@ -33,7 +33,7 @@ Implementación inicial del framework "Model-agnostic AI Personal Assistant".
 5. Utiliza los agentes y skills definidos en sus respectivos directorios.
 
 ## Feature Session Protocol
-**Trigger**: Solicitud explícita de leer este archivo (`.context/MASTER.md`).
+**Trigger**: Solicitud explícita de iniciar una Feature Session (palabras clave: "feature session", "seccion rapida", "/feature").
 **Behavior**:
 1. **Case A (Init)**: Si `sessions/SESSION.md` tiene estado "Closed" o "New":
    - **Output**: Bienvenida explícita al "🚀 Feature Session Mode".
@@ -41,4 +41,4 @@ Implementación inicial del framework "Model-agnostic AI Personal Assistant".
 2. **Case B (Resume)**: Si `sessions/SESSION.md` tiene estado "Open/Active" y contexto previo de desarrollo:
    - **Output**: "✅ Feature Session Mode: Active" (sin explicaciones redundantes).
    - **Action**: Proceder con las tareas pendientes.
-
+**Nota**: No iniciar Feature Session solo por leer `MASTER.md`.

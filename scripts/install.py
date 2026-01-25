@@ -197,6 +197,7 @@ def configure_preferences(repo_root):
     print(t("install.preferences.hint", "(Enter para mantener el valor actual)"))
     primary_input = input(f"{t('preferences.primary', 'Idioma principal')} [{primary_default}]: ").strip()
     secondary_input = input(f"{t('preferences.secondary', 'Idioma secundario')} [{secondary_default}]: ").strip()
+    print(t("preferences.focus.hint", "Sugerencias: Operacion diaria, Feature Session, Investigacion, Personal."))
     focus_input = input(f"{t('preferences.focus', 'Enfoque actual')} [{focus_default}]: ").strip()
     response_input = input(f"{t('preferences.response', 'Estilo de respuesta')} [{response_default}]: ").strip()
 
