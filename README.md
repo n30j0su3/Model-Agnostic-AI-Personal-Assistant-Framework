@@ -192,6 +192,14 @@ Para validar LLMs agrega `--llm`.
   bash scripts/install.sh
   ```
 
+## 🛠 Troubleshooting Windows (PowerShell)
+
+Si PowerShell bloquea `opencode` con un error de politica de ejecucion, ejecuta:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+```
+
 ## 🧹 Desinstalacion (Opcional)
 
 Si necesitas remover el framework de forma segura:
