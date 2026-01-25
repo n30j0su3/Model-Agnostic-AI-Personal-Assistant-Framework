@@ -159,7 +159,7 @@ goto :ContinueNoOpenCode
 :InstallOpenCode
 call :EnsureNode
 if %errorlevel% neq 0 exit /b %errorlevel%
-npm install -g @anthropic-ai/opencode
+npm install -g opencode-ai
 if %errorlevel% neq 0 goto :OfferOpenCodeManual
 call :DetectOpenCode
 if "%HAS_OPENCODE%"=="1" (
@@ -175,7 +175,7 @@ exit /b 1
 :OfferOpenCodeManual
 echo.
 echo [INFO] Instalacion manual:
-echo [INFO] npm install -g @anthropic-ai/opencode
+echo [INFO] npm install -g opencode-ai
 echo [INFO] Guia local: docs\quickstart.mdx
 pause
 exit /b 1
@@ -183,7 +183,7 @@ exit /b 1
 :OfferOpenCodeManualStrict
 echo.
 echo [INFO] Instalacion manual:
-echo [INFO] npm install -g @anthropic-ai/opencode
+echo [INFO] npm install -g opencode-ai
 echo [INFO] Guia local: docs\quickstart.mdx
 echo.
 echo [ERROR] OpenCode es obligatorio en modo estricto.

@@ -57,16 +57,16 @@ def uninstall_opencode(dry_run=False):
         print("[WARN] npm no detectado. No se puede desinstalar OpenCode automaticamente.")
         return
     if dry_run:
-        print("[DRY] Ejecutaria: npm uninstall -g @anthropic-ai/opencode")
+        print("[DRY] Ejecutaria: npm uninstall -g opencode-ai")
         return
-    cmd = ["npm", "uninstall", "-g", "@anthropic-ai/opencode"]
+    cmd = ["npm", "uninstall", "-g", "opencode-ai"]
     if sys.platform.startswith("win"):
         npm_cmd = shutil.which("npm") or shutil.which("npm.cmd")
         if npm_cmd:
             cmd[0] = npm_cmd
             result = subprocess.run(cmd, check=False)
         else:
-            result = subprocess.run("npm uninstall -g @anthropic-ai/opencode", shell=True, check=False)
+            result = subprocess.run("npm uninstall -g opencode-ai", shell=True, check=False)
     else:
         result = subprocess.run(cmd, check=False)
     if result.returncode == 0:

@@ -371,14 +371,14 @@ def install_opencode():
     if not ensure_node():
         return False
     print(t("cli.install.start", "[INFO] Instalando OpenCode..."))
-    cmd = ["npm", "install", "-g", "@anthropic-ai/opencode"]
+    cmd = ["npm", "install", "-g", "opencode-ai"]
     if os.name == "nt":
         npm_cmd = shutil.which("npm") or shutil.which("npm.cmd")
         if npm_cmd:
             cmd[0] = npm_cmd
             result = subprocess.run(cmd, check=False)
         else:
-            result = subprocess.run("npm install -g @anthropic-ai/opencode", shell=True, check=False)
+            result = subprocess.run("npm install -g opencode-ai", shell=True, check=False)
     else:
         result = subprocess.run(cmd, check=False)
     if result.returncode == 0:
