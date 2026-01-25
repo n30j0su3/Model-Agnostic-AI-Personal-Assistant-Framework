@@ -1,4 +1,4 @@
-# Model-Agnostic AI Personal Assistant Framework v1.6.1
+# Model-Agnostic AI Personal Assistant Framework v1.6.2
 
 > "One Framework to rule them all, One Context to find them."
 > "El Conocimiento verdadero trasciende a lo público".
@@ -7,7 +7,7 @@ Este es un Framework user-friendly priorizado para el publico "de a pie", para q
 
 Un framework estandarizado para interactuar con IAs en modo "Personal Assistant", diseñado para la máxima productividad multidisciplinaria con contexto local y sin vendor lock-in.
 
-![Version](https://img.shields.io/badge/version-1.6.1-blue)
+![Version](https://img.shields.io/badge/version-1.6.2-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Agnostic](https://img.shields.io/badge/Model-Agnostic-orange)
 

@@ -40,6 +40,7 @@ Ultima actualizacion: 2026-01-24
 - 2026-01-24: Se agrego item BL-063 (setup inteligente de repositorio).
 - 2026-01-24: Release 1.6.0 (i18n ES/EN, selector CLI y init robusto).
 - 2026-01-24: Release 1.6.1 (launcher Windows instala dependencias).
+- 2026-01-24: Release 1.6.2 (launcher Windows robusto sin cierre).
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
