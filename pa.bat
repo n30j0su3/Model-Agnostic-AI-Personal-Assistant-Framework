@@ -152,9 +152,11 @@ if "%STRICT_MODE%"=="1" (
   echo  1. Instalar OpenCode automaticamente (recomendado)
   echo  2. Ver instrucciones manuales
   echo  3. Salir
-  set /p OC_CHOICE=Selecciona [1-3]: 
+  echo  4. Resetear configuracion de OpenCode
+  set /p OC_CHOICE=Selecciona [1-4]: 
   if "!OC_CHOICE!"=="1" goto :InstallOpenCode
   if "!OC_CHOICE!"=="2" goto :OfferOpenCodeManualStrict
+  if "!OC_CHOICE!"=="4" goto :ResetOpenCodeConfig
   echo.
   echo [ERROR] No se puede continuar sin OpenCode en modo estricto.
   pause
@@ -163,10 +165,12 @@ if "%STRICT_MODE%"=="1" (
 echo  1. Instalar OpenCode automaticamente (recomendado)
 echo  2. Ver instrucciones manuales
 echo  3. Continuar sin OpenCode
-set /p OC_CHOICE=Selecciona [1-3]: 
+echo  4. Resetear configuracion de OpenCode
+set /p OC_CHOICE=Selecciona [1-4]: 
 if "%OC_CHOICE%"=="1" goto :InstallOpenCode
 if "%OC_CHOICE%"=="2" goto :OfferOpenCodeManual
 if "%OC_CHOICE%"=="3" goto :ContinueNoOpenCode
+if "%OC_CHOICE%"=="4" goto :ResetOpenCodeConfig
 echo.
 echo [WARN] Seleccion invalida. Continuando sin OpenCode.
 goto :ContinueNoOpenCode
@@ -210,6 +214,15 @@ exit /b 1
 :ContinueNoOpenCode
 echo [INFO] Continuando sin OpenCode...
 exit /b 0
+
+:ResetOpenCodeConfig
+echo.
+echo [INFO] Reseteando configuracion de OpenCode...
+if exist "opencode.jsonc" del /f /q "opencode.jsonc"
+if exist "opencode.jsonc.template" copy /y "opencode.jsonc.template" "opencode.jsonc" >nul
+if exist ".context\opencode.md" del /f /q ".context\opencode.md"
+echo [OK] Configuracion local de OpenCode restablecida.
+goto :EnsureOpenCode
 
 :NoPython
 echo [ERROR] Python no encontrado. Es obligatorio para ejecutar el Framework.
