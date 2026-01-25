@@ -22,6 +22,11 @@
 - **Estado**: OPERATIVO.
 - **Ubicación**: `agents/core/github-deployer/`
 
+### @feature-architect
+- **Propósito**: Arquitecto de producto y guardián de la filosofía. Evalúa, planea y ejecuta features del backlog sin solapamientos.
+- **Estado**: OPERATIVO.
+- **Ubicación**: `agents/core/feature-architect/`
+
 ## Workspace Agents
 *Agentes especializados por área (se activan según el workspace activo).*
 

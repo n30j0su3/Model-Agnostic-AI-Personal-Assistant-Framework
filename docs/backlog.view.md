@@ -4,9 +4,7 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 
 ## Alta
 
-- BL-044 Integrar skill de prompt-improvement con estandares modernos
 - BL-045 Planear framework/skill de investigacion multiproposito
-- BL-046 Integrar desinstalador del framework (completo o parcial)
 - BL-047 Planear/Integrar TaskManager para programar scripts internos
 - BL-048 Planear/Integrar script de mantenimiento del framework (cada 30 dias)
 - BL-049 Planear/Integrar script de verificacion de jerarquia y overlaps
@@ -27,7 +25,6 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 - BL-052 Integrar marca "FreakingJSON" (ASCII/Metadata/Theme)
 - BL-053 Crear themes de personalizacion por workspaces y agentes
 - BL-054 Planear sistema de plugins para expandir capacidades del framework
-- BL-061 Historico de contexto configurable (online/local)
 
 ## Baja
 

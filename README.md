@@ -192,6 +192,16 @@ Para validar LLMs agrega `--llm`.
   bash scripts/install.sh
   ```
 
+## 🧹 Desinstalacion (Opcional)
+
+Si necesitas remover el framework de forma segura:
+
+```bash
+python scripts/uninstall.py
+```
+
+Guia completa: `docs/uninstall.mdx`
+
 ## ❓ FAQ Basico
 
 - **¿Necesito saber programar?** No. Esta guia esta pensada para principiantes.

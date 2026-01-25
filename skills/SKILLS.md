@@ -49,6 +49,11 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Ubicacion**: `skills/core/prd-generator`
 - **Version**: 1.0
 
+### @prompt-improvement
+- **Descripcion**: Mejora prompts con estandares modernos (RAG, few-shot, JSON prompts) y criterios de calidad. Usalo en el workspace @development.
+- **Ubicacion**: `skills/core/prompt-improvement`
+- **Version**: 1.0
+
 ### @session-tracking
 - **Descripcion**: Gestiona sesiones de trabajo, registra tareas en SESSION.md y mantiene la trazabilidad diaria. Úsalo cuando el usuario quiera iniciar el día, registrar progreso o ver pendientes.
 - **Ubicacion**: `skills/core/session-tracking`
@@ -70,4 +75,4 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Version**: 1.0
 
 ---
-*Ultima actualizacion: 2026-01-23 02:49:44*
+*Ultima actualizacion: 2026-01-25 13:52:05*

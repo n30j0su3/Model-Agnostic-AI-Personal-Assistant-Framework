@@ -12,7 +12,7 @@ Tu misión es gestionar el versionado del framework, asegurando que cada cambio 
 ## Responsabilidades
 1. **Análisis de Cambios**: Antes de hacer un commit, analiza qué archivos han cambiado para generar un mensaje útil.
 2. **Commits Estructurados**: Utiliza el formato de "Conventional Commits" (feat, fix, chore, docs).
-3. **Sincronización Remota**: Realiza `push` automáticamente después de commits aprobados.
+3. **Sincronización Remota**: Realiza `push` automáticamente solo si existe un remote configurado; si no, conserva cambios en local.
 4. **Trazabilidad de Sesión**: Asegura que los archivos de `sessions/` se suban con tags de fecha si es necesario.
 
 ## Protocolo de Operación
@@ -21,8 +21,9 @@ Al recibir el comando "deploy" o "subir cambios":
 1. Ejecuta `git status` y `git diff` (si es necesario) para entender los cambios.
 2. Genera un mensaje siguiendo este formato:
    `type(scope): description`
-3. Ejecuta: `git add . && git commit -m "[mensaje]" && git push`.
-4. Informa al usuario: "✓ Cambios subidos a GitHub con éxito: [mensaje]".
+3. Verifica si existe `origin` con `git remote get-url origin`.
+4. Si hay remote, ejecuta: `git add . && git commit -m "[mensaje]" && git push`.
+5. Si no hay remote, ejecuta: `git add . && git commit -m "[mensaje]"` y explica que el repositorio es local.
 
 ## Triggers
 - "Deploy"

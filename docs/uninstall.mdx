@@ -1,0 +1,44 @@
+# Uninstall
+
+This guide explains how to uninstall the framework safely.
+
+## Quick Start
+
+```bash
+python scripts/uninstall.py
+```
+
+## Modes
+
+1. **Complete**: Removes configuration, user data, and tool caches.
+2. **Config Reset**: Removes only `.context/` and `sessions/`.
+3. **System Cleanup**: Removes only tool caches (`.opencode/`, `.claude/`, `.gemini/`, `.codex/`).
+
+The uninstall script never removes Python or Node.js. For a full removal, delete the project folder after running the script.
+
+## Examples
+
+```bash
+# Complete uninstall (interactive)
+python scripts/uninstall.py
+
+# Config reset (non-interactive)
+python scripts/uninstall.py --mode reset --yes
+
+# System cleanup only
+python scripts/uninstall.py --mode system
+
+# Complete + remove .git metadata
+python scripts/uninstall.py --mode complete --remove-git
+
+# Dry run (no changes)
+python scripts/uninstall.py --mode complete --dry-run
+```
+
+## Optional: Remove OpenCode
+
+The script can uninstall OpenCode if you want:
+
+```bash
+python scripts/uninstall.py --remove-opencode
+```
