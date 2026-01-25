@@ -65,6 +65,14 @@ npm install -g @anthropic-ai/claude-code
 - **Explore Workspaces**: Navigate to `workspaces/` to see how contexts are separated.
 - **Check Progress**: Look at `sessions/SESSION.md` to track your work.
 
+## Troubleshooting (Windows)
+
+If PowerShell blocks `opencode` with a policy error, run:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
+```
+
 ## Feature Sessions
 
 When you want to plan or implement backlog features, activate the Feature Architect agent:

@@ -74,6 +74,38 @@ def check_command(command):
     return shutil.which(command) is not None
 
 
+def check_powershell_execution_policy():
+    if os.name != "nt":
+        return
+    try:
+        result = subprocess.run(
+            ["powershell", "-NoProfile", "-Command", "Get-ExecutionPolicy"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+    except Exception:
+        return
+    policy = (result.stdout or "").strip()
+    if not policy:
+        return
+    normalized = policy.strip().lower()
+    if normalized in {"restricted", "undefined"}:
+        print(
+            t(
+                "install.ps.policy.warn",
+                "[WARN] PowerShell tiene ExecutionPolicy '{policy}'. Esto puede bloquear opencode.ps1.",
+                policy=policy,
+            )
+        )
+        print(
+            t(
+                "install.ps.policy.fix",
+                "[INFO] Solucion: Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force",
+            )
+        )
+
+
 def run_sync(repo_root):
     sync_script = repo_root / "scripts" / "sync-context.py"
     if not sync_script.exists():
@@ -471,6 +503,7 @@ def main():
     os_name = platform.system()
     print(t("install.system", "[INFO] Sistema detectado: {os}", os=os_name))
     print(t("install.repo", "[INFO] Repo: {path}", path=repo_root))
+    check_powershell_execution_policy()
 
     if not check_python_version():
         sys.exit(1)
