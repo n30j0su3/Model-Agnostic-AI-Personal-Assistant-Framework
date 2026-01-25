@@ -1,4 +1,4 @@
-# Model-Agnostic AI Personal Assistant Framework v1.6.2
+# Model-Agnostic AI Personal Assistant Framework v1.6.3
 
 > "One Framework to rule them all, One Context to find them."
 > "El Conocimiento verdadero trasciende a lo público".
@@ -7,7 +7,7 @@ Este es un Framework user-friendly priorizado para el publico "de a pie", para q
 
 Un framework estandarizado para interactuar con IAs en modo "Personal Assistant", diseñado para la máxima productividad multidisciplinaria con contexto local y sin vendor lock-in.
 
-![Version](https://img.shields.io/badge/version-1.6.2-blue)
+![Version](https://img.shields.io/badge/version-1.6.3-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Agnostic](https://img.shields.io/badge/Model-Agnostic-orange)
 
@@ -49,6 +49,7 @@ Un framework estandarizado para interactuar con IAs en modo "Personal Assistant"
    Si prefieres, puedes ejecutar `python scripts/install.py` manualmente.
    En la primera ejecucion, el instalador pregunta idioma y CLI por defecto.
    Si falta Python o Git, el launcher ofrece instalarlo (winget) o abrir la descarga.
+   Si eliges OpenCode y falta Node.js, el instalador ofrece instalarlo.
 3. **Configurar tu perfil**:
    Edita `.context/MASTER.md` con tus preferencias.
 4. **Sincronizar**:

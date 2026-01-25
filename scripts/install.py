@@ -7,6 +7,7 @@ import re
 import shutil
 import subprocess
 import sys
+import webbrowser
 from pathlib import Path
 
 from i18n import (
@@ -266,9 +267,108 @@ def detect_available_clis():
     return [cmd for cmd in LLM_CLI_COMMANDS if check_command(cmd)]
 
 
+def _open_node_download():
+    link = t("node.manual.link", "Descarga directa: https://nodejs.org/en/download")
+    print(link)
+    try:
+        webbrowser.open("https://nodejs.org/en/download")
+    except Exception:
+        return
+
+
+def ensure_node():
+    if check_command("npm"):
+        return True
+    print(t("node.missing", "[WARN] npm no detectado. Node.js es necesario para instalar OpenCode."))
+
+    os_name = platform.system()
+    if os_name == "Windows":
+        if not check_command("winget"):
+            _open_node_download()
+            return False
+        if not prompt_yes_no(t("node.install.ask", "Deseas instalar Node.js ahora?"), default=True):
+            _open_node_download()
+            return False
+        print(t("node.install.start", "[INFO] Instalando Node.js..."))
+        result = subprocess.run(
+            [
+                "winget",
+                "install",
+                "-e",
+                "--id",
+                "OpenJS.NodeJS.LTS",
+                "--accept-source-agreements",
+                "--accept-package-agreements",
+            ],
+            check=False,
+        )
+        if result.returncode != 0:
+            print(t("node.install.fail", "[WARN] No se pudo instalar Node.js automaticamente."))
+            _open_node_download()
+            return False
+        if check_command("npm"):
+            print(t("node.install.ok", "[OK] Node.js instalado."))
+            return True
+        print(t("node.install.restart", "[INFO] Reinicia la terminal y vuelve a ejecutar el instalador."))
+        return False
+
+    if os_name == "Darwin":
+        if check_command("brew") and prompt_yes_no(
+            t("node.install.ask", "Deseas instalar Node.js ahora?"), default=False
+        ):
+            print(t("node.install.start", "[INFO] Instalando Node.js..."))
+            result = subprocess.run(["brew", "install", "node"], check=False)
+            if result.returncode == 0 and check_command("npm"):
+                print(t("node.install.ok", "[OK] Node.js instalado."))
+                return True
+            print(t("node.install.fail", "[WARN] No se pudo instalar Node.js automaticamente."))
+        print(t("node.manual.brew", "macOS: brew install node"))
+        _open_node_download()
+        return False
+
+    if check_command("apt"):
+        if prompt_yes_no(t("node.install.ask", "Deseas instalar Node.js ahora?"), default=False):
+            print(t("node.install.start", "[INFO] Instalando Node.js..."))
+            result = subprocess.run(["sudo", "apt", "install", "-y", "nodejs", "npm"], check=False)
+            if result.returncode == 0 and check_command("npm"):
+                print(t("node.install.ok", "[OK] Node.js instalado."))
+                return True
+            print(t("node.install.fail", "[WARN] No se pudo instalar Node.js automaticamente."))
+        print(t("node.manual.apt", "Debian/Ubuntu: sudo apt install nodejs npm"))
+        _open_node_download()
+        return False
+
+    if check_command("dnf"):
+        if prompt_yes_no(t("node.install.ask", "Deseas instalar Node.js ahora?"), default=False):
+            print(t("node.install.start", "[INFO] Instalando Node.js..."))
+            result = subprocess.run(["sudo", "dnf", "install", "-y", "nodejs", "npm"], check=False)
+            if result.returncode == 0 and check_command("npm"):
+                print(t("node.install.ok", "[OK] Node.js instalado."))
+                return True
+            print(t("node.install.fail", "[WARN] No se pudo instalar Node.js automaticamente."))
+        print(t("node.manual.dnf", "Fedora/RHEL: sudo dnf install nodejs npm"))
+        _open_node_download()
+        return False
+
+    if check_command("pacman"):
+        if prompt_yes_no(t("node.install.ask", "Deseas instalar Node.js ahora?"), default=False):
+            print(t("node.install.start", "[INFO] Instalando Node.js..."))
+            result = subprocess.run(["sudo", "pacman", "-S", "nodejs", "npm"], check=False)
+            if result.returncode == 0 and check_command("npm"):
+                print(t("node.install.ok", "[OK] Node.js instalado."))
+                return True
+            print(t("node.install.fail", "[WARN] No se pudo instalar Node.js automaticamente."))
+        print(t("node.manual.pacman", "Arch: sudo pacman -S nodejs npm"))
+        _open_node_download()
+        return False
+
+    print(t("node.manual.generic", "Instala Node.js con tu gestor de paquetes."))
+    _open_node_download()
+    return False
+
+
 def install_opencode():
-    if not check_command("npm"):
-        print(t("cli.install.npm", "[WARN] npm no detectado. Instala Node.js para continuar."))
+    if not ensure_node():
         return False
     print(t("cli.install.start", "[INFO] Instalando OpenCode..."))
     result = subprocess.run(["npm", "install", "-g", "@anthropic-ai/opencode"], check=False)

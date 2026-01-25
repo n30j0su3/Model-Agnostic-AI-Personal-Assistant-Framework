@@ -29,10 +29,11 @@ Feature Session: Implementación de mejoras de alta prioridad (Backlog Automatio
 - [x] Dashboard actualizado (Homelab + nuevas features).
 - [x] Launcher Windows con instalacion guiada de dependencias.
 - [x] Launcher Windows robusto (deteccion Python real + no cierre).
+- [x] Instalador con bootstrap Node.js para OpenCode.
 
 ## End of Day Summary
 
-- Completadas: 13 tareas.
+- Completadas: 14 tareas.
 - Cambios clave: backlog actualizado, flujo de seccion rapida documentado, auto-actualizador, setup inteligente de repositorio, launcher con auto-instalacion, i18n ES/EN, selector CLI, init robusto, ajustes de onboarding, dashboard y bootstrap de dependencias.
 - Nota: Se amplio BL-052 con contexto de marca FreakingJSON.
 
