@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import datetime
+import json
 import os
 import platform
 import re
@@ -104,6 +105,38 @@ def check_powershell_execution_policy():
                 "[INFO] Solucion: Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force",
             )
         )
+
+
+def get_npm_prefix():
+    cmd = ["npm", "config", "get", "prefix"]
+    if os.name == "nt":
+        npm_cmd = shutil.which("npm") or shutil.which("npm.cmd")
+        if npm_cmd:
+            cmd[0] = npm_cmd
+            result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+        else:
+            result = subprocess.run("npm config get prefix", shell=True, capture_output=True, text=True, check=False)
+    else:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+    if result.returncode != 0:
+        return ""
+    return (result.stdout or "").strip()
+
+
+def save_env_vars(repo_root, npm_prefix=""):
+    env_path = Path(repo_root) / ".context" / "env_vars.json"
+    data = {}
+    if env_path.exists():
+        try:
+            data = json.loads(env_path.read_text(encoding="utf-8"))
+        except Exception:
+            data = {}
+    if npm_prefix:
+        data["npm_prefix"] = npm_prefix
+    if not data:
+        return
+    env_path.parent.mkdir(parents=True, exist_ok=True)
+    env_path.write_text(json.dumps(data, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 
 
 def run_sync(repo_root):
@@ -415,6 +448,9 @@ def install_opencode():
         result = subprocess.run(cmd, check=False)
     if result.returncode == 0:
         print(t("cli.install.ok", "[OK] OpenCode instalado."))
+        prefix = get_npm_prefix()
+        if prefix:
+            save_env_vars(Path(__file__).resolve().parents[1], npm_prefix=prefix)
         return True
     print(t("cli.install.fail", "[WARN] No se pudo instalar OpenCode. Instala manualmente."))
     return False

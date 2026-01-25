@@ -39,6 +39,7 @@ if not exist ".context\profile.md" (
 )
 
 echo [INFO] Verificando herramientas de IA...
+call :SetNpmGlobalPath
 call :EnsureOpenCode
 if %errorlevel% neq 0 exit /b %errorlevel%
 
@@ -72,8 +73,21 @@ exit /b 0
 
 :DetectOpenCode
 set "HAS_OPENCODE=0"
-opencode --version >nul 2>nul
+where opencode >nul 2>nul
 if %errorlevel%==0 set "HAS_OPENCODE=1"
+exit /b 0
+
+:SetNpmGlobalPath
+set "NPM_PREFIX="
+if defined PY_CMD (
+  for /f "usebackq delims=" %%P in (`"%PY_CMD%" -c "import json;from pathlib import Path; p=Path('.context')/'env_vars.json'; data=json.load(p.open()) if p.exists() else {}; print(data.get('npm_prefix',''))"`) do set "NPM_PREFIX=%%P"
+)
+if not defined NPM_PREFIX (
+  for /f "delims=" %%P in ('npm config get prefix 2^>nul') do set "NPM_PREFIX=%%P"
+)
+if defined NPM_PREFIX (
+  set "PATH=%NPM_PREFIX%;%NPM_PREFIX%\node_modules\.bin;%PATH%"
+)
 exit /b 0
 
 :CheckWinget
@@ -127,6 +141,7 @@ pause
 exit /b 1
 
 :EnsureOpenCode
+call :SetNpmGlobalPath
 call :DetectOpenCode
 if "%HAS_OPENCODE%"=="1" exit /b 0
 echo.
@@ -159,8 +174,10 @@ goto :ContinueNoOpenCode
 :InstallOpenCode
 call :EnsureNode
 if %errorlevel% neq 0 exit /b %errorlevel%
+call :SetNpmGlobalPath
 npm install -g opencode-ai
 if %errorlevel% neq 0 goto :OfferOpenCodeManual
+call :SetNpmGlobalPath
 call :DetectOpenCode
 if "%HAS_OPENCODE%"=="1" (
   echo.
