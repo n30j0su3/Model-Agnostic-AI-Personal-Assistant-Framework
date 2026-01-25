@@ -17,5 +17,12 @@ Logo-freakinjson-blanco-media.png
 docs/backlog.local.md
 .context/profile.md
 .context/models.md
+.context/MASTER.md
+.context/opencode.md
+.context/claude.md
+.context/gemini.md
+.context/agents.md
+.context/env_vars.json
 .context/versions/
 .context/backups/
+opencode.jsonc

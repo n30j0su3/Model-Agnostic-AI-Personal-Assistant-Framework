@@ -139,6 +139,29 @@ def save_env_vars(repo_root, npm_prefix=""):
     env_path.write_text(json.dumps(data, ensure_ascii=True, indent=2) + "\n", encoding="utf-8")
 
 
+def ensure_master_context(repo_root):
+    master_path = Path(repo_root) / ".context" / "MASTER.md"
+    if master_path.exists():
+        return
+    template_path = Path(repo_root) / ".context" / "MASTER.template.md"
+    if template_path.exists():
+        content = template_path.read_text(encoding="utf-8")
+    else:
+        content = "# Personal Assistant - Master Context\n"
+    master_path.parent.mkdir(parents=True, exist_ok=True)
+    master_path.write_text(content.rstrip() + "\n", encoding="utf-8")
+
+
+def ensure_opencode_config(repo_root):
+    config_path = Path(repo_root) / "opencode.jsonc"
+    if config_path.exists():
+        return
+    template_path = Path(repo_root) / "opencode.jsonc.template"
+    if template_path.exists():
+        content = template_path.read_text(encoding="utf-8")
+        config_path.write_text(content.rstrip() + "\n", encoding="utf-8")
+
+
 def run_sync(repo_root):
     sync_script = repo_root / "scripts" / "sync-context.py"
     if not sync_script.exists():
@@ -522,6 +545,9 @@ def main():
     repo_root = Path(__file__).resolve().parents[1]
     translations = load_translations(repo_root)
     profile_path = repo_root / ".context" / "profile.md"
+
+    ensure_master_context(repo_root)
+    ensure_opencode_config(repo_root)
 
     selected_lang = args.lang
     if not selected_lang and not profile_path.exists():

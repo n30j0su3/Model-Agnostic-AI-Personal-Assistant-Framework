@@ -55,6 +55,15 @@ def run_context_validate():
 def get_master_content():
     master_path = CONTEXT_DIR / "MASTER.md"
     if not master_path.exists():
+        template_path = CONTEXT_DIR / "MASTER.template.md"
+        if template_path.exists():
+            logging.warning("MASTER.md no encontrado. Usando MASTER.template.md.")
+            content = template_path.read_text(encoding='utf-8')
+            try:
+                master_path.write_text(content, encoding='utf-8')
+            except Exception:
+                pass
+            return content
         logging.error(f"MASTER.md no encontrado en {master_path}")
         return None
     return master_path.read_text(encoding='utf-8')
