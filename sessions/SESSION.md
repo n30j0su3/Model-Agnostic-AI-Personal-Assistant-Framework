@@ -1,21 +1,22 @@
 # Current Session
 
-**Date**: 2026-01-24
-**Started**: 2026-01-24 09:00
-**Status**: Closed
+**Date**: 2026-01-26
+**Started**: 2026-01-26 09:00
+**Status**: Open
 
 ## Today's Focus
-Feature Session: Implementación de mejoras de alta prioridad (Backlog Automation, Core Skills).
+Feature Session: agregar items al backlog y revisar prioridades.
 
 ## Tasks
 
 ### Pending
-- [ ] BL-060 CORE SKILL de evaluacion/decision de instrucciones
+
 
 ### In Progress
 
 ### Completed Today
 
+- [x] BL-060 Decision Engine local-first (skill y router base).
 - [x] BL-043 Seccion rapida de caracteristicas (documentada y aplicada al backlog).
 - [x] BL-059 Actualizacion automatica del framework.
 - [x] BL-063 Setup inteligente de repositorio (GitHub/local/sandbox).
@@ -33,19 +34,9 @@ Feature Session: Implementación de mejoras de alta prioridad (Backlog Automatio
 
 ## End of Day Summary
 
-- Completadas: 14 tareas.
-- Cambios clave: backlog actualizado, flujo de seccion rapida documentado, auto-actualizador, setup inteligente de repositorio, launcher con auto-instalacion, i18n ES/EN, selector CLI, init robusto, ajustes de onboarding, dashboard y bootstrap de dependencias.
-- Nota: Se amplio BL-052 con contexto de marca FreakingJSON.
-
 ## Tomorrow's Preview
 
-- [ ] Definir siguiente bloque de caracteristicas segun backlog.
-
 ## Notes & Decisions
-
-- Decision: La “Seccion Rapida de Caracteristicas” incluye revision de backlog, uso del framework, documentacion del proceso y verificacion de privacidad antes de despliegues a GitHub.
-- Nota: Se creo `docs/backlog.view.md` como vista filtrada por prioridad.
-- Nota: Se documento el flujo en `docs/workflow/feature-sections.mdx`.
 
 ## Reminders
 

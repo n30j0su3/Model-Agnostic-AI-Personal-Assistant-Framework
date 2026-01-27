@@ -341,6 +341,40 @@ def menu_backlog():
     pause()
 
 
+def menu_decision_engine():
+    print("\n🧭 Decision Engine\n")
+    script_path = REPO_ROOT / "skills" / "core" / "decision-engine" / "scripts" / "route.py"
+    if not script_path.exists():
+        print("[ERROR] No se encontro skills/core/decision-engine/scripts/route.py")
+        pause()
+        return
+
+    print("  1. Evaluar instruccion")
+    print("  2. Listar reglas locales")
+    print("  3. Listar agentes y keywords")
+    print("  0. Volver")
+    choice = prompt_choice("\nSelecciona: ", {"0", "1", "2", "3"})
+    if choice == "0":
+        return
+
+    if choice == "1":
+        text = input("\nInstruccion a evaluar: ").strip()
+        if not text:
+            print("[WARN] No se proporciono texto.")
+            pause()
+            return
+        args = [sys.executable, str(script_path), text, "--explain"]
+        subprocess.run(args, cwd=REPO_ROOT)
+    elif choice == "2":
+        args = [sys.executable, str(script_path), "--list-rules"]
+        subprocess.run(args, cwd=REPO_ROOT)
+    elif choice == "3":
+        args = [sys.executable, str(script_path), "--list-agents"]
+        subprocess.run(args, cwd=REPO_ROOT)
+
+    pause()
+
+
 def menu_update():
     update_script = REPO_ROOT / "scripts" / "update.py"
     if not update_script.exists():
@@ -492,15 +526,16 @@ def main_menu(feature_mode=False):
         print("  5. 🚀 " + t("menu.option.launch", "Iniciar Sesion AI"))
         print("  6. 📁 " + t("menu.option.context", "Gestion de Contexto"))
         print("  7. 🔄 " + t("menu.option.update", "Buscar actualizaciones"))
+        print("  8. 🧭 " + t("menu.option.decision", "Decision Engine"))
         if feature_mode:
-            print("  8. 📋 " + t("menu.option.backlog", "Ver Backlog"))
+            print("  9. 📋 " + t("menu.option.backlog", "Ver Backlog"))
         print("  0. 🚪 " + t("menu.option.exit", "Salir"))
 
-        valid_choices = {"0", "1", "2", "3", "4", "5", "6", "7"}
+        valid_choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8"}
         if feature_mode:
-            valid_choices.add("8")
+            valid_choices.add("9")
 
-        prompt_range = "0-8" if feature_mode else "0-7"
+        prompt_range = "0-9" if feature_mode else "0-8"
         choice = prompt_choice(
             t("menu.prompt", "\nSelecciona una opcion [{range}]: ", range=prompt_range),
             valid_choices,
@@ -521,7 +556,9 @@ def main_menu(feature_mode=False):
             menu_context_management()
         elif choice == "7":
             menu_update()
-        elif choice == "8" and feature_mode:
+        elif choice == "8":
+            menu_decision_engine()
+        elif choice == "9" and feature_mode:
             menu_backlog()
 
 

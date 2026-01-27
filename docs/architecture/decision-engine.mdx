@@ -1,0 +1,107 @@
+# Decision Engine (BL-060)
+
+## Objetivo
+Definir el plan tecnico para la **CORE SKILL de evaluacion/decision de instrucciones (local-first)**.
+Este modulo decide si una solicitud se resuelve localmente, se delega a un agente, o requiere LLM remoto.
+
+## Requisitos clave
+- Local-first: usar herramientas locales cuando sea posible.
+- Delegacion inteligente: considerar enviar trabajo a agentes para optimizar contexto y uso de quota.
+- Fallback seguro: usar LLM remoto solo cuando sea necesario.
+- Trazabilidad: registrar decisiones y resultados.
+
+## Enfoques evaluados
+
+### Engram (DeepSeek)
+Engram propone memoria n-gram con lookup deterministico. Es potente, pero requiere integrar o entrenar un modelo propio.
+
+**Conclusiones:**
+- Apto solo si el framework incorpora entrenamiento/inferencia propia.
+- Si no, es mejor una solucion hibrida que emule un lookup rapido local.
+
+### Enfoque recomendado (hibrido local-first)
+1. **Reglas deterministicas** (regex/politicas) para tareas simples.
+2. **Memoria local** (FTS/indice vectorial) para recuperar contexto relevante.
+3. **Router de delegacion** con scoring de agentes (capacidad, riesgo, costo).
+4. **Fallback remoto** con gating de seguridad.
+
+## Plan unificado de implementacion
+
+### Principios
+- Priorizar ejecucion local y delegacion inteligente antes del LLM remoto.
+- Usar reglas deterministicas como primer filtro.
+- Aplicar politicas de riesgo y seguridad como gate.
+- Registrar cada decision para auditoria y mejora continua.
+
+### MVP (Fase 1)
+1. **Motor de reglas locales** (regex + politicas simples).
+2. **Delegacion explicita** por menciones de agente.
+3. **Fallback remoto** cuando no hay match local ni delegacion.
+4. **Logging minimo** (entrada, decision, ruta, resultado).
+
+### Fase 2
+1. **Delegacion implicita** por intencion (score por keywords).
+2. **Registro de capacidades de agentes** (capability tags).
+3. **Politicas de riesgo** (bloqueo/confirmacion en acciones sensibles).
+
+### Fase 3
+1. **Memoria local** (FTS/indice vectorial) para contexto relevante.
+2. **Retroalimentacion** (quality score por ruta y agente).
+3. **Optimizacion de costo/latencia** con reglas dinamicas.
+
+## Arquitectura propuesta
+```
+User Input
+  -> Decision Engine
+     -> Local Execution (tools)
+     -> Delegate to Agent
+     -> Remote LLM (fallback)
+```
+
+### Estructura sugerida
+```
+skills/core/decision-engine/
+├── definition.json
+├── router.py (o router.js)
+├── local-rules.json
+└── agent-routing.json
+```
+
+## Flujo logico (resumen)
+1. Sanitizar entrada.
+2. Evaluar reglas locales (regex/politicas).
+3. Delegacion explicita (menciones @agent).
+4. Delegacion implicita (intencion/score).
+5. Fallback a LLM remoto.
+
+## Criterios de delegacion
+- **Match explicito**: mencion directa del agente.
+- **Match implicito**: score de intencion sobre umbral.
+- **Capacidad**: el agente declara soporte para la tarea.
+- **Riesgo**: tareas sensibles requieren confirmacion del usuario.
+
+## Integracion con el framework
+- Interceptar el input antes del loop principal del LLM.
+- Si la decision es local, ejecutar tools sin cargar contexto remoto.
+- Si se delega, cargar contexto del agente objetivo.
+- Si es remoto, cargar contexto base y continuar.
+
+### Integracion inicial (actual)
+- `scripts/pa.py` incluye menu "Decision Engine" para evaluar instrucciones y listar reglas/agentes.
+
+## Criterios de exito
+- Resuelve tareas simples sin LLM remoto.
+- Delegacion correcta y trazable.
+- No rompe politicas de seguridad ni privacidad.
+- Registra decisiones para auditoria y mejora continua.
+
+## Riesgos y mitigaciones
+- **Ambiguedad**: pedir clarificacion antes de usar LLM remoto.
+- **Over-delegation**: limitar delegacion por riesgo/capacidad.
+- **Deuda tecnica**: mantener reglas y rutas en archivos declarativos.
+
+## Referencias
+- https://github.com/deepseek-ai/Engram
+- https://github.com/deepseek-ai/Engram/blob/main/Engram_paper.pdf
+- https://localfirstweb.dev/
+- https://www.inkandswitch.com/local-first/

@@ -1,0 +1,11 @@
+{
+  "@feature-architect": ["feature", "arquitectura", "diseno", "plan", "roadmap", "scope", "backlog"],
+  "@session-manager": ["sesion", "session", "resumen", "cierre", "pendientes", "daily", "today"],
+  "@github-deployer": ["deploy", "push", "commit", "github", "sync", "merge"],
+  "@context-sync": ["contexto", "sync", "context", "snapshot", "versionado", "backup"],
+  "@task-management": ["tareas", "task", "prioridad", "backlog", "planificacion"],
+  "@prompt-improvement": ["prompt", "mejora prompt", "refina prompt", "json prompt"],
+  "@paper-summarizer": ["paper", "articulo", "resumen", "summary", "investigacion"],
+  "@code-reviewer": ["review", "code review", "refactor", "lint", "clean code"],
+  "@content-optimizer": ["seo", "contenido", "copy", "redaccion", "blog", "post"]
+}

@@ -2,15 +2,24 @@
 
 Vista filtrada (sin Hecho), ordenada por prioridad.
 
+## CORE VITALS
+
+- BL-068 Agent @feature-architect para Feature Sessions
+- BL-069 CORE-LOGIC: validar overlaps/conflictos al integrar skills/dependencias
+- BL-071 Evaluar skills session-logs/context-files/multi-tool para session-manager
+- BL-072 Evaluar si session-tracking debe integrarse en session-manager
+- BL-073 Evaluar skills git/github para mejorar github-deployer
+
 ## Alta
 
 - BL-045 Planear framework/skill de investigacion multiproposito
-- BL-047 Planear/Integrar TaskManager para programar scripts internos
-- BL-048 Planear/Integrar script de mantenimiento del framework (cada 30 dias)
-- BL-049 Planear/Integrar script de verificacion de jerarquia y overlaps
-- BL-050 Documentar tutoriales para extraer API keys principales
-- BL-051 Mantener dashboard actualizado con novedades y enlaces clave
-- BL-060 CORE SKILL de evaluacion/decision de instrucciones (local-first)
+- BL-047 TaskManager para programar mantenimiento y automatizaciones
+- BL-050 Guia de obtencion de API keys (OpenAI/Gemini/Claude/OpenRouter)
+- BL-051 Mantener `dashboard.html` actualizado
+- BL-067 Auditoria UX end-to-end (instaladores, mensajes y docs)
+- BL-070 Evaluar skills ralph/prd para reforzar agente feature-architect
+- BL-074 Implementar core-skill de data visualization (Seaborn/Matplotlib)
+- BL-075 Implementar core-skill "council of the wise"
 
 ## Media
 
@@ -25,12 +34,13 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 - BL-052 Integrar marca "FreakingJSON" (ASCII/Metadata/Theme)
 - BL-053 Crear themes de personalizacion por workspaces y agentes
 - BL-054 Planear sistema de plugins para expandir capacidades del framework
+- BL-076 Integrar summarize + transcript-to-content (sin referencia a clawdbot)
+- BL-078 Evaluar/Integrar skill/agent Google Workspace (No Cloud Console)
 
 ## Baja
 
 - BL-015 Documentacion integrada estilo Mintlify
 - BL-016 Estructura de carpetas estable y extensible
-- BL-017 Scripts de automatizacion para sync y normalizacion
 - BL-018 Compatibilidad multiplataforma
 - BL-019 Diseno de interfaz soportado por skill UI/UX
 - BL-023 Evaluar skill docker-claude-skill
@@ -45,4 +55,7 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 - BL-055 Planear skills de video editing/creacion opensource
 - BL-056 Planear skill de automatizacion de contenido multiplataforma
 - BL-057 Planear skill/framework para romhacks multiplataforma
-- BL-058 Integrar tips rapidos/recomendados de uso del framework
+- BL-079 Instalador: ofrecer instalar CLI elegido o guiar instalacion (pa.bat)
+- BL-080 Integrar buenas practicas de uso Gemini (docs)
+- BL-081 Integrar referencias de cheat-sheet/troubleshooting y tips rapidos
+- BL-082 Integrar gestor/banco de skills instalables

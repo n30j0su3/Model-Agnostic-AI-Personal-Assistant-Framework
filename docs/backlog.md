@@ -1,6 +1,6 @@
 # Backlog del Framework
 
-Ultima actualizacion: 2026-01-25
+Ultima actualizacion: 2026-01-26
 
 ## Versionado
 
@@ -47,6 +47,10 @@ Ultima actualizacion: 2026-01-25
 - 2026-01-25: Se implemento BL-044 (skill prompt-improvement con referencias y update programable).
 - 2026-01-25: Se implemento BL-046 (desinstalador seguro con modos completo/parcial).
 - 2026-01-25: Se implemento BL-061 (historico configurable local/online con soporte a repos locales).
+- 2026-01-26: Se agregaron items BL-069 a BL-082 (core-logic, evaluaciones y nuevas skills).
+- 2026-01-26: Se agrego prioridad CORE VITALS y se reasignaron items esenciales.
+- 2026-01-26: Limpieza de backlog (fusiones, dependencias y renombres).
+- 2026-01-26: Se implemento BL-060 (decision engine local-first).
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
@@ -62,11 +66,11 @@ Ultima actualizacion: 2026-01-25
 | BL-010 | Workspaces multidisciplinarios aislados | Media | Pendiente | Workspaces claramente separados por disciplina y documentados |
 | BL-011 | Sistema de agentes especializados con roles claros | Media | Pendiente | Catalogo de agentes con responsabilidades y uso recomendado |
 | BL-012 | Skills modulares para tareas recurrentes | Media | Pendiente | Libreria de skills con index y versionado actualizado |
-| BL-013 | Trazabilidad diaria automatica | Media | Pendiente | Sesiones diarias registradas y accesibles desde `sessions/` |
-| BL-014 | Pipeline de sincronizacion coherente | Media | Pendiente | Script de sync mantiene coherencia entre herramientas |
+| BL-013 | Trazabilidad diaria automatica | Media | Pendiente | Sesiones diarias registradas y accesibles desde `sessions/`. Dependencias: BL-014 |
+| BL-014 | Pipeline de sincronizacion coherente | Media | Pendiente | Script de sync mantiene coherencia entre herramientas e incluye automatizaciones en `scripts/` |
 | BL-015 | Documentacion integrada estilo Mintlify | Baja | Pendiente | Docs consistentes y navegables en `docs/` |
 | BL-016 | Estructura de carpetas estable y extensible | Baja | Pendiente | Convenciones de nombres y ubicaciones estandarizadas |
-| BL-017 | Scripts de automatizacion para sync y normalizacion | Baja | Pendiente | Scripts documentados y reutilizables en `scripts/` |
+| BL-017 | Scripts de automatizacion para sync y normalizacion | N/A | N/A | Unificado con BL-014 |
 | BL-018 | Compatibilidad multiplataforma | Baja | Pendiente | Rutas y comandos probados en Windows/macOS/Linux |
 | BL-019 | Diseno de interfaz soportado por skill UI/UX | Baja | Pendiente | Skill UI/UX disponible y referenciado en docs |
 | BL-020 | Revisar jerarquia de scopes (agents/skills/workspaces) | Media | Hecho | Backlog borrador local con sugerencias en `docs/backlog.local.md` |
@@ -96,20 +100,20 @@ Ultima actualizacion: 2026-01-25
 | BL-044 | Integrar skill de prompt-improvement con estandares modernos | Alta | Hecho | Skill con buenas practicas (CoT, RAG, few-shot, JSON prompts), referencias confiables y actualizacion programable por usuario |
 | BL-045 | Planear framework/skill de investigacion multiproposito | Alta | Pendiente | Skill global con modos de investigacion (sencilla, deep-research, profesional) y flujo guiado opcional |
 | BL-046 | Integrar desinstalador del framework (completo o parcial) | Alta | Hecho | Proceso seguro de desinstalacion documentado y con opcion parcial |
-| BL-047 | Planear/Integrar TaskManager para programar scripts internos | Alta | Pendiente | Sistema para planear/personalizar ejecucion de scripts de mantenimiento y automatizaciones |
-| BL-048 | Planear/Integrar script de mantenimiento del framework (cada 30 dias) | Alta | Pendiente | Mantenimiento basado en estandares 2026 con ejecucion programada y configurable |
-| BL-049 | Planear/Integrar script de verificacion de jerarquia y overlaps | Alta | Pendiente | Verifica estructura de directorios y solapamientos de skills/agents; integra ejecucion periodica |
-| BL-050 | Documentar tutoriales para extraer API keys principales | Alta | Pendiente | Docs para OpenAI, Gemini, Claude, OpenRouter y similares con pasos claros |
-| BL-051 | Mantener dashboard actualizado con novedades y enlaces clave | Alta | Pendiente | `dashboard.html` siempre actualizado, con enlaces internos/externos y narrativa completa |
+| BL-047 | TaskManager para programar mantenimiento y automatizaciones | Alta | Pendiente | Sistema para planear/personalizar ejecucion de scripts de mantenimiento y automatizaciones, incluye job cada 30 dias |
+| BL-048 | Planear/Integrar script de mantenimiento del framework (cada 30 dias) | N/A | N/A | Unificado con BL-047 |
+| BL-049 | Planear/Integrar script de verificacion de jerarquia y overlaps | N/A | N/A | Unificado con BL-069 |
+| BL-050 | Guia de obtencion de API keys (OpenAI/Gemini/Claude/OpenRouter) | Alta | Pendiente | Docs para OpenAI, Gemini, Claude, OpenRouter y similares con pasos claros |
+| BL-051 | Mantener `dashboard.html` actualizado | Alta | Pendiente | `dashboard.html` siempre actualizado, con enlaces internos/externos y narrativa completa. Insumos: BL-043, BL-040 |
 | BL-052 | Integrar marca "FreakingJSON" (ASCII/Metadata/Theme) | Media | Pendiente | Integrar "FreakingJSON" en instaladores (ASCII alta compatibilidad), docs y metadatos por defecto. Usar estandares opensource actuales para colores/personalizacion user-friendly |
-| BL-053 | Crear themes de personalizacion por workspaces y agentes | Media | Pendiente | Temas seleccionables con buenas practicas y guia de uso |
+| BL-053 | Crear themes de personalizacion por workspaces y agentes | Media | Pendiente | Temas seleccionables con buenas practicas y guia de uso. Dependencias: BL-052 |
 | BL-054 | Planear sistema de plugins para expandir capacidades del framework | Media | Pendiente | Arquitectura de plugins basada en estandares opensource actualizados |
 | BL-055 | Planear skills de video editing/creacion opensource | Baja | Pendiente | Roadmap de skills con herramientas como FFmpeg y NCA-Toolkit |
 | BL-056 | Planear skill de automatizacion de contenido multiplataforma | Baja | Pendiente | Automatizacion con noticias, videos, transcripciones, TTS, imagenes y APIs |
 | BL-057 | Planear skill/framework para romhacks multiplataforma | Baja | Pendiente | Flujo de edicion, parcheo y build con recursos opensource y docs publicas |
-| BL-058 | Integrar tips rapidos/recomendados de uso del framework | Baja | Pendiente | Documentacion incluye seccion de tips rapidos y buenas practicas |
+| BL-058 | Integrar tips rapidos/recomendados de uso del framework | N/A | N/A | Unificado con BL-081 |
 | BL-059 | Actualizacion automatica del framework (configurable/programable) | Alta | Hecho | Script de actualizacion con fallback sin Git y opcion en pa.py |
-| BL-060 | CORE SKILL de evaluacion/decision de instrucciones (local-first) | Alta | Pendiente | Framework evalua localmente si puede resolver una instruccion antes de usar IA remota para optimizar tokens |
+| BL-060 | CORE SKILL de evaluacion/decision de instrucciones (local-first) | CORE VITALS | Hecho | Skill creada en `skills/core/decision-engine` con router local-first, reglas y delegacion. Plan tecnico en `docs/architecture/decision-engine.mdx` |
 | BL-061 | Historico de contexto configurable (online/local) | Media | Hecho | Usuario puede elegir entre sincronizacion online (GitHub) o local para historicos y contexto, reduciendo barreras de entrada |
 | BL-062 | Unificado con BL-050 | N/A | N/A | La tarea de documentar tutoriales de API Keys se fusiona con el item existente BL-050 |
 | BL-063 | Setup inteligente de repositorio (GitHub/local/sandbox) | Alta | Hecho | Flujo interactivo en el instalador con cascada gh -> PyGithub -> API nativa |
@@ -117,4 +121,18 @@ Ultima actualizacion: 2026-01-25
 | BL-065 | Seleccion de CLI por defecto + asistencia de instalacion | Alta | Hecho | Instalador detecta CLIs, permite elegir default y ofrece instalar OpenCode |
 | BL-066 | Inicializacion robusta de contexto IA | Alta | Hecho | .cursorrules y AI_INSTRUCTIONS.md apuntan a .context/ y launcher imprime prompt magico |
 | BL-067 | Auditoria UX end-to-end (instaladores, mensajes y docs) | Alta | Pendiente | Experiencia guiada, clara y amigable para usuarios no tecnicos en instalacion, actualizacion y uso inicial |
-| BL-068 | Agent @feature-architect para Feature Sessions | Alta | Pendiente | Agent creado con bootstrap, clarificacion, evaluacion, ejecucion y herramienta de backlog compatible |
+| BL-068 | Agent @feature-architect para Feature Sessions | CORE VITALS | Pendiente | Agent creado con bootstrap, clarificacion, evaluacion, ejecucion y herramienta de backlog compatible |
+| BL-069 | CORE-LOGIC: validar overlaps/conflictos al integrar skills/dependencias | CORE VITALS | Pendiente | Feature-architect verifica rutas y conflictos funcionales antes de integrar una nueva feature. Incluye verificacion periodica (script) y dependencias: BL-068 |
+| BL-070 | Evaluar skills ralph/prd para reforzar agente feature-architect | Alta | Pendiente | Comparativa e integracion solo si mejora robustez segun estandares actuales. Dependencias: BL-068 |
+| BL-071 | Evaluar skills session-logs/context-files/multi-tool para session-manager | CORE VITALS | Pendiente | Integracion si aporta mejoras verificables y compatibles. Dependencias: BL-060 |
+| BL-072 | Evaluar si session-tracking debe integrarse en session-manager | CORE VITALS | Pendiente | Decision documentada y criterio alineado a la filosofia del framework. Dependencias: BL-060 |
+| BL-073 | Evaluar skills git/github para mejorar github-deployer | CORE VITALS | Pendiente | Integracion si aporta mejoras verificables y compatibles. Dependencias: BL-060 |
+| BL-074 | Implementar core-skill de data visualization (Seaborn/Matplotlib) | Alta | Pendiente | Skill documentada y alineada a estandares opensource actuales |
+| BL-075 | Implementar core-skill "council of the wise" | Alta | Pendiente | Skill integrada desde fuente indicada y documentada |
+| BL-076 | Integrar summarize + transcript-to-content (sin referencia a clawdbot) | Media | Pendiente | Skills integradas sin referencia directa a clawdbot en docs, incluye transcripcion de contenido |
+| BL-077 | Implementar core-skill de transcripcion de contenido | N/A | N/A | Unificado con BL-076 |
+| BL-078 | Evaluar/Integrar skill/agent Google Workspace (No Cloud Console) | Media | Pendiente | Opcion para Gmail/Calendar/Drive/Docs/Sheets documentada |
+| BL-079 | Instalador: ofrecer instalar CLI elegido o guiar instalacion (pa.bat) | Baja | Pendiente | Opcion en instalador con links internos/externos |
+| BL-080 | Integrar buenas practicas de uso Gemini (docs) | Baja | Pendiente | Guia basada en la doc indicada y adaptada al framework. Dependencias: BL-050 |
+| BL-081 | Integrar referencias de cheat-sheet/troubleshooting y tips rapidos | Baja | Pendiente | Docs y dashboard incluyen seccion de tips rapidos y referencias relevantes |
+| BL-082 | Integrar gestor/banco de skills instalables | Baja | Pendiente | Sistema para buscar/instalar skills sin conflictos ni overlaps |

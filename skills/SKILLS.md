@@ -14,6 +14,11 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Ubicacion**: `skills/core/content-optimizer`
 - **Version**: 1.0
 
+### @decision-engine
+- **Descripcion**: Evalua instrucciones con enfoque local-first y decide entre ejecucion local, delegacion a agentes o uso de LLM remoto. Usalo para optimizar contexto, cuota y resultados.
+- **Ubicacion**: `skills/core/decision-engine`
+- **Version**: 1.0
+
 ### @docx
 - **Descripcion**: Comprehensive document creation, editing, and analysis with support for tracked changes, formatting preservation, and text extraction. Use when working with Word documents (.docx).
 - **Ubicacion**: `skills/core/docx`
@@ -75,4 +80,4 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Version**: 1.0
 
 ---
-*Ultima actualizacion: 2026-01-25 13:52:05*
+*Ultima actualizacion: 2026-01-26 21:35:08*
