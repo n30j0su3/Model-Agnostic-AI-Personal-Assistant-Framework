@@ -27,6 +27,11 @@
 - **Estado**: OPERATIVO.
 - **Ubicación**: `agents/core/feature-architect/`
 
+### @conflict-guard
+- **Propósito**: Detecta colisiones y solapamientos técnicos antes de integrar features o skills.
+- **Estado**: OPERATIVO.
+- **Ubicación**: `agents/core/conflict-guard/`
+
 ## Workspace Agents
 *Agentes especializados por área (se activan según el workspace activo).*
 
