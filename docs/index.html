@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PA Framework | Cockpit</title>
+
+    <!-- Offline assets (local-first) -->
+    <script src="lib/tailwind.js"></script>
+    <script src="lib/lucide.min.js"></script>
+    <script src="lib/alpine.min.js" defer></script>
+    <script src="lib/marked.min.js"></script>
+    <script src="docs_manifest.js"></script>
+    <script src="status.js"></script>
+
+    <style>
+        body { font-family: "Segoe UI", "Segoe UI Variable", "Tahoma", "Verdana", sans-serif; background-color: #0f172a; color: #f8fafc; }
+        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        [x-cloak] { display: none !important; }
+        pre, code { font-family: "Cascadia Mono", "Consolas", "Menlo", monospace; }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden" x-data="cockpitData()" x-init="init()">
+
+    <!-- Sidebar -->
+    <nav class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
+        <!-- Header -->
+        <div class="p-6 border-b border-slate-800">
+            <h1 class="font-bold text-xl tracking-tight text-white flex items-center gap-2">
+                <i data-lucide="command" class="text-emerald-400"></i>
+                Cockpit
+            </h1>
+            <p class="text-xs text-slate-500 mt-1 font-mono" x-text="frameworkVersion"></p>
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="flex-1 overflow-y-auto py-4 space-y-1">
+            <button @click="currentTab = 'home'"
+                    :class="currentTab === 'home' ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-800 hover:text-white'"
+                    class="w-full text-left px-6 py-3 flex items-center gap-3 transition-all">
+                <i data-lucide="home" size="18"></i>
+                <span>Inicio</span>
+            </button>
+
+            <button @click="currentTab = 'docs'"
+                    :class="currentTab === 'docs' ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-800 hover:text-white'"
+                    class="w-full text-left px-6 py-3 flex items-center gap-3 transition-all">
+                <i data-lucide="book" size="18"></i>
+                <span>Documentacion</span>
+            </button>
+
+            <button @click="currentTab = 'wizard'"
+                    :class="currentTab === 'wizard' ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-800 hover:text-white'"
+                    class="w-full text-left px-6 py-3 flex items-center gap-3 transition-all">
+                <i data-lucide="wand-2" size="18"></i>
+                <span>Setup Wizard</span>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <div class="p-4 border-t border-slate-800">
+            <a href="https://github.com/n30j0su3/Model-Agnostic-AI-Personal-Assistant-Framework" target="_blank" class="flex items-center gap-2 text-xs text-slate-500 hover:text-white transition-colors">
+                <i data-lucide="github" size="14"></i>
+                GitHub Repo
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-y-auto bg-slate-950 p-8 md:p-12 relative">
+
+        <!-- Tab: HOME (Command Center) -->
+        <div x-show="currentTab === 'home'" x-transition.opacity class="max-w-5xl mx-auto space-y-8">
+
+            <!-- Hero -->
+            <div class="space-y-2">
+                <h2 class="text-3xl font-bold text-white">Centro de Mando</h2>
+                <p class="text-slate-400">Acceso rapido y guiado para usuarios de Windows y macOS/Linux.</p>
+            </div>
+
+            <!-- Command Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card: Start Session (Windows) -->
+                <div class="glass p-6 rounded-xl hover:border-emerald-500/50 transition-colors group">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-emerald-500/20 rounded-lg text-emerald-400">
+                            <i data-lucide="windows"></i>
+                        </div>
+                        <button onclick="copyToClipboard('pa.bat')" class="text-slate-500 hover:text-white" title="Copiar comando">
+                            <i data-lucide="copy" size="16"></i>
+                        </button>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Iniciar en Windows</h3>
+                    <p class="text-sm text-slate-400 mb-4">Doble click en <code>pa.bat</code> o copia el comando.</p>
+                    <code class="text-xs bg-slate-900 p-2 rounded block text-center text-emerald-400">pa.bat</code>
+                </div>
+
+                <!-- Card: Start Session (macOS/Linux) -->
+                <div class="glass p-6 rounded-xl hover:border-emerald-500/50 transition-colors group">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-emerald-500/20 rounded-lg text-emerald-400">
+                            <i data-lucide="terminal"></i>
+                        </div>
+                        <button onclick="copyToClipboard('./pa.sh')" class="text-slate-500 hover:text-white" title="Copiar comando">
+                            <i data-lucide="copy" size="16"></i>
+                        </button>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Iniciar en macOS/Linux</h3>
+                    <p class="text-sm text-slate-400 mb-4">Ejecuta el launcher desde tu terminal.</p>
+                    <code class="text-xs bg-slate-900 p-2 rounded block text-center text-emerald-400">./pa.sh</code>
+                </div>
+
+                <!-- Card: Sync Context -->
+                <div class="glass p-6 rounded-xl hover:border-blue-500/50 transition-colors group">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-blue-500/20 rounded-lg text-blue-400">
+                            <i data-lucide="refresh-cw"></i>
+                        </div>
+                        <button onclick="copyToClipboard('python scripts/sync-context.py')" class="text-slate-500 hover:text-white" title="Copiar comando">
+                            <i data-lucide="copy" size="16"></i>
+                        </button>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Sincronizar</h3>
+                    <p class="text-sm text-slate-400 mb-4">Alinea el contexto entre herramientas (opcional).</p>
+                    <code class="text-xs bg-slate-900 p-2 rounded block text-center text-blue-400">python scripts/sync-context.py</code>
+                </div>
+
+                <!-- Card: Deep Indexing (Placeholder for external app) -->
+                <div class="glass p-6 rounded-xl hover:border-purple-500/50 transition-colors group relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-purple-500/20 rounded-lg text-purple-400">
+                            <i data-lucide="database"></i>
+                        </div>
+                        <span class="text-xs px-2 py-1 rounded-full bg-slate-800 text-slate-400">External</span>
+                    </div>
+                    <h3 class="font-bold text-lg mb-1">Deep Indexing</h3>
+                    <p class="text-sm text-slate-400 mb-4">Servicio avanzado (React/Flask).</p>
+                    <div class="flex gap-2">
+                        <a href="#" class="text-xs bg-purple-600/20 text-purple-300 px-3 py-2 rounded hover:bg-purple-600/40 w-full text-center transition-colors">
+                            Abrir Dashboard
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Framework Status (Placeholder) -->
+            <div class="mt-8 p-6 glass rounded-xl border border-slate-700/50">
+                <h3 class="font-bold text-slate-300 mb-4 flex items-center gap-2">
+                    <i data-lucide="activity" size="18"></i> Estado del Sistema
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                    <div>
+                        <span class="text-slate-500 block">Version</span>
+                        <span class="font-mono text-emerald-400" x-text="frameworkVersion"></span>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block">Modo</span>
+                        <span class="font-mono text-white" x-text="frameworkMode"></span>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block">Docs Server</span>
+                        <span class="font-mono" :class="docsServerMode ? 'text-emerald-400' : 'text-rose-400'" x-text="docsServerMode ? 'Online' : 'Offline'"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: DOCS (Markdown Viewer Placeholder) -->
+        <div x-show="currentTab === 'docs'" x-cloak x-transition.opacity class="max-w-5xl mx-auto">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-3xl font-bold text-white">Documentacion</h2>
+                <div class="text-xs bg-slate-800 px-3 py-1 rounded text-slate-400 border border-slate-700">
+                    <i data-lucide="info" size="12" class="inline mr-1"></i>
+                    <span x-text="docsServerMode ? 'Servidor activo' : 'Requiere servidor local'"></span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6">
+                <aside class="glass p-4 rounded-xl h-fit">
+                    <h3 class="text-sm font-semibold text-slate-300 mb-3">Secciones</h3>
+                    <template x-for="doc in docsList" :key="doc.path">
+                        <button
+                            @click="selectDoc(doc)"
+                            class="w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
+                            :class="activeDoc && activeDoc.path === doc.path ? 'bg-emerald-500/10 text-emerald-300' : 'text-slate-400 hover:bg-slate-800'">
+                            <span x-text="doc.label"></span>
+                        </button>
+                    </template>
+                </aside>
+
+                <section class="glass p-6 rounded-xl min-h-[420px]">
+                    <div x-show="!docsServerMode" class="text-center">
+                        <i data-lucide="book-open" class="text-slate-600 mb-4" size="48"></i>
+                        <h3 class="text-xl font-bold text-white mb-2">Visor de Documentacion Local</h3>
+                        <p class="text-slate-400 max-w-md mx-auto mb-6">
+                            Por seguridad, el navegador no lee archivos locales. Ejecuta:
+                        </p>
+                        <div class="bg-slate-900 p-4 rounded-lg inline-flex items-center gap-4 border border-slate-700">
+                            <code class="text-emerald-400">python -m http.server -d docs 8000</code>
+                            <button onclick="copyToClipboard('python -m http.server -d docs 8000')" class="text-slate-400 hover:text-white">
+                                <i data-lucide="copy"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-6">
+                            Luego abre: <a href="http://localhost:8000" target="_blank" class="text-emerald-400 hover:underline">http://localhost:8000</a>
+                        </p>
+                    </div>
+
+                    <div x-show="docsServerMode" class="prose prose-invert max-w-none" x-html="docContent"></div>
+                    <p x-show="docsServerMode && docError" class="text-rose-400 text-sm" x-text="docError"></p>
+                </section>
+            </div>
+        </div>
+
+        <!-- Tab: WIZARD -->
+        <div x-show="currentTab === 'wizard'" x-cloak x-transition.opacity class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-white mb-6">Setup Wizard</h2>
+            <div class="glass p-8 rounded-xl border border-dashed border-slate-700 text-center">
+                <i data-lucide="construction" class="text-amber-500 mb-4" size="32"></i>
+                <h3 class="text-xl font-bold text-white">En Construccion</h3>
+                <p class="text-slate-400 mt-2">Proximamente: generador de config.json visual.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
+        <i data-lucide="check-circle" size="18"></i>
+        <span>Comando copiado</span>
+    </div>
+
+    <script>
+        function cockpitData() {
+            const status = window.PA_STATUS || {};
+            return {
+                currentTab: 'home',
+                frameworkVersion: status.version || 'v1.6.3',
+                frameworkMode: status.mode || 'local-first',
+                docsServerMode: window.location.protocol !== 'file:',
+                docsList: (window.DOCS_MANIFEST && window.DOCS_MANIFEST.length)
+                    ? window.DOCS_MANIFEST
+                    : [
+                        { label: 'Introduccion', path: 'introduction.mdx' },
+                        { label: 'Quickstart', path: 'quickstart.mdx' },
+                        { label: 'Backlog', path: 'backlog.view.md' }
+                    ],
+                activeDoc: null,
+                docContent: '<p class="text-slate-400">Selecciona un documento para visualizarlo.</p>',
+                docError: '',
+                init() {
+                    if (this.docsServerMode && this.docsList.length) {
+                        this.selectDoc(this.docsList[0]);
+                    }
+                },
+                selectDoc(doc) {
+                    this.activeDoc = doc;
+                    this.docError = '';
+                    if (!this.docsServerMode) {
+                        this.docContent = '<p class="text-slate-400">Inicia el servidor local para ver la documentacion.</p>';
+                        return;
+                    }
+                    fetch(doc.path)
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error('No se pudo cargar el documento.');
+                            }
+                            return response.text();
+                        })
+                        .then((text) => {
+                            this.docContent = window.marked ? marked.parse(text) : text;
+                        })
+                        .catch((error) => {
+                            this.docError = error.message;
+                            this.docContent = '';
+                        });
+                }
+            };
+        }
+
+        lucide.createIcons();
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
+            });
+        }
+    </script>
+</body>
+</html>

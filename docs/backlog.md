@@ -51,6 +51,8 @@ Ultima actualizacion: 2026-01-26
 - 2026-01-26: Se agrego prioridad CORE VITALS y se reasignaron items esenciales.
 - 2026-01-26: Limpieza de backlog (fusiones, dependencias y renombres).
 - 2026-01-26: Se implemento BL-060 (decision engine local-first).
+- 2026-01-26: Se agrego item BL-083 (acceso a documentacion local).
+- 2026-01-26: Se implementaron BL-083 y BL-084 (docs offline y assets locales).
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
@@ -136,3 +138,5 @@ Ultima actualizacion: 2026-01-26
 | BL-080 | Integrar buenas practicas de uso Gemini (docs) | Baja | Pendiente | Guia basada en la doc indicada y adaptada al framework. Dependencias: BL-050 |
 | BL-081 | Integrar referencias de cheat-sheet/troubleshooting y tips rapidos | Baja | Pendiente | Docs y dashboard incluyen seccion de tips rapidos y referencias relevantes |
 | BL-082 | Integrar gestor/banco de skills instalables | Baja | Pendiente | Sistema para buscar/instalar skills sin conflictos ni overlaps |
+| BL-083 | Acceso a documentacion local del framework | Baja | Hecho | Cockpit carga docs locales con manifest (`docs/docs_manifest.js`) y visor integrado |
+| BL-084 | Vendoring de assets offline para docs/cockpit | CORE VITALS | Hecho | Assets locales en `docs/lib/` y script de descarga `scripts/vendor_assets.py` |

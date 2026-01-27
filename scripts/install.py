@@ -174,6 +174,30 @@ def run_sync(repo_root):
     return True
 
 
+def run_vendor_assets(repo_root):
+    script_path = repo_root / "scripts" / "vendor_assets.py"
+    if not script_path.exists():
+        print(t("install.assets.missing", "[WARN] No se encontro scripts/vendor_assets.py."))
+        return True
+    result = subprocess.run([sys.executable, str(script_path)], cwd=repo_root)
+    if result.returncode != 0:
+        print(t("install.assets.error", "[WARN] Descarga de assets fallida. Ejecuta scripts/vendor_assets.py manualmente."))
+        return False
+    return True
+
+
+def run_docs_manifest(repo_root):
+    script_path = repo_root / "scripts" / "generate_docs_index.py"
+    if not script_path.exists():
+        print(t("install.docs.missing", "[WARN] No se encontro scripts/generate_docs_index.py."))
+        return True
+    result = subprocess.run([sys.executable, str(script_path)], cwd=repo_root)
+    if result.returncode != 0:
+        print(t("install.docs.error", "[WARN] Generacion de docs_manifest fallida."))
+        return False
+    return True
+
+
 def prompt_profile():
     print(t("install.profile.title", "\nSelecciona tu perfil de instalacion:"))
     print(t("install.profile.basic", "  [1] Basico  - Personal, Professional, Content"))
@@ -597,6 +621,9 @@ def main():
 
     if not run_sync(repo_root):
         sys.exit(1)
+
+    run_vendor_assets(repo_root)
+    run_docs_manifest(repo_root)
 
     if llm_validate:
         check_llm_environment()

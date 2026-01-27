@@ -181,6 +181,28 @@ def update_with_zip(zip_url):
     return True
 
 
+def run_vendor_assets():
+    script_path = REPO_ROOT / "scripts" / "vendor_assets.py"
+    if not script_path.exists():
+        return True
+    result = subprocess.run([sys.executable, str(script_path)], cwd=REPO_ROOT)
+    if result.returncode != 0:
+        print("[WARN] Descarga de assets fallida. Ejecuta scripts/vendor_assets.py manualmente.")
+        return False
+    return True
+
+
+def run_docs_manifest():
+    script_path = REPO_ROOT / "scripts" / "generate_docs_index.py"
+    if not script_path.exists():
+        return True
+    result = subprocess.run([sys.executable, str(script_path)], cwd=REPO_ROOT)
+    if result.returncode != 0:
+        print("[WARN] Generacion de docs_manifest fallida.")
+        return False
+    return True
+
+
 def run_update(force=False):
     repo_url = detect_repo_url()
     raw_url = build_raw_version_url(repo_url)
@@ -202,6 +224,8 @@ def run_update(force=False):
     update_available = is_update_available(local_tuple, remote_tuple)
     if not update_available and not force:
         print("[OK] Framework actualizado.")
+        run_vendor_assets()
+        run_docs_manifest()
         return True
 
     if update_available:
@@ -217,10 +241,18 @@ def run_update(force=False):
 
     if (REPO_ROOT / ".git").exists() and shutil.which("git"):
         print("[INFO] Metodo de actualizacion: Git")
-        return update_with_git()
+        success = update_with_git()
+        if success:
+            run_vendor_assets()
+            run_docs_manifest()
+        return success
 
     print("[INFO] Metodo de actualizacion: Descarga directa")
-    return update_with_zip(zip_url)
+    success = update_with_zip(zip_url)
+    if success:
+        run_vendor_assets()
+        run_docs_manifest()
+    return success
 
 
 def main():

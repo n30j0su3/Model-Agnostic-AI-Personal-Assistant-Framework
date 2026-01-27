@@ -16,6 +16,8 @@ Feature Session: agregar items al backlog y revisar prioridades.
 
 ### Completed Today
 
+- [x] BL-083 Acceso a documentacion local del framework.
+- [x] BL-084 Vendoring de assets offline para docs/cockpit.
 - [x] BL-060 Decision Engine local-first (skill y router base).
 - [x] BL-043 Seccion rapida de caracteristicas (documentada y aplicada al backlog).
 - [x] BL-059 Actualizacion automatica del framework.
