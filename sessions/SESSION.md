@@ -2,7 +2,7 @@
 
 **Date**: 2026-01-26
 **Started**: 2026-01-26 09:00
-**Status**: Open
+**Status**: Closed
 
 ## Today's Focus
 Feature Session: agregar items al backlog y revisar prioridades.
@@ -11,6 +11,7 @@ Feature Session: agregar items al backlog y revisar prioridades.
 
 ### Pending
 
+- [ ] BL-085 UX docs/dashboard no tecnico (sin dependencias extra).
 
 ### In Progress
 
@@ -36,7 +37,12 @@ Feature Session: agregar items al backlog y revisar prioridades.
 
 ## End of Day Summary
 
+- Completadas: BL-060, BL-083, BL-084.
+- Pendiente clave: BL-085 (UX docs/dashboard no tecnico).
+
 ## Tomorrow's Preview
+
+- [ ] Revisar UX del Cockpit para usuarios no tecnicos.
 
 ## Notes & Decisions
 

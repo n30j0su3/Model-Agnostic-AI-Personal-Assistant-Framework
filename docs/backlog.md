@@ -53,6 +53,7 @@ Ultima actualizacion: 2026-01-26
 - 2026-01-26: Se implemento BL-060 (decision engine local-first).
 - 2026-01-26: Se agrego item BL-083 (acceso a documentacion local).
 - 2026-01-26: Se implementaron BL-083 y BL-084 (docs offline y assets locales).
+- 2026-01-26: Se agrego item BL-085 (UX docs/dashboard no tecnico).
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
@@ -140,3 +141,4 @@ Ultima actualizacion: 2026-01-26
 | BL-082 | Integrar gestor/banco de skills instalables | Baja | Pendiente | Sistema para buscar/instalar skills sin conflictos ni overlaps |
 | BL-083 | Acceso a documentacion local del framework | Baja | Hecho | Cockpit carga docs locales con manifest (`docs/docs_manifest.js`) y visor integrado |
 | BL-084 | Vendoring de assets offline para docs/cockpit | CORE VITALS | Hecho | Assets locales en `docs/lib/` y script de descarga `scripts/vendor_assets.py` |
+| BL-085 | UX docs/dashboard no tecnico (sin dependencias extra) | CORE VITALS | Pendiente | Dashboard ofrece opciones claras, abre archivos sin confusion y funciona en navegador sin requerir Python o instalaciones ocultas |

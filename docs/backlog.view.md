@@ -9,6 +9,7 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 - BL-071 Evaluar skills session-logs/context-files/multi-tool para session-manager
 - BL-072 Evaluar si session-tracking debe integrarse en session-manager
 - BL-073 Evaluar skills git/github para mejorar github-deployer
+- BL-085 UX docs/dashboard no tecnico (sin dependencias extra)
 
 ## Alta
 
