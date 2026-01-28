@@ -25,7 +25,7 @@
   },
   {
     "id": "show_session",
-    "pattern": "^(ver|mostrar)\\s+sesion|show\\s+session$",
+    "pattern": "^(ver|mostrar|muestra)\\s+sesion|show\\s+session$",
     "action": "local:show_session",
     "description": "Mostrar sesion actual"
   },
@@ -40,5 +40,11 @@
     "pattern": "^(actualiza|update)\\s+framework\\b.*$",
     "action": "local:update_framework",
     "description": "Actualizar framework"
+  },
+  {
+    "id": "get_agent_details",
+    "pattern": "^(obten|ver|get)\\s+detalles\\s+de\\s+(@[a-zA-Z0-9\\-]+).*$",
+    "action": "local:get_agent_details",
+    "description": "Obtener instrucciones detalladas de un agente (Progressive Disclosure)"
   }
 ]

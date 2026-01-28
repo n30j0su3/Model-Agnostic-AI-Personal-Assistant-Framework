@@ -14,277 +14,654 @@
     <script src="status.js"></script>
 
     <style>
-        body { font-family: "Segoe UI", "Segoe UI Variable", "Tahoma", "Verdana", sans-serif; background-color: #0f172a; color: #f8fafc; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        body { font-family: "Segoe UI", "Segoe UI Variable", "Tahoma", "Verdana", sans-serif; background-color: #020617; color: #f8fafc; }
+        .glass { background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
+        .glass-card { background: rgba(30, 41, 59, 0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; transition: all 0.2s ease; }
+        .glass-card:hover { border-color: rgba(52, 211, 153, 0.3); transform: translateY(-2px); }
         [x-cloak] { display: none !important; }
         pre, code { font-family: "Cascadia Mono", "Consolas", "Menlo", monospace; }
+        .prose pre { background-color: #0f172a !important; border: 1px solid #1e293b; padding: 1rem; border-radius: 0.75rem; }
+        .prose h1, .prose h2, .prose h3, .prose h4 { cursor: pointer; transition: color 0.2s; position: relative; margin-top: 2rem; margin-bottom: 1rem; }
+        .prose h1:hover, .prose h2:hover, .prose h3:hover, .prose h4:hover { color: #34d399; }
+        .prose h1:hover::after, .prose h2:hover::after, .prose h3:hover::after, .prose h4:hover::after { content: " (Click to copy)"; font-size: 0.5em; opacity: 0.5; vertical-align: middle; margin-left: 0.5rem; }
+        .prose code { cursor: pointer; background: #1e293b; padding: 0.2rem 0.4rem; border-radius: 0.25rem; transition: background 0.2s; }
+        .prose code:hover { background: #334155; color: #34d399; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        
+        /* Backlog Table Styles */
+        .bl-table { width: 100%; border-collapse: separate; border-spacing: 0; }
+        .bl-table th { text-align: left; padding: 1rem; border-bottom: 1px solid #1e293b; color: #94a3b8; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .bl-table td { padding: 1rem; border-bottom: 1px solid #0f172a; vertical-align: top; }
+        .priority-vitals { color: #f43f5e; background: #f43f5e1a; border: 1px solid #f43f5e33; }
+        .priority-high { color: #fbbf24; background: #fbbf241a; border: 1px solid #fbbf2433; }
+        .priority-media { color: #38bdf8; background: #38bdf81a; border: 1px solid #38bdf833; }
+        .priority-baja { color: #94a3b8; background: #94a3b81a; border: 1px solid #94a3b833; }
     </style>
 </head>
 <body class="h-screen flex overflow-hidden" x-data="cockpitData()" x-init="init()">
 
     <!-- Sidebar -->
-    <nav class="w-64 bg-slate-900 border-r border-slate-800 flex flex-col">
+    <nav class="w-64 bg-slate-950 border-r border-slate-800 flex flex-col z-20">
         <!-- Header -->
         <div class="p-6 border-b border-slate-800">
             <h1 class="font-bold text-xl tracking-tight text-white flex items-center gap-2">
-                <i data-lucide="command" class="text-emerald-400"></i>
-                Cockpit
+                <i data-lucide="layout-dashboard" class="text-emerald-400"></i>
+                PA Framework
             </h1>
-            <p class="text-xs text-slate-500 mt-1 font-mono" x-text="frameworkVersion"></p>
+            <div class="flex items-center gap-2 mt-2">
+                <span class="text-[10px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/30" x-text="frameworkStage"></span>
+                <span class="text-xs text-slate-500 font-mono" x-text="frameworkVersion"></span>
+            </div>
         </div>
 
         <!-- Navigation Links -->
         <div class="flex-1 overflow-y-auto py-4 space-y-1">
             <button @click="currentTab = 'home'"
-                    :class="currentTab === 'home' ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-800 hover:text-white'"
+                    :class="currentTab === 'home' ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-900 hover:text-white'"
                     class="w-full text-left px-6 py-3 flex items-center gap-3 transition-all">
                 <i data-lucide="home" size="18"></i>
-                <span>Inicio</span>
+                <span x-text="strings.nav_dashboard">Dashboard</span>
             </button>
 
             <button @click="currentTab = 'docs'"
-                    :class="currentTab === 'docs' ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-800 hover:text-white'"
+                    :class="currentTab === 'docs' ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-900 hover:text-white'"
                     class="w-full text-left px-6 py-3 flex items-center gap-3 transition-all">
                 <i data-lucide="book" size="18"></i>
-                <span>Documentacion</span>
+                <span x-text="strings.nav_docs">Documentacion</span>
             </button>
 
-            <button @click="currentTab = 'wizard'"
-                    :class="currentTab === 'wizard' ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-800 hover:text-white'"
+            <button @click="currentTab = 'backlog'"
+                    :class="currentTab === 'backlog' ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-900 hover:text-white'"
                     class="w-full text-left px-6 py-3 flex items-center gap-3 transition-all">
-                <i data-lucide="wand-2" size="18"></i>
-                <span>Setup Wizard</span>
+                <i data-lucide="list-todo" size="18"></i>
+                <span x-text="strings.nav_backlog">Backlog</span>
             </button>
+
+            <div class="px-6 py-4 mt-4">
+                <h4 class="text-[10px] font-bold text-slate-600 uppercase tracking-widest mb-2" x-text="strings.workspaces_label">Workspaces</h4>
+                <div class="space-y-1">
+                    <template x-for="ws in workspaces" :key="ws">
+                        <div class="text-xs text-slate-500 flex items-center gap-2 px-2 py-1">
+                            <i data-lucide="folder" size="12"></i>
+                            <span x-text="ws"></span>
+                        </div>
+                    </template>
+                </div>
+            </div>
         </div>
 
         <!-- Footer -->
         <div class="p-4 border-t border-slate-800">
             <a href="https://github.com/n30j0su3/Model-Agnostic-AI-Personal-Assistant-Framework" target="_blank" class="flex items-center gap-2 text-xs text-slate-500 hover:text-white transition-colors">
                 <i data-lucide="github" size="14"></i>
-                GitHub Repo
+                <span x-text="strings.github_repo">GitHub Repository</span>
             </a>
         </div>
     </nav>
 
     <!-- Main Content Area -->
-    <main class="flex-1 overflow-y-auto bg-slate-950 p-8 md:p-12 relative">
-
-        <!-- Tab: HOME (Command Center) -->
-        <div x-show="currentTab === 'home'" x-transition.opacity class="max-w-5xl mx-auto space-y-8">
-
-            <!-- Hero -->
-            <div class="space-y-2">
-                <h2 class="text-3xl font-bold text-white">Centro de Mando</h2>
-                <p class="text-slate-400">Acceso rapido y guiado para usuarios de Windows y macOS/Linux.</p>
-            </div>
-
-            <!-- Command Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card: Start Session (Windows) -->
-                <div class="glass p-6 rounded-xl hover:border-emerald-500/50 transition-colors group">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-emerald-500/20 rounded-lg text-emerald-400">
-                            <i data-lucide="windows"></i>
-                        </div>
-                        <button onclick="copyToClipboard('pa.bat')" class="text-slate-500 hover:text-white" title="Copiar comando">
-                            <i data-lucide="copy" size="16"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Iniciar en Windows</h3>
-                    <p class="text-sm text-slate-400 mb-4">Doble click en <code>pa.bat</code> o copia el comando.</p>
-                    <code class="text-xs bg-slate-900 p-2 rounded block text-center text-emerald-400">pa.bat</code>
+    <main class="flex-1 overflow-y-auto bg-[#020617] relative">
+        
+        <!-- Top Status Bar -->
+        <header class="sticky top-0 z-10 glass border-b border-slate-800 px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-2 text-xs">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="text-slate-400" x-text="strings.system_ready">System Ready</span>
                 </div>
-
-                <!-- Card: Start Session (macOS/Linux) -->
-                <div class="glass p-6 rounded-xl hover:border-emerald-500/50 transition-colors group">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-emerald-500/20 rounded-lg text-emerald-400">
-                            <i data-lucide="terminal"></i>
-                        </div>
-                        <button onclick="copyToClipboard('./pa.sh')" class="text-slate-500 hover:text-white" title="Copiar comando">
-                            <i data-lucide="copy" size="16"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Iniciar en macOS/Linux</h3>
-                    <p class="text-sm text-slate-400 mb-4">Ejecuta el launcher desde tu terminal.</p>
-                    <code class="text-xs bg-slate-900 p-2 rounded block text-center text-emerald-400">./pa.sh</code>
-                </div>
-
-                <!-- Card: Sync Context -->
-                <div class="glass p-6 rounded-xl hover:border-blue-500/50 transition-colors group">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-blue-500/20 rounded-lg text-blue-400">
-                            <i data-lucide="refresh-cw"></i>
-                        </div>
-                        <button onclick="copyToClipboard('python scripts/sync-context.py')" class="text-slate-500 hover:text-white" title="Copiar comando">
-                            <i data-lucide="copy" size="16"></i>
-                        </button>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Sincronizar</h3>
-                    <p class="text-sm text-slate-400 mb-4">Alinea el contexto entre herramientas (opcional).</p>
-                    <code class="text-xs bg-slate-900 p-2 rounded block text-center text-blue-400">python scripts/sync-context.py</code>
-                </div>
-
-                <!-- Card: Deep Indexing (Placeholder for external app) -->
-                <div class="glass p-6 rounded-xl hover:border-purple-500/50 transition-colors group relative overflow-hidden">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-purple-500/20 rounded-lg text-purple-400">
-                            <i data-lucide="database"></i>
-                        </div>
-                        <span class="text-xs px-2 py-1 rounded-full bg-slate-800 text-slate-400">External</span>
-                    </div>
-                    <h3 class="font-bold text-lg mb-1">Deep Indexing</h3>
-                    <p class="text-sm text-slate-400 mb-4">Servicio avanzado (React/Flask).</p>
-                    <div class="flex gap-2">
-                        <a href="#" class="text-xs bg-purple-600/20 text-purple-300 px-3 py-2 rounded hover:bg-purple-600/40 w-full text-center transition-colors">
-                            Abrir Dashboard
-                        </a>
-                    </div>
+                <div class="h-4 w-px bg-slate-800"></div>
+                <div class="text-xs text-slate-400 flex items-center gap-2">
+                    <i data-lucide="clock" size="14"></i>
+                    <span x-text="strings.last_sync">Last Sync:</span>
+                    <span class="text-slate-200" x-text="lastSync"></span>
                 </div>
             </div>
-
-            <!-- Framework Status (Placeholder) -->
-            <div class="mt-8 p-6 glass rounded-xl border border-slate-700/50">
-                <h3 class="font-bold text-slate-300 mb-4 flex items-center gap-2">
-                    <i data-lucide="activity" size="18"></i> Estado del Sistema
-                </h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                    <div>
-                        <span class="text-slate-500 block">Version</span>
-                        <span class="font-mono text-emerald-400" x-text="frameworkVersion"></span>
-                    </div>
-                    <div>
-                        <span class="text-slate-500 block">Modo</span>
-                        <span class="font-mono text-white" x-text="frameworkMode"></span>
-                    </div>
-                    <div>
-                        <span class="text-slate-500 block">Docs Server</span>
-                        <span class="font-mono" :class="docsServerMode ? 'text-emerald-400' : 'text-rose-400'" x-text="docsServerMode ? 'Online' : 'Offline'"></span>
-                    </div>
-                </div>
+            
+            <div class="flex items-center gap-4">
+                <select x-model="currentLang" @change="updateLang" class="bg-slate-900 text-xs border border-slate-700 rounded px-2 py-1 outline-none focus:border-emerald-500 transition-colors">
+                    <option value="es">ES</option>
+                    <option value="en">EN</option>
+                </select>
+                <button @click="copyToClipboard('python scripts/pa.py')" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2 transition-all">
+                    <i data-lucide="terminal" size="14"></i>
+                    <span x-text="strings.open_panel">Open Control Panel</span>
+                </button>
             </div>
-        </div>
+        </header>
 
-        <!-- Tab: DOCS (Markdown Viewer Placeholder) -->
-        <div x-show="currentTab === 'docs'" x-cloak x-transition.opacity class="max-w-5xl mx-auto">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-3xl font-bold text-white">Documentacion</h2>
-                <div class="text-xs bg-slate-800 px-3 py-1 rounded text-slate-400 border border-slate-700">
-                    <i data-lucide="info" size="12" class="inline mr-1"></i>
-                    <span x-text="docsServerMode ? 'Servidor activo' : 'Requiere servidor local'"></span>
-                </div>
-            </div>
+        <div class="p-8 md:p-12">
+            <!-- Tab: HOME -->
+            <div x-show="currentTab === 'home'" x-transition.opacity class="max-w-6xl mx-auto space-y-10">
 
-            <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6">
-                <aside class="glass p-4 rounded-xl h-fit">
-                    <h3 class="text-sm font-semibold text-slate-300 mb-3">Secciones</h3>
-                    <template x-for="doc in docsList" :key="doc.path">
-                        <button
-                            @click="selectDoc(doc)"
-                            class="w-full text-left px-3 py-2 rounded-lg text-sm transition-colors"
-                            :class="activeDoc && activeDoc.path === doc.path ? 'bg-emerald-500/10 text-emerald-300' : 'text-slate-400 hover:bg-slate-800'">
-                            <span x-text="doc.label"></span>
-                        </button>
-                    </template>
-                </aside>
-
-                <section class="glass p-6 rounded-xl min-h-[420px]">
-                    <div x-show="!docsServerMode" class="text-center">
-                        <i data-lucide="book-open" class="text-slate-600 mb-4" size="48"></i>
-                        <h3 class="text-xl font-bold text-white mb-2">Visor de Documentacion Local</h3>
-                        <p class="text-slate-400 max-w-md mx-auto mb-6">
-                            Por seguridad, el navegador no lee archivos locales. Ejecuta:
+                <!-- Welcome Hero -->
+                <div class="relative overflow-hidden rounded-3xl p-10 bg-gradient-to-br from-emerald-900/20 via-slate-900 to-slate-950 border border-emerald-500/10">
+                    <div class="relative z-10 space-y-4">
+                        <h2 class="text-4xl font-bold text-white tracking-tight" x-text="strings.welcome_user">Bienvenido, User</h2>
+                        <p class="text-slate-400 max-w-xl text-lg" x-text="strings.hero_desc">
+                            Tu entorno personal de IA esta configurado y listo para operar. Gestiona tu contexto local y orquesta tareas multidisciplinarias.
                         </p>
-                        <div class="bg-slate-900 p-4 rounded-lg inline-flex items-center gap-4 border border-slate-700">
-                            <code class="text-emerald-400">python -m http.server -d docs 8000</code>
-                            <button onclick="copyToClipboard('python -m http.server -d docs 8000')" class="text-slate-400 hover:text-white">
-                                <i data-lucide="copy"></i>
+                        <div class="flex gap-4 pt-2">
+                            <button @click="copyToClipboard('pa.bat'); alertUser('Comando de inicio copiado. Abre tu Terminal/CMD y pegalo.')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold px-6 py-3 rounded-xl flex items-center gap-3 transition-all shadow-lg shadow-emerald-500/20">
+                                <i data-lucide="play" size="20"></i>
+                                <span x-text="strings.start_win">Iniciar Sesion (Win)</span>
+                            </button>
+                            <button @click="copyToClipboard('./pa.sh'); alertUser('Comando de inicio copiado. Abre tu Terminal y pegalo.')" class="bg-slate-800 hover:bg-slate-700 text-white font-bold px-6 py-3 rounded-xl border border-slate-700 flex items-center gap-3 transition-all">
+                                <i data-lucide="terminal" size="20"></i>
+                                <span x-text="strings.start_unix">Start (Linux/Mac)</span>
                             </button>
                         </div>
-                        <p class="text-xs text-slate-500 mt-6">
-                            Luego abre: <a href="http://localhost:8000" target="_blank" class="text-emerald-400 hover:underline">http://localhost:8000</a>
-                        </p>
+                    </div>
+                    <!-- Decorative element -->
+                    <div class="absolute -right-20 -top-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                </div>
+
+                <!-- Quick Actions Grid -->
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest" x-text="strings.quick_actions">Acciones Rapidas</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <template x-for="action in quickActions" :key="action.label">
+                            <div @click="copyToClipboard(action.command)" class="glass-card p-5 group relative cursor-pointer">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="p-2.5 rounded-lg bg-slate-900 text-emerald-400 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all">
+                                        <i :data-lucide="action.icon" size="20"></i>
+                                    </div>
+                                    <div class="text-slate-500 group-hover:text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <i data-lucide="copy" size="16"></i>
+                                    </div>
+                                </div>
+                                <h4 class="font-bold text-white" x-text="action.label"></h4>
+                                <p class="text-xs text-slate-500 mt-1" x-text="action.desc"></p>
+                                <div class="mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <code class="text-[10px] text-emerald-500 bg-slate-950 px-2 py-1 rounded" x-text="action.command"></code>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Main Grid: Activity & Info -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Framework Status -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="glass-card p-6">
+                            <h3 class="font-bold text-white mb-6 flex items-center gap-2">
+                                <i data-lucide="cpu" size="18" class="text-emerald-400"></i>
+                                <span x-text="strings.framework_core">Framework Core</span>
+                            </h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center py-2 border-b border-slate-800">
+                                    <span class="text-sm text-slate-500" x-text="strings.orchestration">Orquestacion</span>
+                                    <span class="text-xs font-bold text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 uppercase" x-text="orchestrationStatus"></span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-slate-800">
+                                    <span class="text-sm text-slate-500" x-text="strings.language">Idioma</span>
+                                    <span class="text-sm text-slate-200 uppercase" x-text="currentLang"></span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-slate-800">
+                                    <span class="text-sm text-slate-500" x-text="strings.storage">Storage</span>
+                                    <span class="text-sm text-slate-200">Local-First</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2">
+                                    <span class="text-sm text-slate-500" x-text="strings.cli_default">CLI Default</span>
+                                    <span class="text-sm text-slate-200">OpenCode</span>
+                                </div>
+                            </div>
+                            <button @click="currentTab = 'docs'; selectDocByPath('setup/repo-setup.mdx')" class="mt-6 w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-300 transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="settings" size="14"></i>
+                                <span x-text="strings.view_config">Ver Configuracion Completa</span>
+                            </button>
+                        </div>
+
+                        <!-- System Health Card -->
+                        <div class="glass-card p-6 border-emerald-500/20">
+                            <h3 class="font-bold text-white mb-4" x-text="strings.system_health">Estado de Salud</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                                    <span class="text-xs text-slate-300">Context Synchronizer</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                                    <span class="text-xs text-slate-300">Orchestrator Agent</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                                    <span class="text-xs text-slate-300">Session Logger</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                                    <span class="text-xs text-slate-300">Deep Indexing Service</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div x-show="docsServerMode" class="prose prose-invert max-w-none" x-html="docContent"></div>
-                    <p x-show="docsServerMode && docError" class="text-rose-400 text-sm" x-text="docError"></p>
-                </section>
+                    <!-- Activity Feed / Recent Decisions -->
+                    <div class="lg:col-span-2 glass-card p-8">
+                        <div class="flex items-center justify-between mb-8">
+                            <h3 class="font-bold text-xl text-white flex items-center gap-3">
+                                <i data-lucide="activity" size="22" class="text-emerald-400"></i>
+                                <span x-text="strings.activity_title">Actividad Reciente</span>
+                            </h3>
+                            <button @click="currentTab = 'backlog'" class="text-xs text-emerald-400 hover:text-emerald-300 flex items-center gap-1 transition-all">
+                                <span x-text="strings.view_full_backlog">Ver Backlog completo</span>
+                                <i data-lucide="chevron-right" size="14"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <template x-for="item in recentActivity" :key="item.date">
+                                <div class="flex gap-4 relative">
+                                    <!-- Timeline line -->
+                                    <div class="absolute left-[11px] top-7 bottom-[-24px] w-px bg-slate-800 last:hidden"></div>
+                                    
+                                    <div class="relative z-10 mt-1">
+                                        <div class="w-6 h-6 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center">
+                                            <i :data-lucide="item.icon" size="12" class="text-emerald-400"></i>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-xs font-bold text-slate-200" x-text="item.title"></span>
+                                            <span class="text-[10px] text-slate-500 font-mono" x-text="item.date"></span>
+                                        </div>
+                                        <p class="text-sm text-slate-400 leading-relaxed" x-text="item.desc"></p>
+                                        <div class="flex gap-2 pt-1">
+                                            <template x-for="tag in item.tags" :key="tag">
+                                                <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-500 border border-slate-700 uppercase font-bold" x-text="tag"></span>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <!-- Tab: WIZARD -->
-        <div x-show="currentTab === 'wizard'" x-cloak x-transition.opacity class="max-w-3xl mx-auto">
-            <h2 class="text-3xl font-bold text-white mb-6">Setup Wizard</h2>
-            <div class="glass p-8 rounded-xl border border-dashed border-slate-700 text-center">
-                <i data-lucide="construction" class="text-amber-500 mb-4" size="32"></i>
-                <h3 class="text-xl font-bold text-white">En Construccion</h3>
-                <p class="text-slate-400 mt-2">Proximamente: generador de config.json visual.</p>
+            <!-- Tab: DOCS -->
+            <div x-show="currentTab === 'docs'" x-cloak x-transition.opacity class="max-w-6xl mx-auto">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="space-y-1">
+                        <h2 class="text-3xl font-bold text-white tracking-tight" x-text="strings.docs_title">Centro de Documentacion</h2>
+                        <p class="text-slate-400" x-text="strings.docs_subtitle">Guia completa para el uso y desarrollo del framework.</p>
+                    </div>
+                    <div class="text-xs bg-slate-900 px-4 py-2 rounded-xl text-slate-400 border border-slate-800 flex items-center gap-2">
+                        <i data-lucide="server" size="14" class="text-emerald-500"></i>
+                        Status: <span class="font-bold" :class="docsServerMode ? 'text-emerald-400' : 'text-rose-400'" x-text="docsServerMode ? 'Server Active' : 'Offline Mode'"></span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-8">
+                    <aside class="glass border border-slate-800 rounded-2xl h-fit sticky top-24 overflow-hidden">
+                        <div class="p-4 bg-slate-900/50 border-b border-slate-800">
+                            <div class="relative">
+                                <i data-lucide="search" size="14" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i>
+                                <input type="text" :placeholder="strings.search_docs" class="w-full bg-slate-950 text-xs px-9 py-2 rounded-lg border border-slate-800 focus:outline-none focus:border-emerald-500/50 transition-all">
+                            </div>
+                        </div>
+                        <div class="max-h-[60vh] overflow-y-auto p-2 scrollbar-hide">
+                            <template x-for="doc in docsList" :key="doc.path">
+                                <button
+                                    @click="selectDoc(doc)"
+                                    class="w-full text-left px-4 py-2.5 rounded-xl text-sm transition-all flex items-center gap-3"
+                                    :class="activeDoc && activeDoc.path === doc.path ? 'bg-emerald-500/10 text-emerald-400 font-bold' : 'text-slate-400 hover:bg-slate-900 hover:text-white'">
+                                    <i data-lucide="file-text" size="14" class="opacity-50"></i>
+                                    <span x-text="doc.label"></span>
+                                </button>
+                            </template>
+                        </div>
+                    </aside>
+
+                    <section class="glass border border-slate-800 rounded-3xl overflow-hidden min-h-[600px] flex flex-col">
+                        <!-- Doc Toolbar -->
+                        <div class="bg-slate-900/30 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-[10px] uppercase font-bold text-slate-500 tracking-widest">
+                                <i data-lucide="map-pin" size="12"></i>
+                                <span x-text="activeDoc ? activeDoc.path : 'Raiz'"></span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button @click="copyToClipboard(activeDoc ? activeDoc.path : '')" class="p-2 hover:bg-slate-800 rounded-lg text-slate-500 hover:text-slate-200 transition-all" title="Copiar ruta">
+                                    <i data-lucide="link" size="14"></i>
+                                </button>
+                                <button class="p-2 hover:bg-slate-800 rounded-lg text-slate-500 hover:text-slate-200 transition-all" title="Descargar MD">
+                                    <i data-lucide="download" size="14"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="p-10 flex-1">
+                            <div x-show="!docsServerMode" class="h-full flex flex-col items-center justify-center text-center space-y-6">
+                                <div class="w-20 h-20 bg-slate-900 rounded-3xl flex items-center justify-center border border-slate-800">
+                                    <i data-lucide="lock" class="text-slate-600" size="40"></i>
+                                </div>
+                                <div class="space-y-2">
+                                    <h3 class="text-2xl font-bold text-white" x-text="strings.browser_restriction">Browser Security Restriction</h3>
+                                    <p class="text-slate-400 max-w-md mx-auto" x-text="strings.browser_restriction_desc">
+                                        Por seguridad, el navegador no lee archivos locales. Para habilitar el visor de documentacion, inicia el servidor local:
+                                    </p>
+                                </div>
+                                <div class="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex items-center gap-6">
+                                    <code class="text-emerald-400 font-mono">python -m http.server -d docs 8000</code>
+                                    <button @click="copyToClipboard('python -m http.server -d docs 8000'); alertUser(strings.copy_success)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 p-2.5 rounded-xl transition-all">
+                                        <i data-lucide="copy" size="18"></i>
+                                    </button>
+                                </div>
+                                <a href="http://localhost:8000" target="_blank" class="text-emerald-400 hover:text-emerald-300 font-bold border-b border-emerald-400/30 pb-0.5 transition-all flex items-center gap-2" x-text="strings.open_cockpit_server">
+                                    Abrir Cockpit con Servidor
+                                    <i data-lucide="external-link" size="16"></i>
+                                </a>
+                            </div>
+
+                            <div x-show="docsServerMode" class="prose prose-invert prose-emerald max-w-none prose-pre:bg-slate-900 prose-pre:border prose-pre:border-slate-800 prose-headings:tracking-tight" x-html="docContent"></div>
+                            <p x-show="docsServerMode && docError" class="text-rose-400 text-sm p-4 bg-rose-500/10 rounded-xl border border-rose-500/20" x-text="docError"></p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Tab: BACKLOG -->
+            <div x-show="currentTab === 'backlog'" x-cloak x-transition.opacity class="max-w-6xl mx-auto space-y-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="space-y-1">
+                        <h2 class="text-3xl font-bold text-white" x-text="strings.backlog_title">Backlog de Desarrollo</h2>
+                        <p class="text-sm text-slate-500" x-text="strings.backlog_subtitle">Filtra y ordena el progreso del framework.</p>
+                    </div>
+                    <button @click="currentTab = 'docs'; selectDocByPath('backlog.md')" class="text-sm bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl text-slate-400 hover:text-white transition-all">
+                        Ver Historial Completo
+                    </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="glass-card p-4 flex flex-wrap gap-4 items-center">
+                    <div class="flex-1 min-w-[200px]">
+                        <input type="text" x-model="blSearch" :placeholder="strings.search_tasks" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm outline-none focus:border-emerald-500/50 transition-all">
+                    </div>
+                    <select x-model="blPriority" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm outline-none focus:border-emerald-500/50 transition-all">
+                        <option value="all" x-text="strings.all_priorities">Todas las prioridades</option>
+                        <option value="CORE VITALS">Core Vitals</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Media">Media</option>
+                        <option value="Baja">Baja</option>
+                    </select>
+                    <select x-model="blStatus" class="bg-slate-950 border border-slate-800 rounded-lg px-4 py-2 text-sm outline-none focus:border-emerald-500/50 transition-all">
+                        <option value="all" x-text="strings.all_statuses">Todos los estados</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Hecho">Hecho</option>
+                    </select>
+                </div>
+                
+                <div class="glass-card overflow-hidden">
+                    <div x-show="!docsServerMode" class="p-20 text-center text-slate-500">
+                        Inicia el servidor local para cargar el backlog interactivo.
+                    </div>
+                    <div x-show="docsServerMode" class="overflow-x-auto scrollbar-hide">
+                        <table class="bl-table">
+                            <thead>
+                                <tr>
+                                    <th class="cursor-pointer hover:text-emerald-400" @click="blSort('id')"><span x-text="strings.id">ID</span> <i data-lucide="chevrons-up-down" class="inline" size="10"></i></th>
+                                    <th x-text="strings.item">Item</th>
+                                    <th class="cursor-pointer hover:text-emerald-400" @click="blSort('priority')" x-text="strings.priority">Prioridad</th>
+                                    <th x-text="strings.status">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template x-for="item in filteredBacklog" :key="item.id">
+                                    <tr class="hover:bg-slate-900/50 transition-colors cursor-pointer" @click="copyToClipboard(item.id); alertUser(item.id + ' copiado')">
+                                        <td class="font-mono text-xs text-emerald-500/70" x-text="item.id"></td>
+                                        <td>
+                                            <div class="font-bold text-slate-200" x-text="item.label"></div>
+                                            <div class="text-xs text-slate-500 mt-1" x-text="item.desc"></div>
+                                        </td>
+                                        <td>
+                                            <span class="text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider" 
+                                                  :class="{
+                                                      'priority-vitals': item.priority === 'CORE VITALS',
+                                                      'priority-high': item.priority === 'Alta',
+                                                      'priority-media': item.priority === 'Media',
+                                                      'priority-baja': item.priority === 'Baja'
+                                                  }"
+                                                  x-text="item.priority"></span>
+                                        </td>
+                                        <td>
+                                            <span class="text-[10px] font-bold px-2 py-0.5 rounded border"
+                                                  :class="item.status === 'Hecho' ? 'border-emerald-500/30 text-emerald-400 bg-emerald-500/5' : 'border-slate-700 text-slate-500 bg-slate-800/50'"
+                                                  x-text="item.status"></span>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
 
     </main>
 
     <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-emerald-600 text-white px-4 py-3 rounded-lg shadow-lg transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2">
-        <i data-lucide="check-circle" size="18"></i>
-        <span>Comando copiado</span>
+    <div id="toast" class="fixed bottom-10 right-10 bg-emerald-500 text-slate-950 px-6 py-4 rounded-2xl shadow-2xl shadow-emerald-500/20 transform translate-y-32 opacity-0 transition-all duration-500 flex items-center gap-3 z-50 font-bold">
+        <div class="w-8 h-8 bg-slate-950/10 rounded-full flex items-center justify-center">
+            <i data-lucide="copy" size="18"></i>
+        </div>
+        <span>Comando copiado al portapapeles</span>
     </div>
 
     <script>
+        const I18N = {
+            es: {
+                system_ready: "Sistema Listo",
+                last_sync: "Sincronizacion:",
+                open_panel: "Abrir Panel",
+                backlog_title: "Backlog de Desarrollo",
+                backlog_subtitle: "Gestion visual y filtrado del progreso.",
+                search_tasks: "Buscar tareas...",
+                all_priorities: "Todas las prioridades",
+                all_statuses: "Todos los estados",
+                welcome_user: "Bienvenido, User",
+                hero_desc: "Tu entorno personal de IA esta configurado y listo para operar. Gestiona tu contexto local y orquesta tareas multidisciplinarias.",
+                start_win: "Iniciar Sesion (Win)",
+                start_unix: "Start (Linux/Mac)",
+                quick_actions: "Acciones Rapidas",
+                activity_title: "Actividad Reciente",
+                docs_title: "Centro de Documentacion",
+                docs_subtitle: "Guia completa para el uso y desarrollo del framework.",
+                nav_dashboard: "Dashboard",
+                nav_docs: "Documentacion",
+                nav_backlog: "Backlog",
+                workspaces_label: "Workspaces",
+                github_repo: "Repositorio GitHub",
+                copy_success: "Copiado al portapapeles",
+                framework_core: "Nucleo del Framework",
+                orchestration: "Orquestacion",
+                language: "Idioma",
+                storage: "Almacenamiento",
+                cli_default: "CLI por Defecto",
+                view_config: "Ver Configuracion Completa",
+                system_health: "Estado de Salud",
+                view_full_backlog: "Ver Backlog completo",
+                search_docs: "Buscar documento...",
+                browser_restriction: "Browser Security Restriction",
+                browser_restriction_desc: "Por seguridad, el navegador no lee archivos locales. Para habilitar el visor de documentacion, inicia el servidor local:",
+                open_cockpit_server: "Abrir Cockpit con Servidor",
+                id: "ID",
+                item: "Item",
+                priority: "Prioridad",
+                status: "Estado"
+            },
+            en: {
+                system_ready: "System Ready",
+                last_sync: "Last Sync:",
+                open_panel: "Open Panel",
+                backlog_title: "Development Backlog",
+                backlog_subtitle: "Visual tracking and filtering.",
+                search_tasks: "Search tasks...",
+                all_priorities: "All priorities",
+                all_statuses: "All statuses",
+                welcome_user: "Welcome, User",
+                hero_desc: "Your personal AI environment is configured and ready to operate. Manage your local context and orchestrate multidisciplinary tasks.",
+                start_win: "Start Session (Win)",
+                start_unix: "Start (Linux/Mac)",
+                quick_actions: "Quick Actions",
+                activity_title: "Recent Activity",
+                docs_title: "Documentation Hub",
+                docs_subtitle: "Complete guide for framework use and development.",
+                nav_dashboard: "Dashboard",
+                nav_docs: "Documentation",
+                nav_backlog: "Backlog",
+                workspaces_label: "Workspaces",
+                github_repo: "GitHub Repository",
+                copy_success: "Copied to clipboard",
+                framework_core: "Framework Core",
+                orchestration: "Orchestration",
+                language: "Language",
+                storage: "Storage",
+                cli_default: "Default CLI",
+                view_config: "View Full Configuration",
+                system_health: "System Health",
+                view_full_backlog: "View Full Backlog",
+                search_docs: "Search document...",
+                browser_restriction: "Browser Security Restriction",
+                browser_restriction_desc: "For security, the browser doesn't read local files. To enable the documentation viewer, start the local server:",
+                open_cockpit_server: "Open Cockpit with Server",
+                id: "ID",
+                item: "Item",
+                priority: "Priority",
+                status: "Status"
+            }
+        };
+
         function cockpitData() {
             const status = window.PA_STATUS || {};
             return {
                 currentTab: 'home',
                 frameworkVersion: status.version || 'v1.6.3',
+                frameworkStage: status.stage || 'ALPHA',
                 frameworkMode: status.mode || 'local-first',
+                lastSync: status.last_sync || 'N/D',
+                orchestrationStatus: status.orchestration || 'active',
+                currentLang: status.language || 'es',
+                strings: I18N['es'],
                 docsServerMode: window.location.protocol !== 'file:',
-                docsList: (window.DOCS_MANIFEST && window.DOCS_MANIFEST.length)
-                    ? window.DOCS_MANIFEST
-                    : [
-                        { label: 'Introduccion', path: 'introduction.mdx' },
-                        { label: 'Quickstart', path: 'quickstart.mdx' },
-                        { label: 'Backlog', path: 'backlog.view.md' }
-                    ],
+                docsList: window.DOCS_MANIFEST || [],
+                workspaces: ['@personal', '@professional', '@research', '@content', '@development', '@homelab'],
                 activeDoc: null,
-                docContent: '<p class="text-slate-400">Selecciona un documento para visualizarlo.</p>',
+                docContent: '',
+                backlogItems: [],
+                blSearch: '',
+                blPriority: 'all',
+                blStatus: 'all',
+                blSortField: 'id',
+                blSortAsc: true,
                 docError: '',
+                quickActions: [
+                    { label: 'Sincronizar', desc: 'Alinea contexto local.', icon: 'refresh-cw', command: 'python scripts/sync-context.py' },
+                    { label: 'Control Panel', desc: 'Menu interactivo CLI.', icon: 'settings', command: 'python scripts/pa.py' },
+                    { label: 'Actualizar', desc: 'Busca nueva version.', icon: 'download', command: 'python scripts/update.py' },
+                    { label: 'Orquestar', desc: 'Ejecutar orquestador.', icon: 'zap', command: 'python agents/core/orchestrator/scripts/orchestrate.py ""' }
+                ],
+                recentActivity: [
+                    { title: 'Orquestador Inteligente', date: '2026-01-27', desc: 'Implementado @orchestrator con soporte para Progressive Disclosure y ejecucion local delegada.', icon: 'zap', tags: ['core', 'bl-095', 'bl-096'] },
+                    { title: 'Alineacion SRLC', date: '2026-01-27', desc: 'Proyecto oficialmente en etapa ALPHA. Definido ciclo de vida y versionado estandar.', icon: 'shield-check', tags: ['standard', 'release'] },
+                    { title: 'Context Compaction', date: '2026-01-27', desc: 'Nueva rutina en @session-manager para resumir historiales largos y optimizar atencion.', icon: 'minimize-2', tags: ['efficiency', 'bl-098'] },
+                    { title: 'Context Evaluator', date: '2026-01-27', desc: 'Skill de evaluacion LLM-as-a-Judge integrada para control de calidad de respuestas.', icon: 'gauge', tags: ['quality', 'bl-097'] }
+                ],
                 init() {
-                    if (this.docsServerMode && this.docsList.length) {
-                        this.selectDoc(this.docsList[0]);
+                    this.updateLang();
+                    if (this.docsServerMode) {
+                        if (this.docsList.length) this.selectDoc(this.docsList[0]);
+                        this.loadBacklog();
                     }
+                    this.setupClickHandlers();
+                },
+                updateLang() {
+                    this.strings = I18N[this.currentLang] || I18N['es'];
+                },
+                setupClickHandlers() {
+                    document.addEventListener('click', (e) => {
+                        const prose = e.target.closest('.prose');
+                        if (!prose) return;
+                        
+                        if (e.target.tagName.match(/^H[1-6]$/)) {
+                            const text = e.target.innerText.replace(' (Click to copy)', '');
+                            copyToClipboard(text);
+                            this.alertUser(text + ' - ' + this.strings.copy_success);
+                        }
+                        if (e.target.tagName === 'CODE') {
+                            copyToClipboard(e.target.innerText);
+                            this.alertUser(this.strings.copy_success);
+                        }
+                    });
                 },
                 selectDoc(doc) {
                     this.activeDoc = doc;
                     this.docError = '';
-                    if (!this.docsServerMode) {
-                        this.docContent = '<p class="text-slate-400">Inicia el servidor local para ver la documentacion.</p>';
-                        return;
-                    }
                     fetch(doc.path)
-                        .then((response) => {
-                            if (!response.ok) {
-                                throw new Error('No se pudo cargar el documento.');
-                            }
-                            return response.text();
-                        })
-                        .then((text) => {
+                        .then(r => r.ok ? r.text() : Promise.reject('No se pudo cargar.'))
+                        .then(text => {
                             this.docContent = window.marked ? marked.parse(text) : text;
+                            this.$nextTick(() => lucide.createIcons());
                         })
-                        .catch((error) => {
-                            this.docError = error.message;
-                            this.docContent = '';
+                        .catch(e => this.docError = e);
+                },
+                selectDocByPath(path) {
+                    const doc = this.docsList.find(d => d.path === path);
+                    if (doc) this.selectDoc(doc);
+                },
+                loadBacklog() {
+                    fetch('backlog.md')
+                        .then(r => r.text())
+                        .then(text => {
+                            // Basic markdown table parser
+                            const rows = text.split('\n').filter(l => l.includes('| BL-'));
+                            this.backlogItems = rows.map(row => {
+                                const cells = row.split('|').map(c => c.trim()).filter(c => c !== '');
+                                return {
+                                    id: cells[0],
+                                    label: cells[1],
+                                    priority: cells[2],
+                                    status: cells[3],
+                                    desc: cells[4] || ''
+                                };
+                            });
                         });
+                },
+                blSort(field) {
+                    if (this.blSortField === field) this.blSortAsc = !this.blSortAsc;
+                    else {
+                        this.blSortField = field;
+                        this.blSortAsc = true;
+                    }
+                },
+                get filteredBacklog() {
+                    let items = this.backlogItems.filter(i => {
+                        const matchSearch = i.label.toLowerCase().includes(this.blSearch.toLowerCase()) || i.id.toLowerCase().includes(this.blSearch.toLowerCase());
+                        const matchPriority = this.blPriority === 'all' || i.priority === this.blPriority;
+                        const matchStatus = this.blStatus === 'all' || i.status === this.blStatus;
+                        return matchSearch && matchPriority && matchStatus;
+                    });
+                    
+                    items.sort((a, b) => {
+                        let valA = a[this.blSortField];
+                        let valB = b[this.blSortField];
+                        if (this.blSortAsc) return valA > valB ? 1 : -1;
+                        return valA < valB ? 1 : -1;
+                    });
+                    return items;
+                },
+                alertUser(msg) {
+                    const toast = document.getElementById('toast');
+                    const toastSpan = toast.querySelector('span');
+                    toastSpan.innerText = msg;
+                    toast.classList.remove('translate-y-32', 'opacity-0');
+                    setTimeout(() => toast.classList.add('translate-y-32', 'opacity-0'), 4000);
                 }
             };
         }
 
         lucide.createIcons();
         function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.remove('translate-y-20', 'opacity-0');
-                setTimeout(() => toast.classList.add('translate-y-20', 'opacity-0'), 3000);
-            });
+            navigator.clipboard.writeText(text);
         }
     </script>
 </body>

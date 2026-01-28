@@ -14,7 +14,13 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Ubicacion**: `skills/core/content-optimizer`
 - **Version**: 1.0
 
+### @context-evaluator
+- **Descripcion**: Framework para evaluar la calidad de las respuestas de los agentes mediante el patron "LLM-as-a-Judge". Permite comparacion de respuestas y evaluacion contra rubricas.
+- **Ubicacion**: `skills/core/context-evaluator`
+- **Version**: 1.0
+
 ### @decision-engine
+
 - **Descripcion**: Evalua instrucciones con enfoque local-first y decide entre ejecucion local, delegacion a agentes o uso de LLM remoto. Usalo para optimizar contexto, cuota y resultados.
 - **Ubicacion**: `skills/core/decision-engine`
 - **Version**: 1.0
@@ -52,16 +58,11 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 ### @prd-generator
 - **Descripcion**: Generates structured Product Requirements Documents with user stories, acceptance criteria, and stakeholder alignment.
 - **Ubicacion**: `skills/core/prd-generator`
-- **Version**: 1.0
+- **Version**: 1.1
 
 ### @prompt-improvement
 - **Descripcion**: Mejora prompts con estandares modernos (RAG, few-shot, JSON prompts) y criterios de calidad. Usalo en el workspace @development.
 - **Ubicacion**: `skills/core/prompt-improvement`
-- **Version**: 1.0
-
-### @session-tracking
-- **Descripcion**: Gestiona sesiones de trabajo, registra tareas en SESSION.md y mantiene la trazabilidad diaria. Úsalo cuando el usuario quiera iniciar el día, registrar progreso o ver pendientes.
-- **Ubicacion**: `skills/core/session-tracking`
 - **Version**: 1.0
 
 ### @task-management
@@ -80,4 +81,4 @@ Este archivo es generado automáticamente por `scripts/skill-sync.py`.
 - **Version**: 1.0
 
 ---
-*Ultima actualizacion: 2026-01-26 21:35:08*
+*Ultima actualizacion: 2026-01-27 14:25:18*

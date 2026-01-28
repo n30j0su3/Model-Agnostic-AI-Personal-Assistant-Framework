@@ -148,9 +148,15 @@ def get_orchestration_state():
 
 
 def orchestration_info():
-    print("\nEsta opcion es opcional y no reemplaza la configuracion nativa de cada terminal.")
-    print("Sirve como punto central para cambiar modelos rapidamente con .context/models.md.")
-    print("Si prefieres usar cada terminal con su configuracion propia, puedes ignorarla.")
+    print(
+        "\nEsta opcion es opcional y no reemplaza la configuracion nativa de cada terminal."
+    )
+    print(
+        "Sirve como punto central para cambiar modelos rapidamente con .context/models.md."
+    )
+    print(
+        "Si prefieres usar cada terminal con su configuracion propia, puedes ignorarla."
+    )
 
 
 def menu_orchestration():
@@ -310,7 +316,9 @@ def menu_context_management():
             run_context_version(["list"])
             timestamp = input("\nTimestamp a restaurar: ").strip()
             if timestamp:
-                if prompt_yes_no("Restaurar snapshot y sobrescribir archivos actuales?"):
+                if prompt_yes_no(
+                    "Restaurar snapshot y sobrescribir archivos actuales?"
+                ):
                     run_context_version(["restore", timestamp, "--force"])
             pause()
         elif choice == "4":
@@ -336,14 +344,16 @@ def menu_backlog():
             print(f"[ERROR] No se pudo leer el archivo: {e}")
     else:
         print("[WARN] No se encontro docs/backlog.view.md")
-    
+
     print("\n💡 Tip: Usa 'docs/backlog.md' para ver el historial completo.")
     pause()
 
 
 def menu_decision_engine():
     print("\n🧭 Decision Engine\n")
-    script_path = REPO_ROOT / "skills" / "core" / "decision-engine" / "scripts" / "route.py"
+    script_path = (
+        REPO_ROOT / "skills" / "core" / "decision-engine" / "scripts" / "route.py"
+    )
     if not script_path.exists():
         print("[ERROR] No se encontro skills/core/decision-engine/scripts/route.py")
         pause()
@@ -371,6 +381,46 @@ def menu_decision_engine():
     elif choice == "3":
         args = [sys.executable, str(script_path), "--list-agents"]
         subprocess.run(args, cwd=REPO_ROOT)
+
+    pause()
+
+
+def menu_orchestrator_agent():
+    print("\n🤖 Orquestador Inteligente\n")
+    script_path = (
+        REPO_ROOT / "agents" / "core" / "orchestrator" / "scripts" / "orchestrate.py"
+    )
+    if not script_path.exists():
+        print("[ERROR] No se encontro agents/core/orchestrator/scripts/orchestrate.py")
+        pause()
+        return
+
+    print("  1. Ejecutar orquestacion (Input)")
+    print("  2. Ver logs recientes")
+    print("  0. Volver")
+    choice = prompt_choice("\nSelecciona: ", {"0", "1", "2"})
+    if choice == "0":
+        return
+
+    if choice == "1":
+        text = input("\nTarea compleja a orquestar: ").strip()
+        if not text:
+            print("[WARN] No se proporciono texto.")
+            pause()
+            return
+        args = [sys.executable, str(script_path), text]
+        subprocess.run(args, cwd=REPO_ROOT)
+    elif choice == "2":
+        log_dir = REPO_ROOT / "logs" / "orchestrator"
+        if log_dir.exists():
+            logs = sorted(log_dir.glob("*.jsonl"))
+            if logs:
+                print(f"\nUltimo log: {logs[-1].name}")
+                print(logs[-1].read_text(encoding="utf-8"))
+            else:
+                print("\nNo hay logs disponibles.")
+        else:
+            print("\nDirectorio de logs no encontrado.")
 
     pause()
 
@@ -422,8 +472,12 @@ def show_magic_prompt(cli=None):
     }
     cli_key = cli or ""
     context_file = context_map.get(cli_key, ".context/MASTER.md")
-    prompt_text = t("launcher.prompt", "Lee {context} e inicia la sesion.", context=context_file)
-    print("\n" + t("launcher.magic", "Copia esto en tu IA: {prompt}", prompt=prompt_text))
+    prompt_text = t(
+        "launcher.prompt", "Lee {context} e inicia la sesion.", context=context_file
+    )
+    print(
+        "\n" + t("launcher.magic", "Copia esto en tu IA: {prompt}", prompt=prompt_text)
+    )
     pause()
 
 
@@ -438,7 +492,9 @@ def list_cli_options():
 def select_cli():
     cli_list = list(CLI_LABELS.keys())
     list_cli_options()
-    choice = prompt_choice("\nSelecciona: ", {str(i) for i in range(1, len(cli_list) + 1)})
+    choice = prompt_choice(
+        "\nSelecciona: ", {str(i) for i in range(1, len(cli_list) + 1)}
+    )
     return cli_list[int(choice) - 1]
 
 
@@ -449,7 +505,9 @@ def launch_cli(cli):
         return
     executable = shutil.which(cli)
     if executable is None:
-        if not prompt_yes_no(f"CLI '{cli}' no detectada. Intentar ejecutar de todos modos?"):
+        if not prompt_yes_no(
+            f"CLI '{cli}' no detectada. Intentar ejecutar de todos modos?"
+        ):
             return
         executable = cli
     print(f"[INFO] Lanzando {cli}...")
@@ -470,11 +528,25 @@ def menu_launcher():
         model_id, model_cli = get_active_model_cli()
         default_cli = load_default_cli()
         if model_id:
-            print(t("launcher.model.active", "Modelo activo: {model} (CLI: {cli})", model=model_id, cli=model_cli or "N/D"))
+            print(
+                t(
+                    "launcher.model.active",
+                    "Modelo activo: {model} (CLI: {cli})",
+                    model=model_id,
+                    cli=model_cli or "N/D",
+                )
+            )
         else:
-            print(t("launcher.model.none", "Modelo activo: N/D (orquestacion no activada)"))
+            print(
+                t(
+                    "launcher.model.none",
+                    "Modelo activo: N/D (orquestacion no activada)",
+                )
+            )
             if default_cli:
-                print(t("launcher.default.cli", "CLI por defecto: {cli}", cli=default_cli))
+                print(
+                    t("launcher.default.cli", "CLI por defecto: {cli}", cli=default_cli)
+                )
 
         valid_choices = {"0", "2"}
         print("\n  2. 📝 " + t("launcher.option.manual", "Elegir otra CLI manualmente"))
@@ -482,7 +554,9 @@ def menu_launcher():
             print("  1. ▶️  " + t("launcher.option.active", "Iniciar con modelo activo"))
             valid_choices.add("1")
         elif default_cli:
-            print("  1. ▶️  " + t("launcher.option.default", "Iniciar con CLI por defecto"))
+            print(
+                "  1. ▶️  " + t("launcher.option.default", "Iniciar con CLI por defecto")
+            )
             valid_choices.add("1")
         print("  0. ⬅️  " + t("launcher.option.back", "Volver"))
 
@@ -516,26 +590,34 @@ def main_menu(feature_mode=False):
         clear_screen()
         print_header()
         if feature_mode:
-            print("         🚀 " + t("menu.feature.banner", "Feature Session Mode Active") + " 🚀")
+            print(
+                "         🚀 "
+                + t("menu.feature.banner", "Feature Session Mode Active")
+                + " 🚀"
+            )
             print("───────────────────────────────────────────────────────")
-        
+
         print("\n  1. 🔄 " + t("menu.option.sync", "Sincronizar Contexto"))
-        print("  2. ⚙️  " + t("menu.option.profile", "Configurar Perfil (Idioma, Enfoque, Estilo)"))
+        print(
+            "  2. ⚙️  "
+            + t("menu.option.profile", "Configurar Perfil (Idioma, Enfoque, Estilo)")
+        )
         print("  3. 🎛️  " + t("menu.option.orchestration", "Orquestacion Multi-Modelo"))
         print("  4. 📊 " + t("menu.option.health", "Estado del Sistema"))
         print("  5. 🚀 " + t("menu.option.launch", "Iniciar Sesion AI"))
         print("  6. 📁 " + t("menu.option.context", "Gestion de Contexto"))
         print("  7. 🔄 " + t("menu.option.update", "Buscar actualizaciones"))
         print("  8. 🧭 " + t("menu.option.decision", "Decision Engine"))
+        print("  9. 🤖 " + t("menu.option.orchestrator", "Orquestador Inteligente"))
         if feature_mode:
-            print("  9. 📋 " + t("menu.option.backlog", "Ver Backlog"))
+            print("  10. 📋 " + t("menu.option.backlog", "Ver Backlog"))
         print("  0. 🚪 " + t("menu.option.exit", "Salir"))
 
-        valid_choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8"}
+        valid_choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
         if feature_mode:
-            valid_choices.add("9")
+            valid_choices.add("10")
 
-        prompt_range = "0-9" if feature_mode else "0-8"
+        prompt_range = "0-10" if feature_mode else "0-9"
         choice = prompt_choice(
             t("menu.prompt", "\nSelecciona una opcion [{range}]: ", range=prompt_range),
             valid_choices,
@@ -558,13 +640,21 @@ def main_menu(feature_mode=False):
             menu_update()
         elif choice == "8":
             menu_decision_engine()
-        elif choice == "9" and feature_mode:
+        elif choice == "9":
+            menu_orchestrator_agent()
+        elif choice == "10" and feature_mode:
             menu_backlog()
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Personal Assistant Framework Control Panel")
-    parser.add_argument("--feature", action="store_true", help="Activar modo de sesion de caracteristicas (Feature Session)")
+    parser = argparse.ArgumentParser(
+        description="Personal Assistant Framework Control Panel"
+    )
+    parser.add_argument(
+        "--feature",
+        action="store_true",
+        help="Activar modo de sesion de caracteristicas (Feature Session)",
+    )
     args = parser.parse_args()
 
     init_repo_root()

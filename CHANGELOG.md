@@ -3,7 +3,11 @@
 All notable changes to this project will be documented in this file.
 The format is based on Keep a Changelog, and this project adheres to SemVer.
 
-## [1.6.3] - 2026-01-24
+## [1.6.3] - 2026-01-27
+### Changed
+- **Software Release Life Cycle (SRLC)**: Project officially enters **ALPHA** stage. Alignment plan documented in `docs/architecture/plans/release-lifecycle-alignment.md`.
+- **Versioning Strategy**: Adopted stage-aware versioning.
+
 ### Added
 - Installer now bootstraps Node.js (winget/brew/apt/dnf/pacman) to allow OpenCode setup.
 

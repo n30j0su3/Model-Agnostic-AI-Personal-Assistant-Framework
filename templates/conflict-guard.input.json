@@ -1,0 +1,9 @@
+{
+  "component_type": "skill",
+  "name": "new-chart-generator",
+  "description": "Generates bar charts from data",
+  "paths_to_create": ["skills/custom/new-chart-generator/index.js"],
+  "dependencies": [],
+  "related_items": ["BL-074"],
+  "tags": ["visualization", "charts"]
+}

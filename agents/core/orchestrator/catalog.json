@@ -1,0 +1,145 @@
+{
+  "@code-reviewer": {
+    "name": "@code-reviewer",
+    "description": "N/D",
+    "location": "N/D",
+    "keywords": [
+      "review",
+      "code review",
+      "refactor",
+      "lint",
+      "clean code"
+    ]
+  },
+  "@github-deployer": {
+    "name": "@github-deployer",
+    "description": "Gestión de trazabilidad en GitHub (commits, tags, deploys).",
+    "location": "agents/core/github-deployer/",
+    "keywords": [
+      "deploy",
+      "push",
+      "commit",
+      "github",
+      "sync",
+      "merge"
+    ]
+  },
+  "@session-manager": {
+    "name": "@session-manager",
+    "description": "Gestión de sesiones diarias, recordatorios y cierre de día.",
+    "location": "agents/core/session-manager/",
+    "keywords": [
+      "sesion",
+      "session",
+      "resumen",
+      "cierre",
+      "pendientes",
+      "daily",
+      "today",
+      "log-task"
+    ]
+  },
+  "@feature-architect": {
+    "name": "@feature-architect",
+    "description": "Arquitecto de producto y guardián de la filosofía. Evalúa, planea y ejecuta features del backlog sin solapamientos.",
+    "location": "agents/core/feature-architect/",
+    "keywords": [
+      "feature",
+      "arquitectura",
+      "diseno",
+      "plan",
+      "roadmap",
+      "scope",
+      "backlog"
+    ]
+  },
+  "@context-sync": {
+    "name": "@context-sync",
+    "description": "Automatizar la sincronización entre MASTER.md y archivos específicos.",
+    "location": "agents/core/context-sync/",
+    "keywords": [
+      "contexto",
+      "sync",
+      "context",
+      "snapshot",
+      "versionado",
+      "backup"
+    ]
+  },
+  "@content-optimizer": {
+    "name": "@content-optimizer",
+    "description": "N/D",
+    "location": "N/D",
+    "keywords": [
+      "seo",
+      "contenido",
+      "copy",
+      "redaccion",
+      "blog",
+      "post"
+    ]
+  },
+  "@prompt-improvement": {
+    "name": "@prompt-improvement",
+    "description": "N/D",
+    "location": "N/D",
+    "keywords": [
+      "prompt",
+      "mejora prompt",
+      "refina prompt",
+      "json prompt"
+    ]
+  },
+  "@brutal-critic": {
+    "name": "@brutal-critic",
+    "description": "Crítica despiadada de contenido y papers para asegurar calidad máxima.",
+    "location": "agents/custom/brutal-critic/",
+    "keywords": []
+  },
+  "@orchestrator": {
+    "name": "@orchestrator",
+    "description": "Orquesta tareas multi-step, delega a agents/skills y resume resultados con trazabilidad.",
+    "location": "agents/core/orchestrator/",
+    "keywords": [
+      "orquestador",
+      "orchestrator",
+      "coordinar",
+      "orquestar",
+      "delegar",
+      "plan de ejecucion",
+      "planificacion",
+      "multi-step",
+      "multi step"
+    ]
+  },
+  "@task-management": {
+    "name": "@task-management",
+    "description": "N/D",
+    "location": "N/D",
+    "keywords": [
+      "tareas",
+      "task",
+      "prioridad",
+      "backlog",
+      "planificacion"
+    ]
+  },
+  "@paper-summarizer": {
+    "name": "@paper-summarizer",
+    "description": "N/D",
+    "location": "N/D",
+    "keywords": [
+      "paper",
+      "articulo",
+      "resumen",
+      "summary",
+      "investigacion"
+    ]
+  },
+  "@conflict-guard": {
+    "name": "@conflict-guard",
+    "description": "Detecta colisiones y solapamientos técnicos antes de integrar features o skills.",
+    "location": "agents/core/conflict-guard/",
+    "keywords": []
+  }
+}

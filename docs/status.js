@@ -1,5 +1,8 @@
 window.PA_STATUS = {
-  version: "v1.6.3",
-  lastUpdated: "2026-01-26",
-  mode: "local-first"
+  "version": "1.6.3",
+  "stage": "alpha",
+  "mode": "local-first",
+  "last_sync": "2026-01-27",
+  "orchestration": "active",
+  "language": "es"
 };

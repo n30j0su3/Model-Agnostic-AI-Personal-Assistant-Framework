@@ -1,0 +1,196 @@
+# Feature Analysis Report (FAR)
+
+The Feature Analysis Report is a compact, local-first artifact produced by @feature-architect before implementation. It captures scope, overlaps, decisions, risks, and traceability in a consistent format.
+
+## Objectives
+
+- Keep analysis compact and reusable.
+- Provide a single source of truth for feature decisions.
+- Integrate conflict-guard results and event schema references.
+
+## Required Sections
+
+1. Metadata
+2. Context
+3. Scope
+4. Overlaps and Conflicts
+5. Decisions
+6. Risks
+7. Plan and Next Steps
+8. Backlog and Traceability
+
+## Markdown Template (Compact)
+
+```markdown
+# Feature Analysis Report - <BACKLOG_ID> <SHORT_TITLE>
+
+## Metadata
+- report_id:
+- backlog_id:
+- status: draft | reviewed | approved | blocked
+- author_agent:
+- created_at:
+- last_updated:
+
+## Context
+- Problem:
+- Objective:
+
+## Scope
+- Includes:
+- Excludes:
+- Constraints/limits:
+
+## Overlaps and Conflicts
+- conflict_guard_input_ref:
+- conflict_guard_result:
+- summary:
+
+## Decisions
+- decision_engine_ref:
+- decisions:
+
+## Risks
+- risks:
+
+## Plan and Next Steps
+- actions:
+- dependencies:
+
+## Backlog and Traceability
+- backlog_updates:
+- events:
+- artifacts:
+```
+
+## Data Schema (YAML)
+
+```yaml
+report_id: string
+backlog_id: string
+title: string
+status: draft|reviewed|approved|blocked
+author_agent: string
+created_at: string # ISO 8601
+last_updated: string # ISO 8601
+context:
+  problem: string
+  objective: string
+scope:
+  includes: [string]
+  excludes: [string]
+  constraints: [string]
+overlaps:
+  conflict_guard_input_ref: string|null
+  conflict_guard_result:
+    has_conflicts: boolean
+    conflicts:
+      - type: PATH_COLLISION|NAME_COLLISION|DEPENDENCY_CONFLICT|FUNCTIONAL_OVERLAP
+        message: string
+        offending_path: string|null
+        existing_component: string|null
+        severity: low|medium|high
+    warnings:
+      - type: NEEDS_REVIEW|LOW_SIGNAL_OVERLAP
+        message: string
+  summary: string
+decisions:
+  decision_engine_ref: string|null
+  items:
+    - decision: string
+      rationale: string
+      impact: string
+risks:
+  - risk: string
+    severity: low|medium|high
+    mitigation: string
+plan:
+  actions: [string]
+  dependencies: [string]
+backlog:
+  updates: [string]
+traceability:
+  events:
+    - event_type: feature_analysis_started|conflict_check_completed|technical_plan_generated|task_scheduled_request|session_log_entry_created
+      event_id: string
+      timestamp: string # ISO 8601
+      payload_ref: string|null
+  artifacts:
+    - type: report|plan|log|other
+      path: string
+      note: string
+```
+
+## Example (Complete)
+
+```markdown
+# Feature Analysis Report - BL-068.3 Standard FAR Format
+
+## Metadata
+- report_id: far-2026-01-27-001
+- backlog_id: BL-068.3
+- status: reviewed
+- author_agent: @feature-architect
+- created_at: 2026-01-27T10:30:00Z
+- last_updated: 2026-01-27T11:05:00Z
+
+## Context
+- Problem: No standard format for feature analysis reports.
+- Objective: Define a compact, reusable, local-first format compatible with @feature-architect.
+
+## Scope
+- Includes: required sections, data schema, full example, usage rules.
+- Excludes: automation or tool implementation.
+- Constraints/limits: tool-agnostic, no remote dependencies.
+
+## Overlaps and Conflicts
+- conflict_guard_input_ref: local:conflict-guard/bl-068-3.json
+- conflict_guard_result: no conflicts detected.
+- summary: no path collisions or functional overlaps.
+
+## Decisions
+- decision_engine_ref: local:decision-engine/route-2026-01-27.json
+- decisions:
+  - decision: Use YAML for schema readability.
+    rationale: Easier to read and edit locally.
+    impact: Compatible with JSON/YAML ingestion.
+  - decision: Fixed minimum sections and event traceability.
+    rationale: Ensures comparability across reports.
+    impact: Enables logging via session-manager.
+
+## Risks
+- risks:
+  - risk: Excess detail breaks "compact" constraint.
+    severity: medium
+    mitigation: Limit to 1-3 bullets per section.
+
+## Plan and Next Steps
+- actions:
+  - Publish FAR template in docs.
+  - Link FAR format from @feature-architect.
+- dependencies:
+  - BL-068
+  - BL-068.1
+  - BL-068.2
+
+## Backlog and Traceability
+- backlog_updates:
+  - BL-068.3 -> In progress (draft ready).
+- events:
+  - feature_analysis_started (evt-001)
+  - conflict_check_completed (evt-002)
+  - technical_plan_generated (evt-003)
+- artifacts:
+  - type: report
+    path: docs/architecture/feature-analysis-report.mdx
+    note: initial proposal
+```
+
+## Rules of Use
+
+- Keep 1-3 bullets per section; move long detail to appendices.
+- Overlaps/conflicts must come from conflict-guard results without reinterpretation.
+- Decisions must include rationale and impact.
+- Risks must include a mitigation; if unknown, mark as open.
+- Event references must follow `docs/architecture/event-schema.mdx`.
+- Do not include secrets, credentials, or remote-only resources.

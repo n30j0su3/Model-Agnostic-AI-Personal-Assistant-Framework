@@ -6,14 +6,44 @@ Agents are specialized AI instances with distinct instructions and fresh context
 
 The framework includes several pre-built agents to handle system tasks:
 
-### @session-manager
-Responsible for daily productivity tracking, reminders, and end-of-day summaries. It interacts with the `sessions/` directory.
+### `@session-manager`
+> **Propósito**: Gestión de sesiones diarias, recordatorios y cierre de día.
 
-### @context-sync
-Ensures that knowledge defined in `.context/MASTER.md` is correctly propagated to all tool-specific context files.
+Responsable del seguimiento de la productividad diaria, recordatorios y resúmenes de fin de día. Interactúa con el directorio `sessions/`.
 
-### @github-deployer
-Automates the git workflow, creating descriptive commits and pushing changes to your remote repository.
+---
+
+### `@context-sync`
+> **Propósito**: Sincronización de conocimiento MASTER.
+
+Asegura que el conocimiento definido en `.context/MASTER.md` se propague correctamente a todos los archivos de contexto específicos de las herramientas.
+
+---
+
+### `@feature-architect`
+> **Propósito**: Arquitecto de producto y guardián de la filosofía.
+
+Arquitecta y valida las características del backlog, previniendo solapamientos y produciendo planes técnicos antes de la ejecución.
+
+- **Referencia**: `docs/architecture/feature-architect.mdx`
+- **Reporte**: `docs/architecture/feature-analysis-report.mdx`
+
+---
+
+### `@orchestrator`
+> **Propósito**: Orquestador de tareas complejas.
+
+Coordina solicitudes multi-paso, delega en agentes/skills y consolida resultados.
+
+- **Ubicación**: `agents/core/orchestrator/AGENT.md`
+- **Bitácora**: `logs/orchestrator/`
+
+---
+
+### `@github-deployer`
+> **Propósito**: Automatización de Git/GitHub.
+
+Automatiza el flujo de trabajo de git, creando commits descriptivos y subiendo cambios a tu repositorio remoto.
 
 ## Creating Custom Agents
 

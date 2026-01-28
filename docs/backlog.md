@@ -1,59 +1,26 @@
 # Backlog del Framework
 
-Ultima actualizacion: 2026-01-26
+Ultima actualizacion: 2026-01-27
 
 ## Versionado
 
-- Estandar: SemVer (MAJOR.MINOR.PATCH).
-- Al agregar caracteristicas: incrementa MINOR y registra en el historial.
+- Estandar: SemVer (MAJOR.MINOR.PATCH) + Etiqueta de Ciclo de Vida (Alpha/Beta/RC/Stable).
+- Al agregar caracteristicas: incrementa MINOR.
 - Al corregir bugs: incrementa PATCH.
 - Cambios incompatibles: incrementa MAJOR.
+- **Etiquetado de Etapas (2026 Standard)**:
+  - `Alpha`: Desarrollo core inestable.
+  - `Beta`: Feature freeze, pulido UX.
+  - `RC`: Candidato a estable.
+  - `Stable`: Version oficial de produccion.
 - Siempre actualiza el badge de version en `README.md` y este historial.
 
 ## Historial de cambios
 
-- 2026-01-23: Backlog inicial creado con items BL-001 a BL-019.
-- 2026-01-23: Se agrego columna Estado y se marcaron BL-001 a BL-007 como Hecho.
-- 2026-01-23: Release 1.1.0 (instalador multiplataforma, nuevos pasos de instalacion, skill json-prompt-generator).
-- 2026-01-23: Se agregaron items BL-020 a BL-027 y backlog local de scopes.
-- 2026-01-23: Release 1.2.0 (skills prd-generator y mcp-builder, backlog local, backlog ampliado).
-- 2026-01-23: Release 1.3.0 (documento de jerarquia de scopes y navegacion de docs).
-- 2026-01-23: Se agregaron items BL-029 y BL-030 (instalador basico/pro y configuracion guiada).
-- 2026-01-23: Se agrego item BL-031 (workspace Homelab).
-- 2026-01-23: Release 1.4.0 (workspace Homelab y documentacion).
-- 2026-01-23: Se agrego item BL-032 (plantillas Homelab).
-- 2026-01-23: Se agregaron items BL-033 a BL-038 (README contexto, calendario, input multicanal, skills de contenido).
-- 2026-01-23: Se implemento BL-029 (selector de instalacion basica vs pro).
-- 2026-01-23: Se implemento BL-030 (configuracion guiada del perfil al instalar).
-- 2026-01-23: Se implemento BL-033 (contexto user-friendly en README).
-- 2026-01-23: Se ajustaron prioridades BL-008, BL-009 y BL-032.
-- 2026-01-23: Se implemento BL-008 (orquestacion multi-modelo opcional).
-- 2026-01-23: Se implemento BL-039 (panel de control global pa.py).
-- 2026-01-23: Se implementaron BL-040 y BL-041 (dashboard y agradecimientos).
-- 2026-01-23: Se implemento BL-009 (gestion de contexto local versionado).
-- 2026-01-23: Se agrego item BL-042 (modulo de pruebas del framework).
-- 2026-01-24: Se agrego item BL-043 (seccion rapida de caracteristicas y despliegue seguro).
-- 2026-01-24: Se agregaron items BL-044 a BL-057 (prompting, research, mantenimiento, branding y expansion).
-- 2026-01-24: Se implemento BL-043 (flujo documentado y vista filtrada del backlog).
-- 2026-01-24: Se agrego item BL-058 (tips rapidos de uso del framework).
-- 2026-01-24: Release 1.5.0 (auto-actualizacion, backlog en Feature Session y setup inteligente de repositorio).
-- 2026-01-24: Se agrego item BL-063 (setup inteligente de repositorio).
-- 2026-01-24: Release 1.6.0 (i18n ES/EN, selector CLI y init robusto).
-- 2026-01-24: Release 1.6.1 (launcher Windows instala dependencias).
-- 2026-01-24: Release 1.6.2 (launcher Windows robusto sin cierre).
-- 2026-01-24: Release 1.6.3 (bootstrap Node.js para OpenCode).
-- 2026-01-25: Se agrego item BL-067 (auditoria UX instaladores/docs y mensajes).
-- 2026-01-25: Se agrego item BL-068 (agent feature-architect).
-- 2026-01-25: Se implemento BL-044 (skill prompt-improvement con referencias y update programable).
-- 2026-01-25: Se implemento BL-046 (desinstalador seguro con modos completo/parcial).
-- 2026-01-25: Se implemento BL-061 (historico configurable local/online con soporte a repos locales).
-- 2026-01-26: Se agregaron items BL-069 a BL-082 (core-logic, evaluaciones y nuevas skills).
-- 2026-01-26: Se agrego prioridad CORE VITALS y se reasignaron items esenciales.
-- 2026-01-26: Limpieza de backlog (fusiones, dependencias y renombres).
-- 2026-01-26: Se implemento BL-060 (decision engine local-first).
-- 2026-01-26: Se agrego item BL-083 (acceso a documentacion local).
-- 2026-01-26: Se implementaron BL-083 y BL-084 (docs offline y assets locales).
-- 2026-01-26: Se agrego item BL-085 (UX docs/dashboard no tecnico).
+- 2026-01-27: Alineacion con SRLC (Etapa Alpha declarada). Reporte de analisis externo de Agent-Skills integrado.
+- 2026-01-27: Se agregaron items BL-091 a BL-095.
+
+- 2026-01-27: Se marco BL-068 como Hecho.
 
 | ID | Item | Prioridad | Estado | Criterios de aceptacion |
 | --- | --- | --- | --- | --- |
@@ -103,7 +70,7 @@ Ultima actualizacion: 2026-01-26
 | BL-044 | Integrar skill de prompt-improvement con estandares modernos | Alta | Hecho | Skill con buenas practicas (CoT, RAG, few-shot, JSON prompts), referencias confiables y actualizacion programable por usuario |
 | BL-045 | Planear framework/skill de investigacion multiproposito | Alta | Pendiente | Skill global con modos de investigacion (sencilla, deep-research, profesional) y flujo guiado opcional |
 | BL-046 | Integrar desinstalador del framework (completo o parcial) | Alta | Hecho | Proceso seguro de desinstalacion documentado y con opcion parcial |
-| BL-047 | TaskManager para programar mantenimiento y automatizaciones | Alta | Pendiente | Sistema para planear/personalizar ejecucion de scripts de mantenimiento y automatizaciones, incluye job cada 30 dias |
+| BL-047 | TaskManager para programar mantenimiento y automatizaciones | CORE VITALS | Pendiente | Sistema para planear/personalizar ejecucion de scripts de mantenimiento y automatizaciones, incluye job cada 30 dias |
 | BL-048 | Planear/Integrar script de mantenimiento del framework (cada 30 dias) | N/A | N/A | Unificado con BL-047 |
 | BL-049 | Planear/Integrar script de verificacion de jerarquia y overlaps | N/A | N/A | Unificado con BL-069 |
 | BL-050 | Guia de obtencion de API keys (OpenAI/Gemini/Claude/OpenRouter) | Alta | Pendiente | Docs para OpenAI, Gemini, Claude, OpenRouter y similares con pasos claros |
@@ -124,12 +91,15 @@ Ultima actualizacion: 2026-01-26
 | BL-065 | Seleccion de CLI por defecto + asistencia de instalacion | Alta | Hecho | Instalador detecta CLIs, permite elegir default y ofrece instalar OpenCode |
 | BL-066 | Inicializacion robusta de contexto IA | Alta | Hecho | .cursorrules y AI_INSTRUCTIONS.md apuntan a .context/ y launcher imprime prompt magico |
 | BL-067 | Auditoria UX end-to-end (instaladores, mensajes y docs) | Alta | Pendiente | Experiencia guiada, clara y amigable para usuarios no tecnicos en instalacion, actualizacion y uso inicial |
-| BL-068 | Agent @feature-architect para Feature Sessions | CORE VITALS | Pendiente | Agent creado con bootstrap, clarificacion, evaluacion, ejecucion y herramienta de backlog compatible |
-| BL-069 | CORE-LOGIC: validar overlaps/conflictos al integrar skills/dependencias | CORE VITALS | Pendiente | Feature-architect verifica rutas y conflictos funcionales antes de integrar una nueva feature. Incluye verificacion periodica (script) y dependencias: BL-068 |
-| BL-070 | Evaluar skills ralph/prd para reforzar agente feature-architect | Alta | Pendiente | Comparativa e integracion solo si mejora robustez segun estandares actuales. Dependencias: BL-068 |
-| BL-071 | Evaluar skills session-logs/context-files/multi-tool para session-manager | CORE VITALS | Pendiente | Integracion si aporta mejoras verificables y compatibles. Dependencias: BL-060 |
-| BL-072 | Evaluar si session-tracking debe integrarse en session-manager | CORE VITALS | Pendiente | Decision documentada y criterio alineado a la filosofia del framework. Dependencias: BL-060 |
-| BL-073 | Evaluar skills git/github para mejorar github-deployer | CORE VITALS | Pendiente | Integracion si aporta mejoras verificables y compatibles. Dependencias: BL-060 |
+| BL-068 | Agent @feature-architect para Feature Sessions | CORE VITALS | Hecho | Agent creado con bootstrap, clarificacion, evaluacion, ejecucion y herramienta de backlog compatible |
+| BL-068.1 | Definir interfaz estable para conflict-guard | CORE VITALS | Hecho | Inputs/outputs documentados, compatibles con validacion automatica y reutilizables por agents/skills |
+| BL-068.2 | Event schema para integracion session-manager + task-management | CORE VITALS | Hecho | Esquema de eventos documentado con ejemplos y uso en logs/tareas |
+| BL-068.3 | Formato estandar de Feature Analysis Report | CORE VITALS | Hecho | Plantilla compacta reusable con secciones de scope, overlaps, decisiones y riesgos |
+| BL-069 | CORE-LOGIC: validar overlaps/conflictos al integrar skills/dependencias | CORE VITALS | Hecho | Feature-architect verifica rutas y conflictos funcionales antes de integrar una nueva feature. Incluye verificacion periodica (script) y dependencias: BL-068 |
+| BL-070 | Evaluar skills ralph/prd para reforzar agente feature-architect | Alta | Hecho | Comparativa e integracion solo si mejora robustez segun estandares actuales. Dependencias: BL-068 |
+| BL-071 | Evaluar skills session-logs/context-files/multi-tool para session-manager | CORE VITALS | Hecho | Integracion si aporta mejoras verificables y compatibles. Dependencias: BL-060 |
+| BL-072 | Evaluar si session-tracking debe integrarse en session-manager | CORE VITALS | Hecho | Decision documentada y criterio alineado a la filosofia del framework. Dependencias: BL-060 |
+| BL-073 | Evaluar skills git/github para mejorar github-deployer | CORE VITALS | Hecho | Integracion si aporta mejoras verificables y compatibles. Dependencias: BL-060 |
 | BL-074 | Implementar core-skill de data visualization (Seaborn/Matplotlib) | Alta | Pendiente | Skill documentada y alineada a estandares opensource actuales |
 | BL-075 | Implementar core-skill "council of the wise" | Alta | Pendiente | Skill integrada desde fuente indicada y documentada |
 | BL-076 | Integrar summarize + transcript-to-content (sin referencia a clawdbot) | Media | Pendiente | Skills integradas sin referencia directa a clawdbot en docs, incluye transcripcion de contenido |
@@ -141,4 +111,20 @@ Ultima actualizacion: 2026-01-26
 | BL-082 | Integrar gestor/banco de skills instalables | Baja | Pendiente | Sistema para buscar/instalar skills sin conflictos ni overlaps |
 | BL-083 | Acceso a documentacion local del framework | Baja | Hecho | Cockpit carga docs locales con manifest (`docs/docs_manifest.js`) y visor integrado |
 | BL-084 | Vendoring de assets offline para docs/cockpit | CORE VITALS | Hecho | Assets locales en `docs/lib/` y script de descarga `scripts/vendor_assets.py` |
-| BL-085 | UX docs/dashboard no tecnico (sin dependencias extra) | CORE VITALS | Pendiente | Dashboard ofrece opciones claras, abre archivos sin confusion y funciona en navegador sin requerir Python o instalaciones ocultas |
+| BL-085 | UX docs/dashboard no tecnico (sin dependencias extra) | CORE VITALS | Hecho | Dashboard ofrece opciones claras, abre archivos sin confusion y funciona en navegador sin requerir Python o instalaciones ocultas |
+
+| BL-086 | Historial de interacciones locales para consulta y reutilizacion | Media | Pendiente | Interacciones guardadas localmente en formato estructurado, consultables por skill/agent, opcion on/off y documentado |
+| BL-087 | Agents.md en raiz para guiar inicializacion segura | Alta | Pendiente | Archivo en raiz evita sobreescrituras, redirige a `.context/` y define flujo de inicializacion |
+| BL-088 | Renombrar nombre de sesion/ventana/contexto/chat con el nombre del Framework tras inicializacion (pa.bat, pa.sh, zip directo, etc.) | Alta | Pendiente | Al inicializar el framework, el titulo/identificador de la sesion/ventana/contexto/chat usa el nombre del Framework. Cubre pa.bat, pa.sh, instalacion zip directa y cualquier metodo documentado. No rompe CLIs y es local-first. |
+| BL-089 | Auditar sesiones recientes para identificar prompts/roles/agentes reutilizables e integrar mejoras | Media | Pendiente | Revisar ultimas sesiones en sessions/, documentar hallazgos, proponer integraciones o mejoras y actualizar backlog con decisiones. |
+| BL-090 | Evaluar plugin @zenobius/opencode-skillful y su relevancia para el framework | Baja | Pendiente | Verificar uso en repo/config, documentar hallazgos y decidir integrar o descartar con justificacion. |
+| BL-091 | Sistema de logging de prompts ejecutados | CORE VITALS | Pendiente | Registra prompts/roles/agent/skill, timestamps y origen en JSONL local con opcion on/off y documentacion. |
+| BL-092 | Tracking real de tokens y API calls | CORE VITALS | Pendiente | Registra tokens de entrada/salida, costos estimados y proveedor por sesion con export local y docs. |
+| BL-093 | Cache L1/L2/L3 de contexto (OmniMemory pattern) | Alta | Pendiente | Cache local por niveles con TTL y busqueda semantica opcional, activable y documentada. |
+| BL-094 | TOON encoder para datos tabulares | Media | Pendiente | Utilidad que convierte tablas a formato TOON con ejemplo y docs. |
+| BL-095 | Orquestador inteligente de tareas y delegacion | Alta | Hecho | Orquestador que clasifica tareas, delega a agents/skills y retorna resumen, documentado y sin lock-in. |
+| BL-096 | Implementar "Progressive Disclosure" en @orchestrator | Alta | Hecho | El orquestador carga solo metadatos de agentes y lee AGENT.md completo solo bajo demanda para ahorrar tokens. |
+| BL-097 | Crear core-skill "context-evaluator" (LLM-as-a-Judge) | Media | Hecho | Framework de evaluacion automatica de respuestas basado en rubricas y comparacion pairwise. |
+| BL-098 | Implementar "Context Compaction" en session-manager | Media | Hecho | Algoritmo que resume el historial de sesion cuando excede limites de atencion (U-shaped attention). |
+| BL-099 | Convertir documentacion MD a componentes reactivos/offline | Alta | Pendiente | Utilizar la Skill de UX para transformar archivos MD planos en interfaces reactivas/potentes usando frameworks ligeros opensource, mejorando la legibilidad y utilidad offline. |
+| BL-100 | Implementar script de Aprendizaje Continuo (Optimizacion) | Media | Pendiente | Automatizar la generacion de reportes de optimizacion (tokens, quota, API calls) al cierre de sesion, como se define en el AGENT.md de session-manager. |

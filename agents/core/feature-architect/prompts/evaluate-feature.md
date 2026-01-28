@@ -19,6 +19,12 @@ Paso 1: Unicidad
 - [ ] Revisar `docs/backlog.md`
 - Resultado: [Unico / Similar a ...]
 
+Paso 1.5: Conflict-guard
+
+- [ ] Generar input segun `docs/architecture/conflict-guard-interface.mdx`
+- [ ] Ejecutar `python scripts/conflict_guard.py --input <archivo>.json`
+- [ ] Registrar resultado en FAR
+
 Paso 2: Filosofia
 
 - [ ] Local-first

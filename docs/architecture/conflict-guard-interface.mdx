@@ -1,0 +1,168 @@
+# Conflict Guard Interface
+
+The conflict-guard module provides a stable, structured interface for detecting conflicts before integrating new components into the framework. It is consumed by the @feature-architect agent during evaluation and planning.
+
+## Objectives
+
+- Prevent path, name, dependency, and functional overlaps.
+- Keep checks local-first and deterministic.
+- Return a compact, machine-readable report.
+
+## Input Schema
+
+The module expects a JSON object describing the proposed component.
+
+```json
+{
+  "component_type": "skill" | "agent" | "workspace" | "doc" | "script",
+  "name": "string",
+  "description": "string",
+  "paths_to_create": ["string"],
+  "dependencies": [
+    {
+      "name": "string",
+      "version_specifier": "string"
+    }
+  ],
+  "related_items": ["string"],
+  "tags": ["string"]
+}
+```
+
+### Required Fields
+
+- component_type
+- name
+- description
+- paths_to_create
+
+## Output Schema
+
+```json
+{
+  "has_conflicts": "boolean",
+  "conflicts": [
+    {
+      "type": "PATH_COLLISION" | "NAME_COLLISION" | "DEPENDENCY_CONFLICT" | "FUNCTIONAL_OVERLAP",
+      "message": "string",
+      "offending_path": "string | null",
+      "existing_component": "string | null",
+      "severity": "low" | "medium" | "high"
+    }
+  ],
+  "warnings": [
+    {
+      "type": "NEEDS_REVIEW" | "LOW_SIGNAL_OVERLAP",
+      "message": "string"
+    }
+  ]
+}
+```
+
+## Conflict Rules
+
+- PATH_COLLISION: Any path in paths_to_create already exists in the repo.
+- NAME_COLLISION: The proposed name matches an existing agent/skill/workspace name.
+- DEPENDENCY_CONFLICT: Version specifiers conflict with an existing dependency.
+- FUNCTIONAL_OVERLAP: Description or tags overlap with an existing component at high similarity.
+
+## Examples
+
+### Example A: No conflicts
+
+Input:
+
+```json
+{
+  "component_type": "skill",
+  "name": "new-chart-generator",
+  "description": "Generates bar charts from data",
+  "paths_to_create": ["skills/custom/new-chart-generator/index.js"],
+  "dependencies": [],
+  "related_items": ["BL-074"],
+  "tags": ["visualization", "charts"]
+}
+```
+
+Output:
+
+```json
+{
+  "has_conflicts": false,
+  "conflicts": [],
+  "warnings": []
+}
+```
+
+### Example B: Path collision
+
+Input:
+
+```json
+{
+  "component_type": "skill",
+  "name": "decision-maker",
+  "description": "Helps in making choices",
+  "paths_to_create": ["skills/core/decision-engine/rules.json"],
+  "dependencies": [],
+  "related_items": ["BL-060"],
+  "tags": ["decision", "routing"]
+}
+```
+
+Output:
+
+```json
+{
+  "has_conflicts": true,
+  "conflicts": [
+    {
+      "type": "PATH_COLLISION",
+      "message": "Path 'skills/core/decision-engine/rules.json' already exists.",
+      "offending_path": "skills/core/decision-engine/rules.json",
+      "existing_component": "decision-engine",
+      "severity": "high"
+    }
+  ],
+  "warnings": []
+}
+```
+
+## Notes
+
+- The conflict-guard module is designed to be deterministic and local-first.
+- Functional overlap checks should be conservative and surface warnings when uncertain.
+- Reference implementation: scripts/conflict_guard.py
+- Templates: templates/conflict-guard.input.json and templates/conflict-guard.output.json
+
+## Smoke Tests
+
+### Test A: Template input (no conflicts)
+
+```bash
+python scripts/conflict_guard.py --input templates/conflict-guard.input.json
+```
+
+Expected:
+- has_conflicts: false
+- conflicts: []
+
+### Test B: Path collision via stdin
+
+```bash
+python scripts/conflict_guard.py << 'JSON'
+{
+  "component_type": "script",
+  "name": "conflict-guard",
+  "description": "Validates overlaps and conflicts",
+  "paths_to_create": ["scripts/conflict_guard.py"],
+  "dependencies": [],
+  "related_items": ["BL-069"],
+  "tags": ["conflict", "validation"]
+}
+JSON
+```
+
+Expected:
+- has_conflicts: true
+- conflicts includes PATH_COLLISION for scripts/conflict_guard.py

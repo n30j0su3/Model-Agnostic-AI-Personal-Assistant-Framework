@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OrchestratorResult",
+  "type": "object",
+  "required": ["session_id", "input", "tasks", "summary"],
+  "properties": {
+    "session_id": { "type": "string" },
+    "input": { "type": "string" },
+    "tasks": {
+      "type": "array",
+      "items": { "$ref": "task.schema.json" }
+    },
+    "summary": { "type": "string" },
+    "next_steps": { "type": "array", "items": { "type": "string" } },
+    "execution_time_ms": { "type": "integer" },
+    "timestamp": { "type": "string", "format": "date-time" }
+  }
+}

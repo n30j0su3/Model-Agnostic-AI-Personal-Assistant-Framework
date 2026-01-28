@@ -27,6 +27,11 @@
 - **Estado**: OPERATIVO.
 - **Ubicación**: `agents/core/feature-architect/`
 
+### @orchestrator
+- **Propósito**: Orquesta tareas multi-step, delega a agents/skills y resume resultados con trazabilidad.
+- **Estado**: OPERATIVO.
+- **Ubicación**: `agents/core/orchestrator/`
+
 ### @conflict-guard
 - **Propósito**: Detecta colisiones y solapamientos técnicos antes de integrar features o skills.
 - **Estado**: OPERATIVO.

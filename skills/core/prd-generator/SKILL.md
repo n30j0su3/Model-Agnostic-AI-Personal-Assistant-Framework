@@ -4,7 +4,7 @@ description: Generates structured Product Requirements Documents with user stori
 license: MIT
 metadata:
   author: opencode
-  version: "1.0"
+  version: "1.1"
 compatibility: OpenCode, Claude Code, Gemini CLI, Codex
 ---
 
@@ -21,38 +21,45 @@ Use the standard structure and fill each section with concise, testable statemen
 TITLE: [Feature Name]
 Author: [Owner] | Status: [Draft/Review/Approved]
 Last Updated: [Date]
+Agents: [Roles + owners]
+Backlog IDs: [BL-###, BL-###]
 
 1. OVERVIEW
    - Problem Statement
    - Proposed Solution
    - Success Metrics
 
-2. CONTEXT
-   - Background
-   - User Research
-   - Competitive Analysis
+2. GOALS & NON-GOALS
+   - Goals
+   - Non-Goals
 
-3. REQUIREMENTS
+3. USERS & CONTEXT
+   - Primary Users
+   - Usage Context
+   - Constraints
+
+4. REQUIREMENTS
    - User Stories
    - Functional Requirements
    - Non-Functional Requirements
+   - Acceptance Criteria (per story)
 
-4. DESIGN
+5. DESIGN & TECH
    - User Flows
    - Wireframes/Mockups
    - Technical Considerations
 
-5. SCOPE
-   - In Scope
-   - Out of Scope
-   - Future Considerations
+6. BACKLOG TRACEABILITY
+   - BL-### -> Requirement/Story mapping
+   - Out-of-scope items linked to backlog if deferred
 
-6. TIMELINE
+7. DELIVERY
    - Milestones
    - Dependencies
    - Risks
+   - Rollout/Release plan
 
-7. APPENDIX
+8. APPENDIX
    - Research Data
    - Open Questions
 ```
@@ -77,8 +84,9 @@ Then [expected result]
 
 - Use active verbs (display, calculate, send).
 - Avoid vague terms (appropriate, reasonable).
-- Each requirement must be testable.
+- Each requirement must be testable and verifiable.
 - Keep one requirement per statement.
+- Include negative/edge cases where relevant.
 
 Functional example:
 "System shall send an email confirmation within 30 seconds of order completion."
@@ -97,12 +105,13 @@ Non-functional examples:
 
 ### 5. Stakeholder Alignment
 
-List stakeholders with interest and sign-off requirement.
+List stakeholders with interest, decision rights, and sign-off requirement.
 
 ## Output Format
 
 - Deliver a complete PRD in plain markdown.
-- Include user stories and acceptance criteria in every requirements section.
+- Include user stories and acceptance criteria for every story.
+- Include backlog IDs and agent roles in the header.
 
 ## Supported Commands
 
