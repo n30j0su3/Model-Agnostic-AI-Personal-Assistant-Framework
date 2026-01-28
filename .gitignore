@@ -9,6 +9,8 @@ __pycache__/
 .opencode/package-lock.json
 .opencode/run-quota.ts
 .opencode/temp-quota/
+.opencode/*.tmp
+.vscode/
 
 # Local framework docs/notes
 PRO.txt
