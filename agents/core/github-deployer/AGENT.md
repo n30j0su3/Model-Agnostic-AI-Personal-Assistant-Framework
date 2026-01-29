@@ -22,7 +22,7 @@ Al recibir el comando "deploy" o "subir cambios":
 2. Genera un mensaje siguiendo este formato:
    `type(scope): description`
 3. Verifica si existe `origin` con `git remote get-url origin`.
-4. Si hay remote, ejecuta primero `python scripts/sync-remotes.py --private-remote private`.
+4. Si hay remote, ejecuta primero `python scripts/sync-remotes.py --private-remote origin`.
 5. Si el script no esta disponible o falla, usa: `git add . && git commit -m "[mensaje]" && git push`.
 6. Si no hay remote, ejecuta: `git add . && git commit -m "[mensaje]"` y explica que el repositorio es local.
 

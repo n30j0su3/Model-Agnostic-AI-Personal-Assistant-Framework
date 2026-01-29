@@ -1,40 +1,35 @@
-# Current Session
+# Current Session (Example)
 
-**Date**: 2026-01-28
-**Started**: 2026-01-28 09:00
-**Status**: Open
+**Date**: YYYY-MM-DD
+**Started**: HH:MM
+**Status**: Open | Closed
+
+> Public template only. Real session logs must live in your private repo or local workspace.
 
 ## Today's Focus
-Configuracion de la sesion diaria y seguimiento de tareas pendientes.
+- ...
 
 ## Tasks
 
 ### Pending
-
-- [ ] BL-085 UX docs/dashboard no tecnico (sin dependencias extra).
-- [ ] BL-093 Cache L1/L2/L3 de contexto (OmniMemory).
-- [ ] BL-099 Convertir documentacion MD a componentes reactivos.
-- [ ] Revisar UX del Cockpit para usuarios no tecnicos.
+- [ ] ...
 
 ### In Progress
+- [ ] ...
 
 ### Completed Today
+- [x] ...
 
 ## End of Day Summary
+- ...
 
 ## Tomorrow's Preview
+- ...
 
 ## Notes & Decisions
+- [Decision] ...
+- [Note] ...
 
-- 2026-01-28 19:24 Orchestrator: Delegado: 1 | Requiere LLM remoto: 1
-- 2026-01-28 18:40 Orchestrator: Delegado: 1 | Requiere LLM remoto: 1
-- 2026-01-28 18:40 Orchestrator: Requiere LLM remoto: 1
-- 2026-01-28 18:39 Orchestrator: Requiere LLM remoto: 2
-- 2026-01-28 18:39 Orchestrator: Requiere LLM remoto: 1
-- 2026-01-28 18:39 Orchestrator: Requiere LLM remoto: 6
-- 2026-01-28 18:22 Orchestrator: Delegado: 1
-- 2026-01-28 18:22 Orchestrator: Requiere LLM remoto: 2
 ## Reminders
-
-- Ejecutar `python scripts/sync-remotes.py --private-remote private` al cerrar cambios.
-- Usar `python scripts/pa.py` para gestion diaria.
+- Run `python scripts/sync-remotes.py --private-remote origin` to sync private logs.
+- Use `sessions/templates/daily-session.md` for daily records.

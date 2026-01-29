@@ -1,6 +1,6 @@
 # Backlog del Framework
 
-Ultima actualizacion: 2026-01-28
+Ultima actualizacion: 2026-01-29
 
 ## Versionado
 
@@ -17,6 +17,7 @@ Ultima actualizacion: 2026-01-28
 
 ## Historial de cambios
 
+- 2026-01-29: Se normalizo Agents.md, estrategia dual-remote y plantillas de sesiones publicas.
 - 2026-01-28: Se agregaron items BL-101 a BL-108 (Onboarding, ETL, Knowledge Base, Research, Dev/Agent, Console Agent, Quotas).
 - 2026-01-28: Se actualizo BL-050 (config autom), BL-090 (skillful optimization) y BL-094 (toon core-skill).
 - 2026-01-27: Alineacion con SRLC (Etapa Alpha declarada). Reporte de analisis externo de Agent-Skills integrado.
@@ -114,7 +115,7 @@ Ultima actualizacion: 2026-01-28
 | BL-084 | Vendoring de assets offline para docs/cockpit | CORE VITALS | Hecho | Assets locales en `docs/lib/` y script de descarga `scripts/vendor_assets.py` |
 | BL-085 | UX docs/dashboard no tecnico (sin dependencias extra) | CORE VITALS | Hecho | Dashboard ofrece opciones claras, abre archivos sin confusion y funciona en navegador sin requerir Python o instalaciones ocultas |
 | BL-086 | Historial de interacciones locales para consulta y reutilizacion | Media | Pendiente | Interacciones guardadas localmente en formato estructurado, consultables por skill/agent, opcion on/off y documentado |
-| BL-087 | Agents.md en raiz para guiar inicializacion segura | Alta | Pendiente | Archivo en raiz evita sobreescrituras, redirige a `.context/` y define flujo de inicializacion |
+| BL-087 | Agents.md en raiz para guiar inicializacion segura | Alta | Hecho | Archivo en raiz evita sobreescrituras, redirige a `.context/` y define flujo de inicializacion |
 | BL-088 | Renombrar nombre de sesion/ventana/contexto/chat con el nombre del Framework tras inicializacion (pa.bat, pa.sh, zip directo, etc.) | Alta | Pendiente | Al inicializar el framework, el titulo/identificador de la sesion/ventana/contexto/chat usa el nombre del Framework. Cubre pa.bat, pa.sh, instalacion zip directa y cualquier metodo documentado. No rompe CLIs y es local-first. |
 | BL-089 | Auditar sesiones recientes para identificar prompts/roles/agentes reutilizables e integrar mejoras | Media | Pendiente | Revisar ultimas sesiones en sessions/, documentar hallazgos, proponer integraciones o mejoras y actualizar backlog con decisiones. |
 | BL-090 | Evaluar plugin @zenobius/opencode-skillful | Baja | Pendiente | Verificar uso en repo/config, buscando aprovechar caracteristicas de optimizacion/seguridad/ahorro de recursos. Garantizar maxima compatibilidad (Opencode CLI default) y decidir integrar o descartar con justificacion. |

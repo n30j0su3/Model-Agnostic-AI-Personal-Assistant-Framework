@@ -1,23 +1,35 @@
-# Session Summary: {{DATE}}
+# Daily Session Log (Template)
 
+**Date**: {{DATE}}
 **Time Range**: {{START_TIME}} - {{END_TIME}}
 **Total Focus Time**: {{DURATION}}
 
-## 🎯 Day's Focus
-{{FOCUS}}
+## Goals (Planned)
+- [ ] ...
 
-## ✅ Accomplishments
-- [x] Tarea 1
-- [x] Tarea 2
+## Work Log
+- {{TIME}} - ...
 
-## 📝 Notes & Key Decisions
-- [Decisión]: ...
-- [Nota]: ...
+## Files Touched
+- `path/to/file.ext`
 
-## 🚀 Carry Forward (Tomorrow)
-- [ ] Tarea pendiente que pasa a mañana...
+## Backlog Updates
+- BL-XXX: status -> note
 
-## 📊 Metrics
+## Decisions
+- [Decision] ...
+
+## Tech Debt / Follow-ups
+- [Debt] ...
+
+## Risks / Blocks
+- [Blocker] ...
+
+## Carry Forward (Tomorrow)
+- [ ] ...
+
+## Metrics
 - Tasks Completed: {{COMPLETED_COUNT}}
 - Deep Work Sessions: {{DEEP_WORK_COUNT}}
+- Tests/Builds: {{TESTS_RUN}}
 - Satisfaction Level: [1-5]

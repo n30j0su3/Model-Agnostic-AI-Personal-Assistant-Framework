@@ -25,7 +25,9 @@ def git_output(args):
 def ensure_clean():
     status = git_output(["status", "--porcelain"])
     if status:
-        print("[ERROR] Hay cambios sin commit. Haz commit o stash antes de sincronizar.")
+        print(
+            "[ERROR] Hay cambios sin commit. Haz commit o stash antes de sincronizar."
+        )
         return False
     return True
 
@@ -74,9 +76,17 @@ def merge_main_into_private(main_branch, private_branch):
 
 def main():
     parser = argparse.ArgumentParser(description="Sync public and private remotes")
-    parser.add_argument("--private-remote", default="private", help="Nombre del remote privado")
+    parser.add_argument(
+        "--public-remote", default="upstream", help="Nombre del remote publico"
+    )
+    parser.add_argument("--public-url", help="URL del remote publico si no existe")
+    parser.add_argument(
+        "--private-remote", default="origin", help="Nombre del remote privado"
+    )
     parser.add_argument("--private-url", help="URL del remote privado si no existe")
-    parser.add_argument("--main-branch", default="main", help="Nombre de la rama principal")
+    parser.add_argument(
+        "--main-branch", default="main", help="Nombre de la rama principal"
+    )
     args = parser.parse_args()
 
     if not ensure_clean():
@@ -86,10 +96,12 @@ def main():
     if original_branch != args.main_branch:
         checkout(args.main_branch)
 
+    if not ensure_remote(args.public_remote, args.public_url):
+        return 1
     if not ensure_remote(args.private_remote, args.private_url):
         return 1
 
-    push_branch("origin", args.main_branch)
+    push_branch(args.public_remote, args.main_branch)
     push_branch(args.private_remote, args.main_branch)
 
     if current_branch() != original_branch:
