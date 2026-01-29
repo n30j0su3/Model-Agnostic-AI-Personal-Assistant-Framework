@@ -76,6 +76,24 @@ pa.bat
 Desde ahi puedes sincronizar contexto, ajustar preferencias, activar orquestacion
 multi-modelo y lanzar tu sesion AI sin ejecutar scripts sueltos.
 
+## Dev HQ vs Public Release
+
+Este repo funciona como Dev HQ (privado): contiene backlog real, sesiones y trazabilidad completa.
+La publicacion al repo publico se hace con un flujo separado y sanitizado.
+
+Reglas clave:
+- `origin` = repo privado (dev)
+- `upstream` = repo publico (release)
+- `main` = desarrollo privado
+- `public-release` = publicacion sanitizada
+
+Comandos:
+- Iniciar sesion de features (Dev HQ):
+  - Windows: `dev.bat`
+  - macOS/Linux: `./dev.sh`
+- Publicar a repo publico (sanitizado):
+  - `python scripts/publish-release.py --push`
+
 ## 🧰 Pre-requisitos (Hardware y Software)
 
 - **Hardware minimo**: CPU 4 nucleos, 8 GB RAM, 2 GB libres en disco.

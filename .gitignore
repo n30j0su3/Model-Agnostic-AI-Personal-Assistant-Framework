@@ -24,6 +24,7 @@ docs/backlog.local.md
 .context/claude.md
 .context/gemini.md
 .context/agents.md
+.context/DEV_ENVIRONMENT.md
 .context/env_vars.json
 .context/versions/
 .context/backups/
