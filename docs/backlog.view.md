@@ -5,6 +5,8 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 ## CORE VITALS
 
 - **BL-047**: TaskManager para programar mantenimiento y automatizaciones.
+- **BL-111**: Estandarización de PR para Feature Requests (Framework/GitHub).
+- **BL-112**: Estrategia Dual-Remote (Público/Privado) y Privacidad de Logs.
 - **BL-113**: Soporte de Trabajo Paralelo (Multi-User Sync).
 
 ---
@@ -17,6 +19,7 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 - **BL-067**: Auditoría UX end-to-end (instaladores, mensajes y docs).
 - **BL-074**: Implementar core-skill de data visualization (Seaborn/Matplotlib).
 - **BL-075**: Implementar core-skill "council of the wise".
+- **BL-087**: `Agents.md` en raíz para guiar inicialización segura.
 - **BL-088**: Renombrar nombre de sesión/ventana/contexto/chat tras inicialización.
 - **BL-093**: Cache L1/L2/L3 de contexto (OmniMemory pattern).
 - **BL-099**: Convertir documentación MD a componentes reactivos/offline.
