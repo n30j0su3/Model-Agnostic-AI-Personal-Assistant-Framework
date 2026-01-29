@@ -39,18 +39,19 @@ def checkout(branch):
     run_git(["checkout", branch])
 
 
-def restore_public_paths(public_head, paths):
+def protect_paths(public_head, paths):
     for path in paths:
-        # Check if path exists in public_head to restore it, otherwise delete it
         check = run_git(["ls-tree", "-r", public_head, "--name-only", path], check=False, capture_output=True)
         if check.stdout.strip():
             run_git(["checkout", public_head, "--", path], check=False)
+
+def delete_paths(paths):
+    for path in paths:
+        # If it's a file, remove it from index. If it's a directory, remove recursively.
+        if Path(path).is_dir():
+            run_git(["rm", "-rf", "--cached", path], check=False)
         else:
-            # If it's a file, remove it from index. If it's a directory, remove recursively.
-            if Path(path).is_dir():
-                run_git(["rm", "-rf", "--cached", path], check=False)
-            else:
-                run_git(["rm", "--cached", path], check=False)
+            run_git(["rm", "--cached", path], check=False)
 
 
 def has_staged_changes():
@@ -114,12 +115,17 @@ def main():
             checkout(original_branch)
         return 1
 
-    restore_public_paths(
+    protect_paths(
         public_head,
         [
             "docs/backlog.md",
             "docs/backlog.view.md",
             "sessions",
+        ],
+    )
+
+    delete_paths(
+        [
             "dev.bat",
             "dev.sh",
             "docs/workflow/dev-workflow.md",
