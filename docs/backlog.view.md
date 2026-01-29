@@ -5,6 +5,9 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 ## CORE VITALS
 
 - **BL-047**: TaskManager para programar mantenimiento y automatizaciones.
+- **BL-111**: Estandarización de PR para Feature Requests (Framework/GitHub).
+- **BL-112**: Estrategia Dual-Remote (Público/Privado) y Privacidad de Logs.
+- **BL-113**: Soporte de Trabajo Paralelo (Multi-User Sync).
 
 ---
 
@@ -21,6 +24,9 @@ Vista filtrada (sin Hecho), ordenada por prioridad.
 - **BL-093**: Cache L1/L2/L3 de contexto (OmniMemory pattern).
 - **BL-099**: Convertir documentación MD a componentes reactivos/offline.
 - **BL-100**: Implementar script de Aprendizaje Continuo (Optimización).
+- **BL-109**: Investigación de Agent Skills & Serena (Mejora Continua).
+- **BL-110**: Integración DeepSeek-OCR y KeyForge.
+- **BL-114**: Comando de Sincronización de Workspace Local (pa.bat).
 
 ---
 

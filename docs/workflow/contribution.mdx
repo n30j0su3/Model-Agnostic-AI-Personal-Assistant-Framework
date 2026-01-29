@@ -1,0 +1,76 @@
+# Contribution & Feature Request Protocol
+
+To maintain a clean separation between the **Core Framework** and **User Data**, all contributions and feature requests must adhere to this protocol. This ensures that personal information never pollutes the public codebase.
+
+## 1. The "No-Pollution" Policy
+
+**NEVER** commit or push the following to the public `upstream` repository:
+-   `sessions/*.md` (Your daily interactions).
+-   `logs/` (Execution logs, debug traces).
+-   `.context/` (Unless submitting a generic template).
+-   `workspaces/` (Your personal files).
+-   `.env` or any file containing API Keys.
+
+The public repository should contain **only** the generic framework logic:
+-   `agents/`
+-   `skills/`
+-   `scripts/`
+-   `docs/`
+
+## 2. Standardized Feature Requests (PRs)
+
+We prioritize feature requests submitted as Pull Requests (PRs) over simple issue tickets. A standard PR gets **+10% Priority Weight** in the backlog.
+
+### How to Submit a Feature Request via PR
+
+1.  **Create a Branch**:
+    ```bash
+    git checkout -b feature/name-of-your-feature
+    ```
+
+2.  **Add Your Request**:
+    Create a new file in `requests/` (create the folder if it doesn't exist) named `REQ-Title.md` with this format:
+
+    ```markdown
+    # Feature Request: [Title]
+
+    ## Goal
+    [What do you want to achieve?]
+
+    ## Proposed Solution
+    [How should it work?]
+
+    ## Why is it critical?
+    [Justification]
+    ```
+
+3.  **Clean Your Commit**:
+    Ensure only the request file (and any proposed code changes) are staged.
+    ```bash
+    git add requests/REQ-Title.md
+    git commit -m "feat: Request [Title]"
+    ```
+
+4.  **Push to Upstream**:
+    Push your branch and open a PR against the `main` branch of the public repo.
+
+## 3. Parallel Development & Sync
+
+When working in a team or across multiple devices:
+
+-   **Sync Often**: Use `python scripts/pa.py` -> Sync to pull latest changes.
+-   **Resolve Conflicts Locally**: If `sessions/` conflict, manually merge the Markdown files.
+-   **Private First**: Always push to `origin` (Private) first. Only push to `upstream` (Public) when you are ready to share a generic feature.
+
+## 4. Development Logs
+
+Development logs (`logs/dev/`) are strictly for local debugging or private history.
+-   **Public Repo**: Contains only `logs/.example` to show the expected format.
+-   **Private Repo**: May contain your full history.
+
+**Compliance Check**:
+Before submitting a PR, run:
+```bash
+python scripts/context-validate.py --clean-check
+```
+(This script ensures no private paths are staged).

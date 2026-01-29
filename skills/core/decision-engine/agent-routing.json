@@ -1,5 +1,5 @@
 {
-  "@feature-architect": ["feature", "arquitectura", "diseno", "plan", "roadmap", "scope", "backlog"],
+  "@feature-architect": ["feature", "arquitectura", "diseno", "plan", "roadmap", "scope", "backlog", "prd", "documentacion"],
   "@session-manager": ["sesion", "session", "resumen", "cierre", "pendientes", "daily", "today", "log-task"],
   "@github-deployer": ["deploy", "push", "commit", "github", "sync", "merge"],
   "@context-sync": ["contexto", "sync", "context", "snapshot", "versionado", "backup"],

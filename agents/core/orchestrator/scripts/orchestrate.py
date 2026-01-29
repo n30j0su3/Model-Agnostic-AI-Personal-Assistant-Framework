@@ -235,6 +235,20 @@ def write_jsonl(payload):
     with log_path.open("a", encoding="utf-8") as handle:
         handle.write(json.dumps(payload, ensure_ascii=False) + "\n")
 
+def log_thinking(task_id, step, reasoning, result="pending"):
+    now = datetime.now()
+    thinking_dir = ROOT / "sessions" / now.strftime("%Y") / now.strftime("%m")
+    thinking_dir.mkdir(parents=True, exist_ok=True)
+    log_path = thinking_dir / "thinking.jsonl"
+    entry = {
+        "timestamp": now.isoformat(),
+        "task_id": task_id,
+        "step": step,
+        "reasoning": reasoning,
+        "result": result
+    }
+    with log_path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(entry, ensure_ascii=False) + "\n")
 
 def main():
     parser = argparse.ArgumentParser(description="Orchestrator CLI")
@@ -277,18 +291,26 @@ def main():
         )
 
     for task in queue.all():
+        log_thinking(task["id"], f"Procesando: {task['description']}", f"Ruta decidida: {task['route']}")
         if task.get("route") == "LOCAL_EXECUTION":
             queue.set_status(task["id"], "running")
             if args.dry_run:
                 queue.set_status(task["id"], "done", result={"output": "dry-run"})
+                log_thinking(task["id"], "Ejecución Local", "Modo dry-run activado", "dry-run")
                 continue
             result = execute_local_action(task.get("action"), task.get("description"))
             if result.get("error"):
                 queue.set_status(
                     task["id"], "failed", error=result.get("error"), result=result
                 )
+                log_thinking(task["id"], "Ejecución Local", f"Error: {result.get('error')}", "failed")
             else:
                 queue.set_status(task["id"], "done", result=result)
+                log_thinking(task["id"], "Ejecución Local", "Completado exitosamente", "done")
+        elif task.get("route") == "DELEGATE":
+             log_thinking(task["id"], "Delegación", f"Delegando al agente {task.get('agent')}", "delegated")
+        elif task.get("route") == "REMOTE_LLM":
+             log_thinking(task["id"], "LLM Remoto", "Requiere procesamiento por modelo externo", "pending_remote")
 
     summary, next_steps = build_summary(queue.all())
     payload = {

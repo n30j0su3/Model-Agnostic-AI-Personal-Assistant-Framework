@@ -4,6 +4,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 from install import (
@@ -585,9 +586,34 @@ def menu_launcher():
             launch_cli(cli)
 
 
+def run_diagnostics():
+    print(t("diag.running", "Ejecutando diagnostico pre-arranque..."))
+    # Check Context Integrity
+    if run_context_validate():
+        print(t("diag.context.ok", "[OK] Integridad de contexto validada."))
+    else:
+        print(t("diag.context.fail", "[WARN] Errores en integridad de contexto."))
+    
+    # Check Git Status (if applicable)
+    if (REPO_ROOT / ".git").exists():
+        res = subprocess.run(["git", "status", "--porcelain"], cwd=REPO_ROOT, capture_output=True, text=True)
+        if res.stdout.strip():
+            print(t("diag.git.dirty", "[INFO] Tienes cambios locales pendientes en Git."))
+        else:
+            print(t("diag.git.clean", "[OK] Repositorio limpio."))
+
 def main_menu(feature_mode=False):
+    # Auto-Run Diagnostics and Sync on Startup
+    run_diagnostics()
+    print(t("sync.running", "Sincronizando contexto..."))
+    if run_sync_context():
+        print(t("sync.ok", "[OK] Contexto sincronizado."))
+    else:
+        print(t("sync.fail", "[WARN] Fallo sincronizacion automatica."))
+    time.sleep(1) # Brief pause to read status
+
     while True:
-        clear_screen()
+        # clear_screen() <- Quitamos o comentamos para la primera iteracion si queremos persistencia
         print_header()
         if feature_mode:
             print(
@@ -609,21 +635,24 @@ def main_menu(feature_mode=False):
         print("  7. 🔄 " + t("menu.option.update", "Buscar actualizaciones"))
         print("  8. 🧭 " + t("menu.option.decision", "Decision Engine"))
         print("  9. 🤖 " + t("menu.option.orchestrator", "Orquestador Inteligente"))
+        print("  11. 🖥️  " + t("menu.option.server", "Iniciar Servidor Dashboard"))
         if feature_mode:
             print("  10. 📋 " + t("menu.option.backlog", "Ver Backlog"))
         print("  0. 🚪 " + t("menu.option.exit", "Salir"))
 
-        valid_choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
+        valid_choices = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "11"}
         if feature_mode:
             valid_choices.add("10")
 
-        prompt_range = "0-10" if feature_mode else "0-9"
+        prompt_range = "0-11" if feature_mode else "0-11"
         choice = prompt_choice(
             t("menu.prompt", "\nSelecciona una opcion [{range}]: ", range=prompt_range),
             valid_choices,
         )
         if choice == "0":
             return
+        if choice == "11":
+             subprocess.run([sys.executable, str(REPO_ROOT / "scripts" / "server.py")])
         if choice == "1":
             menu_sync()
         elif choice == "2":

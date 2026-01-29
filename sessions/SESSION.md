@@ -1,91 +1,39 @@
 # Current Session
 
-**Date**: 2026-01-27
-**Started**: 2026-01-27 08:26
+**Date**: 2026-01-28
+**Started**: 2026-01-28 09:00
 **Status**: Open
 
 ## Today's Focus
-Continuar con el desarrollo.
+Configuracion de la sesion diaria y seguimiento de tareas pendientes.
 
 ## Tasks
 
 ### Pending
 
 - [ ] BL-085 UX docs/dashboard no tecnico (sin dependencias extra).
+- [ ] BL-093 Cache L1/L2/L3 de contexto (OmniMemory).
+- [ ] BL-099 Convertir documentacion MD a componentes reactivos.
+- [ ] Revisar UX del Cockpit para usuarios no tecnicos.
 
 ### In Progress
 
 ### Completed Today
 
-
-
-
-- [x] BL-085 Upgrade masivo del Cockpit (Dashboard UX) funcional y offline.
-- [x] BL-097 Implementacion de "Context Evaluator" (LLM-as-a-Judge).
-- [x] BL-098 Implementacion de "Context Compaction" en session-manager.
-- [x] BL-096 Implementacion de "Progressive Disclosure" en @orchestrator.
-
-- [x] Alineacion con SRLC (Etapa ALPHA declarada).
-- [x] Analisis tecnico de Agent-Skills (Context Engineering).
-- [x] BL-095 Implementacion del agente @orchestrator inteligente.
-- [x] BL-073 Integracion de sync-remotes en github-deployer.
-- [x] BL-072 Integrar session-tracking en session-manager.
-- [x] BL-071 Unificacion de session-tracking/context en session-manager.
-- [x] BL-070 Plantilla PRD reforzada para feature-architect.
-- [x] BL-069 Conflict-guard operativo (scripts/conflict_guard.py).
-- [x] BL-068.3 Formato FAR (docs/architecture/feature-analysis-report.mdx, templates/feature-analysis-report.template.md).
-- [x] BL-068.2 Event schema (docs/architecture/event-schema.mdx).
-- [x] BL-068.1 Interfaz conflict-guard (docs/architecture/conflict-guard-interface.mdx).
-- [x] BL-083 Acceso a documentacion local del framework.
-- [x] BL-084 Vendoring de assets offline para docs/cockpit.
-- [x] BL-060 Decision Engine local-first (skill y router base).
-- [x] ... y 14 tareas mas completadas anteriormente.
 ## End of Day Summary
-
-- **Hitos Alcanzados**:
-  - Framework actualizado a **v1.6.3-alpha**.
-  - **Orquestador Inteligente** (@orchestrator) operativo con Progressive Disclosure.
-  - **Cockpit Dashboard** (BL-085) totalmente renovado, offline y multi-idioma.
-  - **SRLC** implementado oficialmente.
-  - Sistema de **Evaluacion de Contexto** y **Compactacion** activos.
-- **Aprendizajes**: Reporte generado en `docs/architecture/reports/optimization-learnings.md`.
-- **Estado**: Cierre de sesion exitoso. Codigo sincronizado con remotos.
 
 ## Tomorrow's Preview
 
-- [ ] BL-093 Cache L1/L2/L3 de contexto (OmniMemory).
-- [ ] BL-099 Convertir documentacion MD a componentes reactivos.
-- [ ] Revisar UX del Cockpit para usuarios no tecnicos.
-
 ## Notes & Decisions
 
-
-- 2026-01-27: Se agrego a la secuencia de cierre la revision de contexto/logs para generar aprendizajes de optimizacion en un archivo .md.
-- 2026-01-27 16:34 Orchestrator: Completado local: 1
-
-- 2026-01-27 16:34 Orchestrator: Fallido: 1
-- 2026-01-27 16:34 Orchestrator: Delegado: 1
-- 2026-01-27 16:11 Orchestrator: Completado local: 2
-- 2026-01-27 16:10 Orchestrator: Completado local: 1
-- 2026-01-27 16:10 Orchestrator: Completado local: 1 | Requiere LLM remoto: 1
-- Se agregaron items BL-086 y BL-087 al backlog.
-- Se agregaron subitems BL-068.1 a BL-068.3 al backlog.
-- Se actualizo prioridad de BL-047 a CORE VITALS.
-- Se documento la interfaz conflict-guard (BL-068.1).
-- Se documento el event schema (BL-068.2).
-- Se documento el formato FAR (BL-068.3).
-- Se implemento conflict-guard operativo (BL-069).
-- Se integro conflict-guard + FAR en el flujo del feature-architect y se agregaron templates.
-- Se documentaron smoke tests de conflict-guard para agentes y docs.
-- Se agrego BL-088 (renombrar sesion/ventana/contexto/chat tras inicializacion).
-- Se limpiaron referencias a session-tracking en docs de arquitectura.
-- Se enlazo el FAR en docs/architecture/agents.mdx.
-- Se documentaron FARs aprobados para BL-070 a BL-073.
-- BL-071/BL-072 unificados en session-manager; log de decisiones agregado y context-sync mantiene archivos de contexto.
-- Se movio log-task.py a session-manager y se retiro session-tracking como skill.
-- BL-070/BL-073 completados con plantilla PRD reforzada y guia de deploy actualizada.
-- Se agregaron BL-089 (auditoria de sesiones) y BL-090 (evaluacion opencode-skillful).
-
+- 2026-01-28 19:24 Orchestrator: Delegado: 1 | Requiere LLM remoto: 1
+- 2026-01-28 18:40 Orchestrator: Delegado: 1 | Requiere LLM remoto: 1
+- 2026-01-28 18:40 Orchestrator: Requiere LLM remoto: 1
+- 2026-01-28 18:39 Orchestrator: Requiere LLM remoto: 2
+- 2026-01-28 18:39 Orchestrator: Requiere LLM remoto: 1
+- 2026-01-28 18:39 Orchestrator: Requiere LLM remoto: 6
+- 2026-01-28 18:22 Orchestrator: Delegado: 1
+- 2026-01-28 18:22 Orchestrator: Requiere LLM remoto: 2
 ## Reminders
 
 - Ejecutar `python scripts/sync-remotes.py --private-remote private` al cerrar cambios.

@@ -1,63 +1,65 @@
 # Smart Repository Setup
 
-The framework can bootstrap a repository the first time you run the installer. This makes onboarding friendlier for non-technical users while still working in offline-only setups.
+The framework is designed to work with a **Hybrid Repository Strategy**, allowing you to contribute to the core framework (public) while keeping your personal data, sessions, and workspaces strictly private (private).
 
-## When It Runs
+## The Hybrid Strategy (Public Core / Private Data)
 
-`scripts/install.py` triggers the setup flow only if:
+To ensure privacy and collaboration, the framework encourages the following structure:
 
-- The project has no `.git/` directory yet.
-- Git is available.
-- A global Git identity is configured (user name or email).
+1.  **Origin (Private)**: Your personal repository. Contains:
+    -   `sessions/`: Your daily logs and history.
+    -   `workspaces/`: Your personal projects and notes.
+    -   `.context/`: Your custom snapshots and AI memory.
+    -   `logs/`: Local execution logs (never shared).
+    -   **Target**: `git remote add origin <your-private-repo-url>`
 
-If those checks fail, the installer keeps going without interruption.
+2.  **Upstream (Public)**: The official framework repository. Contains:
+    -   Core Agents and Skills.
+    -   Documentation (`docs/`).
+    -   Scripts (`scripts/`).
+    -   **Target**: `git remote add upstream <framework-public-repo-url>`
 
-## Setup Modes
+### Setup Modes
 
-You will be prompted to choose one of the following modes:
+You will be prompted to choose one of the following modes during installation (`python scripts/setup_repo.py`):
 
-1. **GitHub (private + sync)**
-   - Creates a private repository and pushes the initial commit.
-   - Recommended for backups and multi-device workflows.
+1.  **Hybrid (Recommended)**
+    -   Configures `origin` for your private data.
+    -   Configures `upstream` for framework updates.
+    -   Sets up `.gitignore` to prevent leaking private data to upstream.
 
-2. **Local Git only**
-   - Initializes Git locally and creates the first commit.
-   - Good for privacy-first or offline users.
+2.  **Private Only (Backup)**
+    -   Single private repository.
+    -   Good for personal use without intent to contribute features.
 
-3. **Sandbox (no Git)**
-   - Skips Git entirely and avoids extra files.
-   - Ideal for quick tests or experiments.
+3.  **Local Git only**
+    -   Initializes Git locally. No remote connections.
+    -   Good for privacy-first, offline-only users.
 
-## Compatibility Cascade
+## Contribution Workflow
 
-To maximize compatibility and minimize dependencies, the setup flow uses this order:
+If you want to request features or contribute code, please follow the **Standardized Contribution Protocol**:
 
-1. **GitHub CLI (`gh`)** when installed and authenticated.
-2. **PyGithub** when the library is available in the environment.
-3. **GitHub REST API** (native `urllib`) as a universal fallback.
+-   **Feature Requests**: Must be submitted via Pull Request to the `upstream` repository.
+-   **Privacy**: Ensure NO `sessions/` or `logs/` are included in your PR.
+-   **Priority**: Features submitted via the standard PR format receive higher priority (+10% weight).
 
-Tokens are requested via hidden prompt and never stored.
+See [Contribution Guidelines](../workflow/contribution.mdx) for detailed instructions.
 
 ## Manual Usage
 
-If you need to run the setup again or if the installer didn't run it automatically, follow these simple steps:
-
-1. **Open your Command Console**:
-   - **Windows**: Search for `cmd` or `PowerShell` in the Start menu.
-   - **macOS/Linux**: Open the `Terminal` app.
-2. **Navigate to the framework folder** (or open the terminal directly inside it).
-3. **Paste and run this command**:
+If you need to run the setup again:
 
 ```bash
 python scripts/setup_repo.py
 ```
 
-### Tips for beginners
-- If you see an error about `python` not being found, try using `python3` instead.
-- You can copy the command above by clicking the copy icon in the Cockpit Dashboard.
+## Compatibility Cascade
 
-## Notes
+To maximize compatibility, the setup flow uses this order:
 
-- The repo name defaults to the current folder name.
-- Visibility defaults to private.
-- `.gitignore` is ensured before committing.
+1.  **GitHub CLI (`gh`)** when installed and authenticated.
+2.  **PyGithub** when the library is available.
+3.  **GitHub REST API** (native `urllib`) as a universal fallback.
+
+Tokens are requested via hidden prompt and never stored.

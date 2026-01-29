@@ -50,7 +50,9 @@
       "plan",
       "roadmap",
       "scope",
-      "backlog"
+      "backlog",
+      "prd",
+      "documentacion"
     ]
   },
   "@context-sync": {

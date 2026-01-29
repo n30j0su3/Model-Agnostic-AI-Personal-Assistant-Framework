@@ -28,3 +28,8 @@ docs/backlog.local.md
 .context/versions/
 .context/backups/
 opencode.jsonc
+
+# PRD 2026: Strict Privacy (No-Pollution)
+sessions/
+logs/
+workspaces/

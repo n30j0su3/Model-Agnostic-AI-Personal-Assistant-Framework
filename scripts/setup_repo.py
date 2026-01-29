@@ -12,6 +12,7 @@ from i18n import get_translator
 GITHUB_API = "https://api.github.com"
 DEFAULT_VISIBILITY_PRIVATE = True
 DEFAULT_REPO_NAME = "personal-assistant-framework"
+OFFICIAL_UPSTREAM = "https://github.com/diego-mazz/Personal-Assistant-Framework.git"
 GITIGNORE_TEMPLATE = """# ignore
 .env
 node_modules/
@@ -23,8 +24,11 @@ __pycache__/
 .opencode/package-lock.json
 .opencode/run-quota.ts
 .opencode/temp-quota/
+sessions/
+logs/
+workspaces/
+.context/
 """
-
 
 def run_cmd(args, cwd=None, capture_output=False):
     return subprocess.run(
@@ -59,7 +63,7 @@ def git_global_configured():
 
 def pygithub_available():
     try:
-        import github  # type: ignore[import-not-found]  # noqa: F401
+        import github  # type: ignore[import-not-found]
         return True
     except Exception:
         return False
@@ -67,9 +71,18 @@ def pygithub_available():
 
 def ensure_gitignore(repo_root):
     gitignore_path = repo_root / ".gitignore"
-    if gitignore_path.exists():
-        return
-    gitignore_path.write_text(GITIGNORE_TEMPLATE, encoding="utf-8")
+    if not gitignore_path.exists():
+         gitignore_path.write_text(GITIGNORE_TEMPLATE, encoding="utf-8")
+    else:
+        content = gitignore_path.read_text(encoding="utf-8")
+        criticals = ["sessions/", "logs/", "workspaces/"]
+        changed = False
+        for c in criticals:
+            if c not in content:
+                content += f"\n{c}"
+                changed = True
+        if changed:
+            gitignore_path.write_text(content, encoding="utf-8")
 
 
 def ensure_initial_commit(repo_root, t):
@@ -130,7 +143,7 @@ def create_repo_gh(repo_root, repo_name, private, t):
 
 def create_repo_pygithub(token, repo_name, private, t):
     try:
-        from github import Github  # type: ignore[import-not-found]
+        from github import Github
     except Exception:
         return ""
     client = Github(token)
@@ -141,7 +154,6 @@ def create_repo_pygithub(token, repo_name, private, t):
     except Exception as exc:
         print(f"[ERROR] PyGithub fallo: {exc}")
         return ""
-
 
 def create_repo_api(token, repo_name, private, t):
     payload = json.dumps({"name": repo_name, "private": private}).encode("utf-8")
@@ -163,31 +175,24 @@ def create_repo_api(token, repo_name, private, t):
         print(f"[ERROR] API GitHub fallo: {exc}")
         return ""
 
-
-def ensure_remote(repo_root, clone_url):
-    existing = run_cmd(["git", "remote", "get-url", "origin"], cwd=repo_root, capture_output=True)
+def ensure_remote(repo_root, clone_url, remote_name="origin"):
+    existing = run_cmd(["git", "remote", "get-url", remote_name], cwd=repo_root, capture_output=True)
     if existing.returncode == 0:
-        run_cmd(["git", "remote", "set-url", "origin", clone_url], cwd=repo_root)
+        run_cmd(["git", "remote", "set-url", remote_name, clone_url], cwd=repo_root)
         return
-    run_cmd(["git", "remote", "add", "origin", clone_url], cwd=repo_root)
+    run_cmd(["git", "remote", "add", remote_name, clone_url], cwd=repo_root)
 
-
-def push_main(repo_root, t):
+def push_main(repo_root, t, remote_name="origin"):
     run_cmd(["git", "branch", "-M", "main"], cwd=repo_root)
-    push = run_cmd(["git", "push", "-u", "origin", "main"], cwd=repo_root)
+    push = run_cmd(["git", "push", "-u", remote_name, "main"], cwd=repo_root)
     if push.returncode != 0:
-        print(t("repo.push.warn", "[WARN] No se pudo subir el repo a GitHub. Puedes intentar manualmente."))
-
+        print(t("repo.push.warn", f"[WARN] No se pudo subir el repo a {remote_name}."))
 
 def create_repo_remote(repo_root, repo_name, private, t):
-    if gh_authenticated():
-        return create_repo_gh(repo_root, repo_name, private, t)
-
-    token = getpass.getpass("GitHub Token (PAT): ").strip()
-    if not token:
-        print(t("repo.token.empty", "[WARN] Token vacio. Se cancela la creacion remota."))
+    if not gh_authenticated():
         return False
-
+    if not ensure_initial_commit(repo_root, t):
+        return False
     clone_url = ""
     if pygithub_available():
         clone_url = create_repo_pygithub(token, repo_name, private, t)
@@ -198,10 +203,9 @@ def create_repo_remote(repo_root, repo_name, private, t):
 
     if not ensure_initial_commit(repo_root, t):
         return False
-    ensure_remote(repo_root, clone_url)
-    push_main(repo_root, t)
+    ensure_remote(repo_root, clone_url, "origin")
+    push_main(repo_root, t, "origin")
     return True
-
 
 def prompt_repo_name(repo_root, t):
     default_name = repo_root.name or DEFAULT_REPO_NAME
@@ -209,50 +213,52 @@ def prompt_repo_name(repo_root, t):
     repo_name = input(prompt).strip()
     return repo_name or default_name
 
+def setup_hybrid_upstream(repo_root, t):
+    print(t("repo.upstream.info", "\n[INFO] Configurando 'upstream' para recibir actualizaciones del Framework..."))
+    ensure_remote(repo_root, OFFICIAL_UPSTREAM, "upstream")
+    print(t("repo.upstream.ok", "[OK] Upstream configurado: {url}", url=OFFICIAL_UPSTREAM))
 
 def setup_repository(repo_root, translator=None):
+    from i18n import get_translator
     repo_root = Path(repo_root)
     translator = translator or get_translator(repo_root)
     t = translator.t
+    
     if (repo_root / ".git").exists():
+        existing_upstream = run_cmd(["git", "remote", "get-url", "upstream"], cwd=repo_root, capture_output=True)
+        if existing_upstream.returncode != 0:
+             # Solo sugerir si no existe
+             pass
         return
+
     if not has_git():
-        print(t("repo.git.missing", "[INFO] Git no detectado. Se omite la inicializacion de repositorio."))
         return
     if not git_global_configured():
-        print(t("repo.git.unconfigured", "[INFO] Git global no configurado. Se omite la inicializacion de repositorio."))
         return
 
     print(t("repo.not_detected", "\nRepositorio no detectado."))
     print(t("repo.mode.title", "Selecciona el modo de inicio:"))
-    print(t("repo.mode.github", "  1. GitHub (privado + sincronizacion)"))
-    print(t("repo.mode.local", "  2. Local (solo historial en Git)"))
-    print(t("repo.mode.sandbox", "  3. Sandbox (sin Git, sin cambios extra)"))
+    print(t("repo.mode.hybrid", "  1. Hibrido (Privado + Upstream Publico) [Recomendado]"))
+    print(t("repo.mode.github", "  2. Privado Standalone (Solo Backup)"))
+    print(t("repo.mode.local", "  3. Local (Solo historial, sin Nube)"))
+    print(t("repo.mode.sandbox", "  4. Sandbox (Sin Git)"))
+    
     choice = prompt_choice(
-        t("repo.mode.prompt", "\nSelecciona [1-3]: "),
-        {"1", "2", "3"},
-        invalid_message=t("menu.invalid", "[WARN] Opcion invalida. Intenta de nuevo."),
+        t("repo.mode.prompt", "\nSelecciona [1-4]: "),
+        {"1", "2", "3", "4"}
     )
 
     if choice == "1":
-        private = prompt_yes_no(
-            t("repo.private.ask", "Crear repositorio privado?"),
-            default=DEFAULT_VISIBILITY_PRIVATE,
-            language=translator.language,
-        )
         repo_name = prompt_repo_name(repo_root, t)
-        if create_repo_remote(repo_root, repo_name, private, t):
-            print(t("repo.created", "[OK] Repositorio creado y sincronizado."))
-        else:
-            print(t("repo.failed", "[WARN] No se pudo crear el repositorio remoto."))
+        if create_repo_remote(repo_root, repo_name, True, t):
+            setup_hybrid_upstream(repo_root, t)
     elif choice == "2":
-        if ensure_initial_commit(repo_root, t):
-            print(t("repo.local.ok", "[OK] Repositorio local inicializado."))
-        else:
-            print(t("repo.local.fail", "[WARN] No se pudo inicializar el repositorio local."))
+        repo_name = prompt_repo_name(repo_root, t)
+        create_repo_remote(repo_root, repo_name, True, t)
+    elif choice == "3":
+        ensure_initial_commit(repo_root, t)
     else:
         ensure_gitignore(repo_root)
-        print(t("repo.sandbox", "[INFO] Sandbox activo. No se creo repositorio Git."))
 
 
 def main():
