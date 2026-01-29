@@ -120,11 +120,11 @@ def main():
             "docs/backlog.md",
             "docs/backlog.view.md",
             "sessions",
-            "Agents.md",
             "dev.bat",
             "dev.sh",
             "docs/workflow/dev-workflow.md",
             "scripts/publish-release.py",
+            ".context/DEV_ENVIRONMENT.md",
         ],
     )
 
