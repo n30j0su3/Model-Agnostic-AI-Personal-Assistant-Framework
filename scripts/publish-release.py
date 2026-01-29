@@ -128,8 +128,6 @@ def main():
         ],
     )
 
-    run_git(["add", "-A"])
-
     if not has_staged_changes():
         print("[INFO] No hay cambios para publicar.")
         if original_branch != args.public_branch:
