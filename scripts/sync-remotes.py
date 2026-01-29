@@ -85,24 +85,64 @@ def main():
     )
     parser.add_argument("--private-url", help="URL del remote privado si no existe")
     parser.add_argument(
-        "--main-branch", default="main", help="Nombre de la rama principal"
+        "--private-branch",
+        default=None,
+        help="Nombre de la rama privada a sincronizar (default: main)",
+    )
+    parser.add_argument(
+        "--public-branch",
+        default="public-release",
+        help="Nombre de la rama publica a sincronizar (default: public-release)",
+    )
+    parser.add_argument(
+        "--main-branch",
+        default="main",
+        help="(Deprecated) Alias de --private-branch",
+    )
+    parser.add_argument(
+        "--allow-public-main",
+        action="store_true",
+        help="Permite push de main a remoto publico (no recomendado)",
     )
     args = parser.parse_args()
 
+    private_branch = args.private_branch or args.main_branch
+    public_branch = args.public_branch
+
     if not ensure_clean():
         return 1
-
-    original_branch = current_branch()
-    if original_branch != args.main_branch:
-        checkout(args.main_branch)
 
     if not ensure_remote(args.public_remote, args.public_url):
         return 1
     if not ensure_remote(args.private_remote, args.private_url):
         return 1
 
-    push_branch(args.public_remote, args.main_branch)
-    push_branch(args.private_remote, args.main_branch)
+    if (
+        args.public_remote == "upstream"
+        and public_branch == "main"
+        and not args.allow_public_main
+    ):
+        print(
+            "[ERROR] Bloqueado: no se permite push de main a upstream. "
+            "Usa public-release o --allow-public-main."
+        )
+        return 1
+
+    if not branch_exists(private_branch):
+        print(f"[ERROR] Rama privada no encontrada: {private_branch}")
+        return 1
+    if not branch_exists(public_branch):
+        print(f"[ERROR] Rama publica no encontrada: {public_branch}")
+        return 1
+
+    original_branch = current_branch()
+    if original_branch != private_branch:
+        checkout(private_branch)
+    push_branch(args.private_remote, private_branch)
+
+    if public_branch != private_branch:
+        checkout(public_branch)
+    push_branch(args.public_remote, public_branch)
 
     if current_branch() != original_branch:
         checkout(original_branch)

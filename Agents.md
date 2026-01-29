@@ -20,6 +20,10 @@ Este archivo ejecuta un checklist obligatorio antes de abrir cualquier sesion o 
 - **Instalaciones limpias**: `scripts/setup_repo.py` solicita el repo privado y configura `origin` junto al `upstream` fijo.
 - **Sincronizacion**: Ejecuta `scripts/sync-remotes.py` para empujar cambios core al `upstream` (publico) y tu `origin` (privado) sin exponer logs.
 
+## Dev HQ Workflow
+- Usa `dev.bat` o `dev.sh` para iniciar la sesion de features en este entorno.
+- Trabaja en `main` (privado) y publica con `scripts/publish-release.py` hacia `public-release`.
+
 ## Privacidad estricta
 1. **Nunca subas sesiones reales a `upstream`.** `sessions/SESSION.md` y los historicos solo son plantillas.
 2. **Registra tu trabajo en `sessions/templates/daily-session.md`.** Copia la plantilla a un archivo local o al workspace privado ignorado.
