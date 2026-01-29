@@ -1,28 +1,28 @@
 {
-  "updated": "2026-01-28T21:42:43.924927Z",
+  "updated": "2026-01-29T20:24:27.031046Z",
   "assets": [
     {
       "name": "alpine.min.js",
       "url": "https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js",
-      "bytes": 46074,
+      "bytes": 46079,
       "cached": true
     },
     {
       "name": "marked.min.js",
       "url": "https://cdn.jsdelivr.net/npm/marked/marked.min.js",
-      "bytes": 39903,
+      "bytes": 39972,
       "cached": true
     },
     {
       "name": "lucide.min.js",
       "url": "https://unpkg.com/lucide@latest/dist/umd/lucide.min.js",
-      "bytes": 387755,
+      "bytes": 387767,
       "cached": true
     },
     {
       "name": "tailwind.js",
       "url": "https://cdn.tailwindcss.com",
-      "bytes": 407279,
+      "bytes": 407362,
       "cached": true
     }
   ]

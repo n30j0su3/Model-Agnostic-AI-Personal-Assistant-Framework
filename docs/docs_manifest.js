@@ -8,10 +8,6 @@ window.DOCS_MANIFEST = [
     "path": "backlog.view.md"
   },
   {
-    "label": "Backlog borrador (local)",
-    "path": "backlog.local.md"
-  },
-  {
     "label": "Backlog del Framework",
     "path": "backlog.md"
   },
@@ -28,8 +24,16 @@ window.DOCS_MANIFEST = [
     "path": "architecture/context-management.mdx"
   },
   {
+    "label": "Contribution & Feature Request Protocol",
+    "path": "workflow/contribution.mdx"
+  },
+  {
     "label": "Decision Engine (BL-060)",
     "path": "architecture/decision-engine.mdx"
+  },
+  {
+    "label": "Dev HQ Workflow",
+    "path": "workflow/dev-workflow.md"
   },
   {
     "label": "Event Schema",
@@ -82,6 +86,14 @@ window.DOCS_MANIFEST = [
   {
     "label": "Personal Workspace",
     "path": "workspaces/personal.mdx"
+  },
+  {
+    "label": "Plan de Implementaci\u00f3n: Framework PRD 2026",
+    "path": "architecture/plans/PLAN-IMPLEMENTACION-PRD-2026.md"
+  },
+  {
+    "label": "PRD: Personal Assistant Framework v2 (User-Friendly & Open Source)",
+    "path": "architecture/reports/PRD-Framework-2026.md"
   },
   {
     "label": "Professional Workspace",
