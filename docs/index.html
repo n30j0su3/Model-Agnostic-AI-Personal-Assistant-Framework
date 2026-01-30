@@ -210,7 +210,14 @@
 
             <!-- Tab: STATS -->
             <div x-show="currentTab === 'stats'" x-cloak class="max-w-6xl mx-auto space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-2xl font-bold text-white" x-text="strings.stats_title"></h2>
+                    <button @click="copyToClipboard('python scripts/history_engine.py')" class="text-xs bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl text-slate-400 hover:text-white transition-all">
+                        <i data-lucide="copy" class="inline mr-2" size="12"></i>
+                        <span x-text="strings.stats_generate"></span>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <div class="glass-card p-6 text-center">
                         <div class="text-[10px] text-slate-500 font-bold mb-1 uppercase tracking-widest">Sesiones Totales</div>
                         <div class="text-4xl font-bold text-white" x-text="statsData?.total_sessions || 0"></div>
@@ -223,9 +230,13 @@
                         <div class="text-[10px] text-slate-500 font-bold mb-1 uppercase tracking-widest">Ultima Actividad</div>
                         <div class="text-lg font-bold text-slate-200" x-text="formatDate(statsData?.last_activity)"></div>
                     </div>
+                    <div class="glass-card p-6 text-center">
+                        <div class="text-[10px] text-slate-500 font-bold mb-1 uppercase tracking-widest" x-text="strings.stats_prompts"></div>
+                        <div class="text-4xl font-bold text-white" x-text="statsData?.prompt_stats?.total_prompts || 0"></div>
+                    </div>
                     
                     <!-- Graph -->
-                    <div class="md:col-span-3 glass-card p-8">
+                    <div class="md:col-span-4 glass-card p-8">
                         <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Frecuencia de Actividad</h3>
                         <div class="bar-container border-b border-slate-800">
                              <!-- Generate some dummy bars if data is sparse to show the design -->
@@ -307,7 +318,8 @@
                 add_item: "Nueva Tarea", search_tasks: "Buscar...", all_priorities: "Prioridades", all_statuses: "Estados",
                 confirm_save: "¿Guardar cambios en el backlog local?", confirm_delete: "¿Eliminar {id}? Esta accion es permanente.",
                 save_success: "Backlog actualizado.", save_error: "Error al guardar el backlog.", delete_success: "Tarea eliminada.",
-                missing_fields: "Completa ID y Título antes de guardar."
+                missing_fields: "Completa ID y Título antes de guardar.",
+                stats_title: "Estadísticas", stats_generate: "Generar stats", stats_prompts: "Prompts Totales"
             },
             en: {
                 nav_dashboard: "Dashboard", nav_docs: "Documentation", nav_backlog: "Backlog", nav_stats: "Statistics",
@@ -317,7 +329,8 @@
                 add_item: "New Task", search_tasks: "Search...", all_priorities: "Priorities", all_statuses: "Statuses",
                 confirm_save: "Save backlog changes locally?", confirm_delete: "Delete {id}? This action is permanent.",
                 save_success: "Backlog updated.", save_error: "Failed to save backlog.", delete_success: "Task deleted.",
-                missing_fields: "Fill ID and Title before saving."
+                missing_fields: "Fill ID and Title before saving.",
+                stats_title: "Statistics", stats_generate: "Generate stats", stats_prompts: "Total Prompts"
             }
         };
 
@@ -355,7 +368,7 @@
                 navClass(tab) { return this.currentTab === tab ? 'bg-emerald-500/10 text-emerald-400 border-r-2 border-emerald-500' : 'text-slate-400 hover:bg-slate-900 hover:text-white'; },
                 async checkServer() { try { const res = await fetch('http://localhost:8085/api/status'); const data = await res.json(); this.serverActive = true; this.lastSync = data.last_sync || 'N/A'; } catch { this.serverActive = false; } },
                 openWorkspaceInfo(ws) { this.activeWorkspace = ws; this.$nextTick(() => lucide.createIcons()); },
-                async loadStats() { try { this.statsData = await (await fetch('stats.json')).json(); } catch {} },
+                async loadStats() { try { this.statsData = await (await fetch(`stats.json?v=${Date.now()}`)).json(); } catch {} },
                 async loadBacklog() {
                     try {
                         const res = await fetch('http://localhost:8085/api/backlog');
