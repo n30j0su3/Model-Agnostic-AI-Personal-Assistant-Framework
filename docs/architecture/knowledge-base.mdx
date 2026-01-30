@@ -1,0 +1,43 @@
+# Knowledge Base (Local-first)
+
+## Objetivo
+
+Centralizar URLs y referencias del ecosistema (agentes, frameworks, papers y herramientas)
+en un archivo sencillo y portable, sin dependencias externas.
+
+## Ubicacion
+
+- Config: `config/knowledge_base.json`
+- Docs: `docs/architecture/knowledge-base.mdx`
+
+## Estructura
+
+`config/knowledge_base.json` contiene:
+
+- `version`: version del esquema
+- `updated`: fecha de actualizacion
+- `categories`: objeto con listas por categoria
+
+Categorias base:
+
+- Agentes
+- Frameworks
+- Papers
+- Herramientas
+
+Cada entrada mantiene:
+
+- `name`: nombre corto
+- `url`: URL canonica
+- `notes`: descripcion breve
+
+## Actualizacion
+
+1. Edita `config/knowledge_base.json`
+2. Mantiene el formato JSON y las categorias base
+3. Agrega notas breves y claras para cada fuente
+
+## Alcance
+
+Este modulo no depende de `pa.py` ni de `sync-context.py`.
+Es un recurso standalone y local-first.
