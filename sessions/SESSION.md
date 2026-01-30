@@ -26,6 +26,7 @@ Configuracion de la sesion diaria y seguimiento de tareas pendientes.
 
 ## Notes & Decisions
 
+- 2026-01-29 19:36 Orchestrator: Delegado: 1
 - 2026-01-28 19:24 Orchestrator: Delegado: 1 | Requiere LLM remoto: 1
 - 2026-01-28 18:40 Orchestrator: Delegado: 1 | Requiere LLM remoto: 1
 - 2026-01-28 18:40 Orchestrator: Requiere LLM remoto: 1

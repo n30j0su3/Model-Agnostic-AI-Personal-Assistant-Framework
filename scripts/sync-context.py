@@ -5,6 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 from datetime import datetime
+from utils import PlatformHelper, get_repo_root
 
 # Configuración de logs corregida
 log_dir = Path("logs")
@@ -20,12 +21,20 @@ logging.basicConfig(
     ]
 )
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = get_repo_root()
 CONTEXT_DIR = REPO_ROOT / ".context"
 TOOLS = ["opencode", "claude", "gemini", "agents"]
 START_MARKER = "<!-- MASTER-CONTEXT-START -->"
 END_MARKER = "<!-- MASTER-CONTEXT-END -->"
 
+def validate_master_schema(content):
+    """Valida que MASTER.md contenga secciones criticas."""
+    required_sections = ["# MASTER CONTEXT", "## Perfil", "## Workspaces"]
+    for section in required_sections:
+        if section not in content:
+            logging.error(f"Seccion obligatoria faltante en MASTER.md: {section}")
+            return False
+    return True
 
 def run_context_snapshot():
     script_path = REPO_ROOT / "scripts" / "context-version.py"
@@ -50,6 +59,29 @@ def run_context_validate():
         logging.warning("Validacion de contexto reporto errores.")
         return False
     logging.info("Validacion de contexto completada.")
+    return True
+
+def check_git_conflicts():
+    """BL-113: Soporte de Trabajo Paralelo (Deteccion de colisiones)."""
+    if not (REPO_ROOT / ".git").exists():
+        return True
+        
+    try:
+        # Check if there are remote changes
+        subprocess.run(["git", "fetch"], cwd=REPO_ROOT, capture_output=True, check=False)
+        res = subprocess.run(["git", "status", "-uno"], cwd=REPO_ROOT, capture_output=True, text=True)
+        
+        if "Your branch is behind" in res.stdout:
+            logging.warning("Tu rama esta desactualizada. Hay cambios remotos que podrian entrar en conflicto.")
+            # Check specifically for changes in .context/
+            diff = subprocess.run(["git", "diff", "HEAD", "origin/main", "--", ".context/"], 
+                                 cwd=REPO_ROOT, capture_output=True, text=True)
+            if diff.stdout.strip():
+                logging.error("¡CONFLICTO DETECTADO! Hay cambios remotos en .context/. Por favor haz 'git pull' antes de sincronizar.")
+                return False
+    except Exception as e:
+        logging.debug(f"Error checking git status: {e}")
+        
     return True
 
 def get_master_content():
@@ -96,9 +128,18 @@ def sync_tool(tool_name, master_content):
 
 def main():
     logging.info("Iniciando sincronización de contexto...")
+    
+    if not check_git_conflicts():
+        logging.error("Sincronizacion cancelada para proteger el contexto de colisiones.")
+        return
+
     run_context_snapshot()
     master_content = get_master_content()
     if not master_content:
+        return
+
+    if not validate_master_schema(master_content):
+        logging.error("Sincronizacion abortada por esquema invalido en MASTER.md.")
         return
 
     for tool in TOOLS:

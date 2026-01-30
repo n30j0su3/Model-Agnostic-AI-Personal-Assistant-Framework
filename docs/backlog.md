@@ -35,15 +35,15 @@ Ultima actualizacion: 2026-01-28
 | BL-008 | Orquestacion multi-modelo con conmutacion rapida | Alta | Hecho | Flujo unificado documentado para OpenCode, Claude, Gemini y Codex |
 | BL-009 | Gestion de contexto local versionado | Alta | Hecho | Estructura `.context/` definida y versionada sin lock-in |
 | BL-010 | Workspaces multidisciplinarios aislados | Media | Pendiente | Workspaces claramente separados por disciplina y documentados |
-| BL-011 | Sistema de agentes especializados con roles claros | Media | Pendiente | Catalogo de agentes con responsabilidades y uso recomendado |
-| BL-012 | Skills modulares para tareas recurrentes | Media | Pendiente | Libreria de skills con index y versionado actualizado |
-| BL-013 | Trazabilidad diaria automatica | Media | Pendiente | Sesiones diarias registradas y accesibles desde `sessions/`. Dependencias: BL-014 |
-| BL-014 | Pipeline de sincronizacion coherente | Media | Pendiente | Script de sync mantiene coherencia entre herramientas e incluye automatizaciones en `scripts/` |
+| BL-011 | Sistema de agentes especializados con roles claros | CORE VITALS | Pendiente | Catalogo de agentes con responsabilidades y uso recomendado |
+| BL-012 | Skills modulares para tareas recurrentes | CORE VITALS | Pendiente | Libreria de skills con index y versionado actualizado |
+| BL-013 | Trazabilidad diaria automatica | CORE VITALS | Pendiente | Sesiones diarias registradas y accesibles desde `sessions/`. Dependencias: BL-014 |
+| BL-014 | Pipeline de sincronizacion coherente | CORE VITALS | Pendiente | Script de sync mantiene coherencia entre herramientas e incluye automatizaciones en `scripts/` |
 | BL-015 | Documentacion integrada estilo Mintlify | Baja | Pendiente | Docs consistentes y navegables en `docs/` |
-| BL-016 | Estructura de carpetas estable y extensible | Baja | Pendiente | Convenciones de nombres y ubicaciones estandarizadas |
+| BL-016 | Estructura de carpetas estable y extensible | CORE VITALS | Pendiente | Convenciones de nombres y ubicaciones estandarizadas |
 | BL-017 | Scripts de automatizacion para sync y normalizacion | N/A | N/A | Unificado con BL-014 |
-| BL-018 | Compatibilidad multiplataforma | Baja | Pendiente | Rutas y comandos probados en Windows/macOS/Linux |
-| BL-019 | Diseno de interfaz soportado por skill UI/UX | Baja | Pendiente | Skill UI/UX disponible y referenciado en docs |
+| BL-018 | Compatibilidad multiplataforma | CORE VITALS | Pendiente | Rutas y comandos probados en Windows/macOS/Linux |
+| BL-019 | Diseno de interfaz soportado por skill UI/UX | CORE VITALS | Pendiente | Skill UI/UX disponible y referenciado en docs |
 | BL-020 | Revisar jerarquia de scopes (agents/skills/workspaces) | Media | Hecho | Backlog borrador local con sugerencias en `docs/backlog.local.md` |
 | BL-021 | Agregar skill prd-generator | Alta | Hecho | Skill creado en `skills/core/prd-generator` y listado en el indice |
 | BL-022 | Agregar skill mcp-builder | Alta | Hecho | Skill creado en `skills/core/mcp-builder` y listado en el indice |
@@ -71,7 +71,7 @@ Ultima actualizacion: 2026-01-28
 | BL-044 | Integrar skill de prompt-improvement con estandares modernos | Alta | Hecho | Skill con buenas practicas (CoT, RAG, few-shot, JSON prompts), referencias confiables y actualizacion programable por usuario |
 | BL-045 | Planear framework/skill de investigacion multiproposito | Alta | Pendiente | Skill global con modos de investigacion (sencilla, deep-research, profesional) y flujo guiado opcional |
 | BL-046 | Integrar desinstalador del framework (completo o parcial) | Alta | Hecho | Proceso seguro de desinstalacion documentado y con opcion parcial |
-| BL-047 | TaskManager para programar mantenimiento y automatizaciones | CORE VITALS | Pendiente | Sistema para planear/personalizar ejecucion de scripts de mantenimiento y automatizaciones, incluye job cada 30 dias |
+| BL-047 | TaskManager para programar mantenimiento y automatizaciones | CORE VITALS | Hecho | Sistema implementado en scripts/pa.py con verificacion de 30 dias |
 | BL-048 | Planear/Integrar script de mantenimiento del framework (cada 30 dias) | N/A | N/A | Unificado con BL-047 |
 | BL-049 | Planear/Integrar script de verificacion de jerarquia y overlaps | N/A | N/A | Unificado con BL-069 |
 | BL-050 | Guia de obtencion de API keys (OpenAI/Gemini/Claude/OpenRouter) | Alta | Pendiente | Docs para OpenAI, Gemini, Claude, OpenRouter y similares con pasos claros. Incluir guia/proceso de configuracion automatica en installer/dashboard (ref: opencode-antigravity-auth). |
@@ -106,39 +106,43 @@ Ultima actualizacion: 2026-01-28
 | BL-076 | Integrar summarize + transcript-to-content (sin referencia a clawdbot) | Media | Pendiente | Skills integradas sin referencia directa a clawdbot en docs, incluye transcripcion de contenido |
 | BL-077 | Implementar core-skill de transcripcion de contenido | N/A | N/A | Unificado con BL-076 |
 | BL-078 | Evaluar/Integrar skill/agent Google Workspace (No Cloud Console) | Media | Pendiente | Opcion para Gmail/Calendar/Drive/Docs/Sheets documentada |
-| BL-079 | Instalador: ofrecer instalar CLI elegido o guiar instalacion (pa.bat) | Baja | Pendiente | Opcion en instalador con links internos/externos |
-| BL-080 | Integrar buenas practicas de uso Gemini (docs) | Baja | Pendiente | Guia basada en la doc indicada y adaptada al framework. Dependencias: BL-050 |
-| BL-081 | Integrar referencias de cheat-sheet/troubleshooting y tips rapidos | Baja | Pendiente | Docs y dashboard incluyen seccion de tips rapidos y referencias relevantes |
-| BL-082 | Integrar gestor/banco de skills instalables | Baja | Pendiente | Sistema para buscar/instalar skills sin conflictos ni overlaps |
+| BL-079 | Instalador: ofrecer instalar CLI elegido o guiar instalacion (pa.bat) | CORE VITALS | Pendiente | Opcion en instalador con links internos/externos |
+| BL-080 | Integrar buenas practicas de uso Gemini (docs) | Alta | Pendiente | Guia basada en la doc indicada y adaptada al framework. Dependencias: BL-050 |
+| BL-081 | Integrar referencias de cheat-sheet/troubleshooting y tips rapidos | CORE VITALS | Pendiente | Docs y dashboard incluyen seccion de tips rapidos y referencias relevantes |
+| BL-082 | Integrar gestor/banco de skills instalables | Alta | Pendiente | Sistema para buscar/instalar skills sin conflictos ni overlaps |
 | BL-083 | Acceso a documentacion local del framework | Baja | Hecho | Cockpit carga docs locales con manifest (`docs/docs_manifest.js`) y visor integrado |
 | BL-084 | Vendoring de assets offline para docs/cockpit | CORE VITALS | Hecho | Assets locales en `docs/lib/` y script de descarga `scripts/vendor_assets.py` |
 | BL-085 | UX docs/dashboard no tecnico (sin dependencias extra) | CORE VITALS | Hecho | Dashboard ofrece opciones claras, abre archivos sin confusion y funciona en navegador sin requerir Python o instalaciones ocultas |
-| BL-086 | Historial de interacciones locales para consulta y reutilizacion | Media | Pendiente | Interacciones guardadas localmente en formato estructurado, consultables por skill/agent, opcion on/off y documentado |
-| BL-087 | Agents.md en raiz para guiar inicializacion segura | Alta | Pendiente | Archivo en raiz evita sobreescrituras, redirige a `.context/` y define flujo de inicializacion |
-| BL-088 | Renombrar nombre de sesion/ventana/contexto/chat con el nombre del Framework tras inicializacion (pa.bat, pa.sh, zip directo, etc.) | Alta | Pendiente | Al inicializar el framework, el titulo/identificador de la sesion/ventana/contexto/chat usa el nombre del Framework. Cubre pa.bat, pa.sh, instalacion zip directa y cualquier metodo documentado. No rompe CLIs y es local-first. |
-| BL-089 | Auditar sesiones recientes para identificar prompts/roles/agentes reutilizables e integrar mejoras | Media | Pendiente | Revisar ultimas sesiones en sessions/, documentar hallazgos, proponer integraciones o mejoras y actualizar backlog con decisiones. |
+| BL-086 | Historial de interacciones locales para consulta y reutilizacion | CORE VITALS | Pendiente | Interacciones guardadas localmente en formato estructurado, consultables por skill/agent, opcion on/off y documentado |
+| BL-087 | Agents.md en raiz para guiar inicializacion segura | CORE VITALS | Pendiente | Archivo en raiz evita sobreescrituras, redirige a `.context/` y define flujo de inicializacion |
+| BL-088 | Renombrar nombre de sesion/ventana/contexto/chat con el nombre del Framework tras inicializacion (pa.bat, pa.sh, zip directo, etc.) | Baja | Pendiente | Al inicializar el framework, el titulo/identificador de la sesion/ventana/contexto/chat usa el nombre del Framework. Cubre pa.bat, pa.sh, instalacion zip directa y cualquier metodo documentado. No rompe CLIs y es local-first. |
+| BL-089 | Auditar sesiones recientes para identificar prompts/roles/agentes reutilizables e integrar mejoras | Alta | Pendiente | Revisar ultimas sesiones en sessions/, documentar hallazgos, proponer integraciones o mejoras y actualizar backlog con decisiones. |
 | BL-090 | Evaluar plugin @zenobius/opencode-skillful | Baja | Pendiente | Verificar uso en repo/config, buscando aprovechar caracteristicas de optimizacion/seguridad/ahorro de recursos. Garantizar maxima compatibilidad (Opencode CLI default) y decidir integrar o descartar con justificacion. |
-| BL-091 | Sistema de logging de prompts ejecutados | CORE VITALS | Pendiente | Registra prompts/roles/agent/skill, timestamps y origen en JSONL local con opcion on/off y documentacion. |
-| BL-092 | Tracking real de tokens y API calls | CORE VITALS | Pendiente | Registra tokens de entrada/salida, costos estimados y proveedor por sesion con export local y docs. |
+| BL-091 | Sistema de logging de prompts ejecutados | CORE VITALS | Delegado | Registra prompts/roles/agent/skill en JSONL local. Delegado a Codex. |
+| BL-092 | Tracking real de tokens y API calls | CORE VITALS | Delegado | Registra tokens de entrada/salida y costos estimados. Delegado a Codex. |
 | BL-093 | Cache L1/L2/L3 de contexto (OmniMemory pattern) | Alta | Hecho | Implementada Skill OmniMemory con estructura L1 (temp), L2 (sessions/thinking.jsonl) y L3 (memory.md). Orchestrator registra thinking. |
-| BL-094 | TOON encoder para datos tabulares | Media | Pendiente | Core-Skill basado en https://github.com/toon-format/toon, similar a json-prompt-generator, para conversion de tablas a formato TOON con ejemplo y docs. |
+| BL-094 | TOON encoder para datos tabulares | Alta | Pendiente | Core-Skill basado en https://github.com/toon-format/toon, similar a json-prompt-generator, para conversion de tablas a formato TOON con ejemplo y docs. |
 | BL-095 | Orquestador inteligente de tareas y delegacion | Alta | Hecho | Orquestador que clasifica tareas, delega a agents/skills y retorna resumen, documentado y sin lock-in. |
 | BL-096 | Implementar "Progressive Disclosure" en @orchestrator | Alta | Hecho | El orquestador carga solo metadatos de agentes y lee AGENT.md completo solo bajo demanda para ahorrar tokens. |
 | BL-097 | Crear core-skill "context-evaluator" (LLM-as-a-Judge) | Media | Hecho | Framework de evaluacion automatica de respuestas basado en rubricas y comparacion pairwise. |
 | BL-098 | Implementar "Context Compaction" en session-manager | Media | Hecho | Algoritmo que resume el historial de sesion cuando excede limites de atencion (U-shaped attention). |
-| BL-099 | Convertir documentacion MD a componentes reactivos/offline | Alta | Pendiente | Utilizar la Skill de UX para transformar archivos MD planos en interfaces reactivas/potentes usando frameworks ligeros opensource, mejorando la legibilidad y utilidad offline. |
-| BL-100 | Implementar script de Aprendizaje Continuo (Optimizacion) | Media | Pendiente | Automatizar la generacion de reportes de optimizacion (tokens, quota, API calls) al cierre de sesion, como se define en el AGENT.md de session-manager. |
-| BL-101 | Onboarding Process Interactivo | Alta | Pendiente | Implementar proceso de onboarding con apoyo interactivo para guiar al usuario sobre el framework, caracteristicas y uso. |
-| BL-102 | Core Skill: ETL (Extract Transform Load) | Alta | Pendiente | Implementar skill para manipulacion de datos (Excel, formatos, formulas) requerida comunmente por usuarios. |
-| BL-103 | Modulo "Centralized Knowledge Base" | CORE VITALS | Pendiente | Crear modulo/banco de URLs y mejores practicas (Context7, Papers, Agent Skills) como base de conocimiento para el framework. Ver BL-106 para URLs completas. |
+| BL-099 | Convertir documentacion MD a componentes reactivos/offline | CORE VITALS | Pendiente | Utilizar la Skill de UX para transformar archivos MD planos en interfaces reactivas/potentes usando frameworks ligeros opensource, mejorando la legibilidad y utilidad offline. |
+| BL-100 | Implementar script de Aprendizaje Continuo (Optimizacion) | CORE VITALS | Pendiente | Automatizar la generacion de reportes de optimizacion (tokens, quota, API calls) al cierre de sesion, como se define en el AGENT.md de session-manager. |
+| BL-101 | Onboarding Process Interactivo | CORE VITALS | Pendiente | Implementar proceso de onboarding con apoyo interactivo para guiar al usuario sobre el framework, caracteristicas y uso. |
+| BL-102 | Core Skill: ETL (Extract Transform Load) | CORE VITALS | Pendiente | Implementar skill para manipulacion de datos (Excel, formatos, formulas) requerida comunmente por usuarios. |
+| BL-103 | Modulo "Centralized Knowledge Base" | CORE VITALS | Delegado | Modulo/banco de URLs y mejores practicas. Delegado a Codex. |
 | BL-104 | Feature Architect: Research & Improvement Capability | Alta | Pendiente | Habilidad para consultar estado/inventario de habilidades del framework, comparar vs Papers AI usando BL-106, y documentar localmente planes de mejora/optimizacion. Dependencias: BL-103, BL-106 |
-| BL-105 | Dev/Agent Standards Integration | Media | Pendiente | Implementar Dev/Agent complementado con estandares como BMAD, OpenSpec, OhMyCode, spec-kit. |
-| BL-106 | Codebase Centralizada (Knowledge URLs) | Alta | Pendiente | Modulo centralizado de URLs de conocimiento/documentacion/mejores-practicas. Incluir: Context7, NirDiamant agents, lofi.so, deepseek-ai, serena, git-mcp, langchain-ai, GreatScottyMac context-portal, marckrenn rtfmbro-mcp, agent-skills.cc, agentman.ai, clawdhub.com, Papers AI (arxiv, huggingface, scholar), recomendaciones de modelos IA (Claude Opus 4.5 para auditar, Gemini 3 para planear, GPT 5.2 Codex Max para ejecutar). |
+| BL-105 | Dev/Agent Standards Integration | Alta | Pendiente | Implementar Dev/Agent complementado con estandares como BMAD, OpenSpec, OhMyCode, spec-kit. |
+| BL-106 | Codebase Centralizada (Knowledge URLs) | CORE VITALS | Pendiente | Modulo centralizado de URLs de conocimiento/documentacion/mejores-practicas. Incluir: Context7, NirDiamant agents, lofi.so, deepseek-ai, serena, git-mcp, langchain-ai, GreatScottyMac context-portal, marckrenn rtfmbro-mcp, agent-skills.cc, agentman.ai, clawdhub.com, Papers AI (arxiv, huggingface, scholar), recomendaciones de modelos IA (Claude Opus 4.5 para auditar, Gemini 3 para planear, GPT 5.2 Codex Max para ejecutar). |
 | BL-107 | Integracion CORE-Agent en Consola | Alta | Pendiente | Prueba de integrar/configurar CORE-Agent (sugerido @feature-architect) como Agent en consola. Priorizar estandar Opencode (.opencode/agent/ con archivos .md para personas AI) y evaluar soporte en otras CLIs. |
 | BL-108 | Gestion de Quotas y Alertas de Uso | Alta | Pendiente | Sistema para monitorear quotas de Gemini, OpenAI (GPT-5.2), x.ai y Claude. Respetar limites y avisar al usuario antes de superarlos (ref: developers.google, help.openai, docs.x.ai, support.claude). |
 | BL-109 | Investigacion de Agent Skills & Serena | Alta | Pendiente | Analizar `muratcankoylan/Agent-Skills-for-Context-Engineering` y `oraios/serena` vs Framework actual. Evaluar practicas, estandares y codigo para integracion/mejora respetando filosofia local-first. |
 | BL-110 | Integracion DeepSeek-OCR y KeyForge | Alta | Pendiente | Evaluar e implementar `deepseek-ai/DeepSeek-OCR` y `infodungeon/keyforge` como Core Skills para potenciar la lectura de documentos y generacion de claves. |
 | BL-111 | Estandarizacion de PR para Feature Requests | CORE VITALS | Hecho | Definido estandar de PR (+10% prioridad) en docs/workflow/contribution.mdx para features solicitados via Framework o GitHub. |
 | BL-112 | Estrategia Dual-Remote (Publico/Privado) y Privacidad de Logs | CORE VITALS | Hecho | Implementada estrategia Dual-Remote en setup_repo.py y .gitignore estricto para proteger logs/sessions. pa.bat soporta configuracion hibrida. |
-| BL-113 | Soporte de Trabajo Paralelo (Multi-User Sync) | CORE VITALS | Pendiente | Validacion y comparacion de contexto/sesiones para multiples usuarios en el mismo proyecto. Gestion de overlaps tipo GitHub para archivos de workspace y context. |
+| BL-113 | Soporte de Trabajo Paralelo (Multi-User Sync) | CORE VITALS | Hecho | Deteccion de colisiones Git implementada en sync-context.py |
 | BL-114 | Comando de Sincronizacion de Workspace Local | Alta | Pendiente | Integrar en `pa.bat` opcion para sincronizar cambios locales de workspaces con el repo privado sin afectar el core publico. |
+| BL-115 | Integrar Dashboard de Estadisticas Historicas (ETL + UI) | Alta | Pendiente | Script ETL para generar JSON historico y mejora en dashboard.html para visualizar graficos de uso y ahorro. |
+| BL-116 | Integrar Excalidraw CLI (@excalidraw) | Media | Pendiente | Wrapper para https://github.com/swiftlysingh/excalidraw-cli permitiendo diagramacion via CLI. |
+| BL-117 | Suite de Pruebas de Integridad Ligera | Alta | Pendiente | Tests unitarios con `unittest` (sin deps) para validar integridad de scripts criticos y contexto. |
+| BL-118 | En el backlog se debería poder asignar tareas a los workspaces | Media | Pendiente | Ahora el Backlog es nuestro registro de desarrollo, pero para el usuario será su organización CENTRAL de gestión de actividades |

@@ -1,0 +1,15 @@
+{
+  "total_sessions": 5,
+  "total_tokens_estimated": 788,
+  "last_activity": "2026-01-29T16:08:10.923172",
+  "sessions_by_date": {
+    "2026-01-29": 5
+  },
+  "tools_usage": {
+    "opencode": 0,
+    "gemini": 0,
+    "claude": 0
+  },
+  "generated_at": "2026-01-29T20:42:02.993988",
+  "framework_version": "1.6.3"
+}

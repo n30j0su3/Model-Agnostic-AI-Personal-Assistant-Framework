@@ -5,6 +5,7 @@ import shutil
 import subprocess
 import sys
 import time
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from install import (
@@ -29,8 +30,9 @@ from orchestrate import (
     parse_catalog,
 )
 from i18n import get_translator
+from utils import PlatformHelper, get_repo_root
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = get_repo_root()
 TRANSLATOR = get_translator(REPO_ROOT)
 LANGUAGE = TRANSLATOR.language
 CLI_LABELS = {
@@ -62,8 +64,7 @@ def setup_unicode():
 
 
 def clear_screen():
-    if sys.stdout.isatty():
-        os.system("cls" if os.name == "nt" else "clear")
+    PlatformHelper.clear_screen()
 
 
 def print_header():
@@ -101,7 +102,7 @@ def run_sync_context():
     if not sync_script.exists():
         print("[ERROR] No se encontro scripts/sync-context.py.")
         return False
-    result = subprocess.run([sys.executable, str(sync_script)], cwd=REPO_ROOT)
+    result = PlatformHelper.run_command([PlatformHelper.get_python_executable(), str(sync_script)], cwd=REPO_ROOT, capture_output=False)
     return result.returncode == 0
 
 
@@ -110,7 +111,7 @@ def run_context_version(args):
     if not script_path.exists():
         print("[ERROR] No se encontro scripts/context-version.py.")
         return False
-    result = subprocess.run([sys.executable, str(script_path), *args], cwd=REPO_ROOT)
+    result = PlatformHelper.run_command([PlatformHelper.get_python_executable(), str(script_path), *args], cwd=REPO_ROOT, capture_output=False)
     return result.returncode == 0
 
 
@@ -119,7 +120,7 @@ def run_context_validate():
     if not script_path.exists():
         print("[ERROR] No se encontro scripts/context-validate.py.")
         return False
-    result = subprocess.run([sys.executable, str(script_path)], cwd=REPO_ROOT)
+    result = PlatformHelper.run_command([PlatformHelper.get_python_executable(), str(script_path)], cwd=REPO_ROOT, capture_output=False)
     return result.returncode == 0
 
 
@@ -586,6 +587,34 @@ def menu_launcher():
             launch_cli(cli)
 
 
+def check_maintenance_tasks():
+    """BL-047: TaskManager para programar mantenimiento cada 30 dias."""
+    maint_file = REPO_ROOT / ".context" / ".last_maint"
+    now = datetime.now()
+    should_run = False
+    
+    if not maint_file.exists():
+        should_run = True
+    else:
+        try:
+            last_maint_str = maint_file.read_text(encoding="utf-8").strip()
+            last_maint = datetime.fromisoformat(last_maint_str)
+            if now - last_maint > timedelta(days=30):
+                should_run = True
+        except Exception:
+            should_run = True
+            
+    if should_run:
+        print("\n" + t("diag.maint.running", "🛠️ Ejecutando mantenimiento programado (cada 30 dias)..."))
+        # Clean snapshots older than 30 days
+        run_context_version(["clean", "--older", "30"])
+        # Export a full backup
+        run_context_version(["export"])
+        # Update timestamp
+        maint_file.write_text(now.isoformat(), encoding="utf-8")
+        print(t("diag.maint.ok", "[OK] Mantenimiento completado."))
+
+
 def run_diagnostics():
     print(t("diag.running", "Ejecutando diagnostico pre-arranque..."))
     # Check Context Integrity
@@ -593,6 +622,9 @@ def run_diagnostics():
         print(t("diag.context.ok", "[OK] Integridad de contexto validada."))
     else:
         print(t("diag.context.fail", "[WARN] Errores en integridad de contexto."))
+    
+    # Run Scheduled Maintenance
+    check_maintenance_tasks()
     
     # Check Git Status (if applicable)
     if (REPO_ROOT / ".git").exists():
