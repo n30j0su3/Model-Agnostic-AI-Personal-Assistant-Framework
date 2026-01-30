@@ -1,6 +1,6 @@
 {
   "total_sessions": 5,
-  "total_tokens_estimated": 788,
+  "total_tokens_estimated": 790,
   "last_activity": "2026-01-29T16:08:10.923172",
   "sessions_by_date": {
     "2026-01-29": 5
@@ -10,6 +10,20 @@
     "gemini": 0,
     "claude": 0
   },
-  "generated_at": "2026-01-29T20:42:02.993988",
+  "prompt_stats": {
+    "total_prompts": 1,
+    "tokens_estimated": 5,
+    "by_provider": {
+      "gemini": 1
+    },
+    "by_agent": {
+      "codex": 1
+    },
+    "by_skill": {
+      "telemetry": 1
+    },
+    "last_prompt": "2026-01-29T23:01:18.619029"
+  },
+  "generated_at": "2026-01-29T23:55:51.333669",
   "framework_version": "1.6.3"
 }

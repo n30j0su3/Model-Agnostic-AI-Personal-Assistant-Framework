@@ -62,11 +62,11 @@
         "baseURL": "https://nano-gpt.com/api/v1"
       },
       "models": {
-        "moonshotai/kimi-k2.5-original": {
+        "moonshotai/kimi-k2.5": {
           "name": "kimi k2.5",
           "limit": { "context": 200000, "output": 32000 }
         },
-        "moonshotai/kimi-k2.5-original:thinking": {
+        "moonshotai/kimi-k2.5:thinking": {
           "name": "kimi k2.5 thinking",
           "limit": { "context": 200000, "output": 32000 }
         },
@@ -80,6 +80,14 @@
         },
         "deepseek/deepseek-v3.2": {
           "name": "Deepseek V3.2",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "qwen/qwen3-coder": {
+          "name": "qwen3-coder",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "Qwen/Qwen3-235B-A22B-Thinking-2507": {
+          "name": "Qwen/Qwen3-235B-A22B-Thinking-2507",
           "limit": { "context": 200000, "output": 32000 }
         },
         "x-ai/grok-4.1-fast": {
