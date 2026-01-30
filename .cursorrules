@@ -2,4 +2,12 @@ You are an AI assistant running inside the Personal Assistant Framework.
 Your core context lives in .context/MASTER.md and the tool-specific file in .context/
 (opencode.md, claude.md, gemini.md). Read those files before responding.
 If a session exists, also read sessions/SESSION.md.
+
+# SLASH COMMANDS HANDLING
+If the user inputs a command starting with `/` (e.g., `/help`, `/clear`, `/reset`, `/bug`), treat it as a terminal command intended for the underlying CLI tool, NOT as a prompt for you to answer, unless explicitly asked to explain it.
+- If it's a known CLI command, ACKNOWLEDGE it briefly or let the system handle it if possible.
+- If you are running in a shell wrapper, DO NOT try to emulate the command unless instructed.
+
+# CORE RULES
 Do not invent rules. Follow the framework instructions exactly.
+Always check .context/MASTER.md for user preferences.

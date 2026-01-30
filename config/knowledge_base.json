@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "updated": "2026-01-29",
+  "categories": {
+    "Agentes": [
+      {
+        "name": "Agent Skills",
+        "url": "https://agent-skills.cc",
+        "notes": "Catalogo de skills y agentes reutilizables."
+      }
+    ],
+    "Frameworks": [
+      {
+        "name": "Serena",
+        "url": "https://github.com/oraios/serena",
+        "notes": "Framework/agent toolkit para orquestacion y contexto."
+      }
+    ],
+    "Papers": [
+      {
+        "name": "arXiv",
+        "url": "https://arxiv.org",
+        "notes": "Repositorio de papers con categorias de IA y CS."
+      }
+    ],
+    "Herramientas": [
+      {
+        "name": "Context7",
+        "url": "https://context7.com",
+        "notes": "Contexto y documentacion para LLMs."
+      },
+      {
+        "name": "DeepSeek",
+        "url": "https://github.com/deepseek-ai",
+        "notes": "Modelos y herramientas open-source."
+      }
+    ]
+  }
+}

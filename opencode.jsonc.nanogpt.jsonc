@@ -1,0 +1,129 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": ["opencode-antigravity-auth@latest", "opencode-antigravity-quota@latest", "@zenobius/opencode-skillful"],
+  "mcp": {
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ],
+      "environment": {
+        "DEFAULT_MINIMUM_TOKENS": ""
+      },
+      "enabled": true
+    },
+    "sequentialthinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "enabled": true
+    },
+    "fetch": {
+      "type": "local",
+      "command": [
+        "node",
+        "C:\\ACTUAL\\IA\\MCP\\fetch-MCP\\fetch-mcp\\dist\\index.js"
+      ],
+      "enabled": true
+    },
+    "local_test_searxng": {
+      "type": "remote",
+      "url": "http://192.168.1.13:5678/mcp/a0624018-eb8b-4fc1-8f44-8224590fe6be/sse",
+      "enabled": true
+    },
+    "github-mcp-server": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-github",
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "GITHUB_PERSONAL_ACCESS_TOKEN",
+        "ghcr.io/github/github-mcp-server"
+      ],
+      "environment": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "YOUR_GITHUB_TOKEN_HERE"
+      }
+    }
+  },
+  "provider": {
+    "nanogpt": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "NanoGPT",
+      "options": {
+        "baseURL": "https://nano-gpt.com/api/v1"
+      },
+      "models": {
+        "moonshotai/kimi-k2.5": {
+          "name": "kimi k2.5",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "moonshotai/kimi-k2.5:thinking": {
+          "name": "kimi k2.5 thinking",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "deepseek/deepseek-v3.2-speciale": {
+          "name": "Deepseek V3.2 speciale",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "deepseek/deepseek-v3.2:thinking": {
+          "name": "Deepseek V3.2 thinking",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "deepseek/deepseek-v3.2": {
+          "name": "Deepseek V3.2",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "qwen/qwen3-coder": {
+          "name": "qwen3-coder",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "Qwen/Qwen3-235B-A22B-Thinking-2507": {
+          "name": "Qwen/Qwen3-235B-A22B-Thinking-2507",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "x-ai/grok-4.1-fast": {
+          "name": "Grok 4.1 Fast",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "claude-opus-4-5-20251101": {
+          "name": "Claude 4.5 Opus",
+          "limit": { "context": 200000, "output": 32000 }
+        },
+        "claude-sonnet-4-5-20250929": {
+          "name": "Claude Sonnet 4.5",
+          "limit": { "context": 1000000, "output": 64000 }
+        },
+        "openai/gpt-5.2": {
+          "name": "GPT 5.2",
+          "limit": { "context": 128000, "output": 128000 }
+        },
+        "google/gemini-3-flash-preview": {
+          "name": "Gemini 3 Flash (Preview)",
+          "limit": { "context": 1048756, "output": 65536 }
+        },
+        "gemini-3-pro-preview": {
+          "name": "Gemini 3 Pro",
+          "limit": { "context": 1048756, "output": 65536 }
+        },
+        "zai-org/glm-4.7": {
+          "name": "GLM 4.7",
+          "limit": { "context": 200000, "output": 65535 }
+        }
+      }
+    }
+  },
+  "permission": {
+    "skill": {
+      "xlsx": "allow"
+    }
+  }
+}
